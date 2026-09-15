@@ -796,17 +796,55 @@ function originalNameForCard(code,cat,card){const current=defaultCardName(card,c
 function findDetailId(card){return card.dataset.show||card.getAttribute('href')?.replace(/^#/,'')||''}
 function isHiddenDefault(code,cat,name){return getHidden(code).some(x=>x.cat===cat&&normName(x.name)===normName(name))}
 function isAlreadyRegistered(code,cat,name){
- const target=normName(name);if(!target)return false;
- // 삭제된 기본항목은 등록된 것으로 취급하지 않습니다.
- if(getCustomItems(code).some(x=>x.cat===cat&&normName(x.name)===target))return true;
- const cont=categoryContainer(code,cat);if(!cont)return false;
- return Array.from(cont.querySelectorAll(':scope > a')).some(card=>{
-   if(card.classList.contains('custom-added')||card.classList.contains('default-hidden')||card.style.display==='none')return false;
-   const original=card.dataset.defaultOriginName||originalNameForCard(code,cat,card);
-   if(isHiddenDefault(code,cat,original)||isHiddenDefault(code,cat,defaultCardName(card,cat)))return false;
-   return normName(defaultCardName(card,cat))===target || normName(original)===target;
- });
+ const target=normName(name); if(!target)return false;
+ /* 삭제된 기본항목은 이름이 같아도 다시 등록할 수 있어야 합니다. */
+ let hiddenRecords=[];
+ try{
+   const raw=JSON.parse(localStorage.getItem(HIDDEN_STORE+':'+code)||'[]');
+   if(Array.isArray(raw)) hiddenRecords=raw.filter(x=>x&&x.cat);
+   else if(raw&&typeof raw==='object'){
+     Object.keys(raw).forEach(k=>{
+       if(!raw[k])return;
+       const parts=k.split('-'), c=parts.shift(), uid=parts.join('-');
+       hiddenRecords.push({cat:c,uid:uid});
+     });
+   }
+ }catch(e){}
+ /* 구버전 삭제기록이 이름 없이 cat-uid만 남아 있어도, 원본 카드의 이름을 찾아 삭제된 것으로 판정합니다. */
+ const cs=document.getElementById('country-'+code);
+ if(cs){
+   cs.querySelectorAll('.default-delete-btn').forEach(btn=>{
+     if(btn.dataset.cat!==cat)return;
+     const uid=String(btn.dataset.uid||'');
+     const rec=hiddenRecords.find(x=>x.cat===cat&&String(x.uid||'')===uid);
+     if(rec&&!rec.name){
+       const card=btn.closest('a');
+       const original=card?.dataset.defaultOriginName||originalNameForCard(code,cat,card)||defaultCardName(card,cat);
+       if(original)rec.name=original;
+     }
+   });
+ }
+ if(hiddenRecords.some(x=>x.cat===cat && x.name && normName(x.name)===target)) return false;
+ /* 현재 목록에 존재하는 숨김 기본카드도 이름으로 다시 한 번 제외합니다. */
+ if(cs){
+   const hiddenUids=new Set(hiddenRecords.filter(x=>x.cat===cat).map(x=>String(x.uid||'')));
+   let active=false;
+   cs.querySelectorAll('.default-delete-btn').forEach(btn=>{
+     if(active||btn.dataset.cat!==cat)return;
+     const card=btn.closest('a'); if(!card)return;
+     const uid=String(btn.dataset.uid||'');
+     const original=card.dataset.defaultOriginName||originalNameForCard(code,cat,card)||defaultCardName(card,cat);
+     const hiddenByUid=hiddenUids.has(uid);
+     const hiddenByName=hiddenRecords.some(x=>x.cat===cat&&x.name&&normName(x.name)===normName(original));
+     if(hiddenByUid||hiddenByName||card.classList.contains('default-hidden')||card.style.display==='none')return;
+     if(normName(defaultCardName(card,cat))===target || normName(original)===target)active=true;
+   });
+   if(active)return true;
+ }
+ let customs=[]; try{customs=getCustomItems(code)}catch(e){customs=[]}
+ return Array.isArray(customs)&&customs.some(x=>x&&x.cat===cat&&normName(x.name)===target);
 }
+
 function applyRenamesToCard(code,cat,card,original){
  const renamed=getRenames(code)[cat+'|'+original];if(!renamed)return;
  if(cat==='places'){const div=card.querySelector('div');if(div){const textNode=Array.from(div.childNodes).find(n=>n.nodeType===3);if(textNode)textNode.nodeValue=renamed;else if(div.querySelector('span'))div.querySelector('span').textContent=renamed}}
@@ -1969,6 +2007,114 @@ section.screen[id^="country-"] .facts{display:none !important;}
       }
     })}
   },120));
+})();
+</script>
+
+<script id="v58-structure-repair">
+(function(){
+  /* v58: 모든 나라의 문화/축제와 추가등록 영역을 동일한 실제 DOM 구조로 확정합니다. */
+  const CULT_RE=/유명한 축제\s*\/\s*문화/;
+  const CAT_LABEL={culture:'🎉 유명한 축제 / 문화'};
+  function nn(x){return String(x||'').toLowerCase().replace(/\s+/g,'').replace(/[·•.,!?()[\]{}'"“”‘’`~!@#$%^&*_=+\-]/g,'')}
+  function cname(code,cs){
+    if(window.COUNTRY_NAMES_V18&&COUNTRY_NAMES_V18[code]) return COUNTRY_NAMES_V18[code];
+    const e=cs.querySelector('.country-name-mini');
+    if(e)return e.textContent.replace(/^\s*[^가-힣a-zA-Z]+\s*/,'').trim();
+    const h=cs.querySelector('.hero h1, .head h2');
+    return h?h.textContent.replace(/^🌍\s*/,'').trim():code;
+  }
+  function cardName(card){
+    const b=card.querySelector('b');
+    if(b)return b.textContent.trim();
+    const ib=card.querySelector('.itembody b');
+    if(ib)return ib.textContent.trim();
+    return card.querySelector('img')?.alt||'';
+  }
+  function detailId(card){return card.dataset.show||card.getAttribute('href')?.replace(/^#/,'')||''}
+  function collectCulture(cs,code){
+    const arr=[], seenName=new Set(), seenDetail=new Set();
+    /* 새 culture-card를 먼저 선택하고, 구버전 item은 같은 이름이 없을 때만 사용합니다. */
+    const candidates=[];
+    cs.querySelectorAll('.culture-card').forEach(x=>candidates.push(x));
+    cs.querySelectorAll('#'+CSS.escape(code+'-place')+' a.item, h2#culture + section.items > a.item').forEach(x=>candidates.push(x));
+    candidates.forEach(card=>{
+      const name=cardName(card), key=nn(name), did=detailId(card);
+      if(!name||seenName.has(key)||(did&&seenDetail.has(did)))return;
+      seenName.add(key); if(did)seenDetail.add(did); arr.push(card);
+    });
+    return arr;
+  }
+  function removeCultureStructures(cs,code){
+    /* 문화 제목과 그 제목에 연결된 구버전 컨테이너를 모두 제거합니다. */
+    cs.querySelectorAll('h2').forEach(h=>{if(CULT_RE.test(h.textContent||''))h.remove()});
+    cs.querySelectorAll('.culture-section').forEach(x=>x.remove());
+    const oldWrap=document.getElementById(code+'-place');
+    if(oldWrap) oldWrap.remove();
+    cs.querySelectorAll('h2#culture + section.items').forEach(x=>x.remove());
+    /* 혹시 남은 잘못된 문화 카드가 있으면 부모 컨테이너만 제거하되 상세 페이지는 유지합니다. */
+    cs.querySelectorAll('section[data-category="culture"]').forEach(x=>x.remove());
+  }
+  function findAnimalAfter(cs,code){
+    const sec=document.getElementById(code+'-animal');
+    if(sec&&cs.contains(sec))return sec;
+    const h=[...cs.querySelectorAll('h2,h3')].find(x=>/자연·동물/.test(x.textContent||''));
+    if(h){
+      if(h.parentElement?.id===code+'-animal')return h.parentElement;
+      const n=h.nextElementSibling; if(n)return n;
+      return h;
+    }
+    return null;
+  }
+  function repairBacks(cs,code){
+    const country=cname(code,cs);
+    cs.querySelectorAll('.culture-card').forEach(card=>{
+      const did=detailId(card),d=did&&document.getElementById(did); if(!d)return;
+      const back=d.querySelector('.back');
+      if(back){back.dataset.show='country-'+code;back.dataset.return='country-'+code+'-culture-final';back.href='#country-'+code;back.textContent='← '+country+'의 축제 / 문화로 돌아가기'}
+    });
+    document.querySelectorAll('section[id*="place-"] .back, section[id*="place-"] .back').forEach(back=>{
+      const show=back.dataset.show||''; if(show==='country-'+code){back.textContent='← '+country+'의 축제 / 문화로 돌아가기';back.dataset.return='country-'+code+'-culture-final'}
+    });
+  }
+  function moveAdd(cs,after){
+    const boxes=[...cs.querySelectorAll('.custom-add-box')];
+    if(!boxes.length)return;
+    const box=boxes[0];
+    boxes.slice(1).forEach(x=>x.remove());
+    if(after)after.insertAdjacentElement('afterend',box);
+    else cs.querySelector('main')?.appendChild(box);
+  }
+  function repair(cs){
+    const code=(cs.id||'').replace(/^country-/,''); if(!code)return;
+    const cards=collectCulture(cs,code);
+    removeCultureStructures(cs,code);
+    const main=cs.querySelector('main'); if(!main)return;
+    if(cards.length){
+      const h=document.createElement('h2');h.id='country-'+code+'-culture-final';h.dataset.category='culture';h.textContent='🎉 유명한 축제 / 문화';
+      const sec=document.createElement('section');sec.className='culture-section';sec.dataset.category='culture';
+      const grid=document.createElement('div');grid.className='culture-grid';
+      cards.forEach(card=>{
+        /* 문화 카드만 새 위치로 이동합니다. 복제하지 않아 이벤트/사진 키도 보존됩니다. */
+        card.classList.add('culture-card');
+        grid.appendChild(card);
+      });
+      sec.appendChild(grid);
+      const anchor=findAnimalAfter(cs,code);
+      if(anchor&&anchor.parentElement) anchor.insertAdjacentElement('afterend',h); else main.appendChild(h);
+      h.insertAdjacentElement('afterend',sec);
+      moveAdd(cs,sec);
+    }else{
+      moveAdd(cs,null);
+    }
+    repairBacks(cs,code);
+  }
+  function boot(){document.querySelectorAll('section.screen[id^="country-"]').forEach(repair)}
+  /* 앞 버전의 지연 실행이 끝난 뒤 한 번만 최종 확정하고, 해시 이동 때도 순서를 유지합니다. */
+  setTimeout(boot,15500);
+  let count=0;const timer=setInterval(()=>{boot();if(++count>=5)clearInterval(timer)},1000);
+  window.addEventListener('hashchange',()=>setTimeout(()=>{
+    const id=location.hash.slice(1),m=id.match(/^country-([a-z]+)$/);if(m){const cs=document.getElementById(id);if(cs)repair(cs)}
+  },80));
 })();
 </script>
 </body></html>
