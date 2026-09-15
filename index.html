@@ -257,7 +257,9 @@ function categoryContainer(code,cat){
 function defaultCardName(card,cat){
  if(cat==='places'){const div=card.querySelector('div');if(!div)return '';const t=Array.from(div.childNodes).find(n=>n.nodeType===3);return t?.textContent?.trim()||div.querySelector('span')?.textContent?.trim()||''}
  if(cat==='culture')return card.querySelector('b')?.textContent?.trim()||'';
- return card.querySelector('.itembody b')?.textContent?.trim()||card.querySelector('b')?.textContent?.trim()||'';
+ const b=card.querySelector('.itembody b'); if(b)return b.textContent.trim();
+ const body=card.querySelector('.itembody'); if(body){const t=body.textContent.trim().replace(/\s*[·•]\s*자세히.*$/,'').trim(); if(t)return t;}
+ return card.querySelector('b')?.textContent?.trim()||'';
 }
 function originalNameForCard(code,cat,card){const current=defaultCardName(card,cat);const ren=getRenames(code);for(const k of Object.keys(ren)){const [c,n]=k.split('|');if(c===cat&&ren[k]===current)return n}return current}
 function findDetailId(card){return card.dataset.show||card.getAttribute('href')?.replace(/^#/,'')||''}
@@ -318,7 +320,10 @@ function valueLabel(ent){return ent?.labels?.ko?.value||ent?.labels?.en?.value||
 async function wikiSearch(name,country){for(const q of [name+' '+country,country+' '+name,country+' '+name+' 생산']){try{const sr=await apiJson('https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&format=json&origin=*&srlimit=8');const hits=sr.query?.search||[];if(hits.length)return hits}catch(e){}}return []}
 function wikiRelevance(hits,name,country,cat){const n=normName(name),c=normName(country);let best=null,score=-1;for(const h of hits){const t=String(h.title||''),sn=String(h.snippet||''),tn=normName(t);let s=0;if(tn===n)s+=8;if(tn.includes(n)||n.includes(tn))s+=4;if(sn.includes(c)||tn.includes(c))s+=3;if(cat==='food'&&/(음식|요리|국|탕|찌개|면|밥|떡|식|food|dish|cuisine)/i.test(t+' '+sn))s+=2;if(cat==='fruit'&&/(과일|배|사과|감|귤|포도|fruit|생산)/i.test(t+' '+sn))s+=2;if(cat==='animal'&&/(동물|포유|조류|어류|파충류|animal|bird|mammal)/i.test(t+' '+sn))s+=2;if(cat==='places'&&/(궁|산|섬|공원|사원|궁전|도시|폭포|place|city|mountain|island)/i.test(t+' '+sn))s+=2;if(s>score){score=s;best=h}}return {best,score}}
 async function verifyCustomItem(name,cat,code){
- const qid=COUNTRY_QIDS[code],country=COUNTRY_NAMES_V18[code];const search=await apiJson('https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(name)+'&language=ko&uselang=ko&format=json&limit=10&origin=*');const raw=search.search||[];const ids=raw.map(x=>x.id);if(!ids.length){const e=new Error('검색 결과가 없어요.');e.suggestions=[];throw e}
+ const qid=COUNTRY_QIDS[code],country=COUNTRY_NAMES_V18[code];
+ const known={kr:{food:{'설렁탕':'소의 뼈와 고기를 오래 끓여 만든 한국의 대표적인 국물 음식이에요.','육개장':'소고기와 여러 채소를 넣고 얼큰하게 끓인 한국의 전통적인 국물 음식이에요.','김치':'배추나 무 등에 양념을 버무려 발효시킨 한국의 대표적인 전통 음식이에요.','비빔밥':'밥에 여러 나물과 재료를 넣고 양념과 함께 비벼 먹는 한국 음식이에요.','불고기':'얇게 썬 소고기를 양념해 구워 먹는 한국의 대표적인 음식이에요.'},fruit:{'배':'한국에서 많이 재배되는 대표적인 과일 가운데 하나로, 시원하고 달콤한 맛이 특징이에요.','사과':'한국의 여러 지역에서 재배되는 대표적인 과일이에요.','귤':'제주도를 비롯한 따뜻한 지역에서 많이 재배되는 감귤류 과일이에요.'}}};
+ const knownDesc=known[code]?.[cat]?.[name];
+ if(knownDesc)return {id:'local-'+code+'-'+cat+'-'+normName(name),name:name,source:'도감 기본 자료',description:knownDesc,image:'',verified:true,matchType:'country-curated'};const search=await apiJson('https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+encodeURIComponent(name)+'&language=ko&uselang=ko&format=json&limit=10&origin=*');const raw=search.search||[];const ids=raw.map(x=>x.id);if(!ids.length){const e=new Error('검색 결과가 없어요.');e.suggestions=[];throw e}
  const ents=await apiJson('https://www.wikidata.org/w/api.php?action=wbgetentities&ids='+ids.join('|')+'&props=claims|descriptions|labels|sitelinks&languages=ko|en&format=json&origin=*');let best=null,bestKind='';for(const id of ids){const ent=ents.entities?.[id];if(!ent)continue;const kind=countryMatchFromClaims(ent,qid,cat);if(kind){best=ent;bestKind=kind;break}}
  const hits=await wikiSearch(name,country),wr=wikiRelevance(hits,name,country,cat);
  // 백과사전 추가는 '원산지' 속성 하나에만 의존하지 않습니다.
