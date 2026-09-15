@@ -1304,6 +1304,231 @@ section.screen[id^="country-"] .facts{display:none !important;}
  window.addEventListener('hashchange',()=>setTimeout(boot,100));
 })();
 </script>
+
+<style id="v52-final-style">
+/* v52: 문화/축제 중복 정리 + 카드/상세 사진 통일 */
+.culture-section.merged-culture-section{display:block!important}
+</style>
+<script id="v52-final-script">
+(function(){
+  const PHOTO='worldCountryPhotosV14';
+  const norm=n=>String(n||'').toLowerCase().replace(/[\s·•.,!?()[\]{}'"“”‘’`~!@#$%^&*_=+\-]/g,'').replace(/^[^가-힣a-z0-9]+|[^가-힣a-z0-9]+$/g,'');
+  function codeOf(root){return (root?.id||'').replace('country-','')}
+  function samePhoto(imgs, key){
+    const saved=localStorage.getItem(PHOTO+':'+key);
+    let src=saved||'';
+    if(!src){
+      const valid=imgs.map(x=>x?.getAttribute('src')||'').find(x=>x && !x.startsWith('data:') && !/photo-missing|missing-photo/.test(x));
+      src=valid||'';
+    }
+    if(!src){
+      const valid=imgs.map(x=>x?.getAttribute('src')||'').find(x=>x && x.startsWith('data:'));
+      src=valid||'';
+    }
+    if(!src)return;
+    if(!saved)try{localStorage.setItem(PHOTO+':'+key,src)}catch(e){}
+    imgs.forEach(img=>{img.src=src;img.classList.remove('photo-missing','missing-photo');});
+  }
+  function syncPhotos(root){
+    const cards=[...root.querySelectorAll('.item[data-show],.place-card[data-show],.culture-card[data-show]')];
+    cards.forEach(card=>{
+      const detail=document.getElementById(card.dataset.show); if(!detail)return;
+      const key=detail.id;
+      const imgs=[...card.querySelectorAll('img'),...detail.querySelectorAll('img.detailphoto,.culture-detail-photo')];
+      if(imgs.length)samePhoto(imgs,key);
+    });
+    // 사용자 사진 키가 있는 요소는 카드와 상세를 항상 같은 사진으로 맞춥니다.
+    root.querySelectorAll('[data-photo-key]').forEach(el=>{
+      const key=el.dataset.photoKey; if(!key)return;
+      const imgs=[];
+      const card=el.closest('.item,.place-card,.culture-card,.detail-photo-wrap,.hero');
+      if(card)imgs.push(...card.querySelectorAll('img'));
+      const detail=document.querySelector('[id="detail-info-'+key.replace(/^detail-info-/,'')+'"]');
+      if(detail)imgs.push(...detail.querySelectorAll('img.detailphoto'));
+      const saved=localStorage.getItem(PHOTO+':'+key);
+      if(saved)imgs.forEach(i=>{i.src=saved;i.classList.remove('photo-missing','missing-photo')});
+    });
+  }
+  function mergeCulture(root){
+    const heads=[...root.querySelectorAll('h2')].filter(h=>/유명한 축제\s*\/\s*문화/.test(h.textContent||''));
+    if(!heads.length)return;
+    const keep=heads[0];
+    let keepGrid=keep.nextElementSibling?.querySelector('.culture-grid')||keep.nextElementSibling?.classList.contains('culture-grid')&&keep.nextElementSibling;
+    if(!keepGrid){
+      const wrap=document.createElement('section');wrap.className='culture-section';keep.after(wrap);keepGrid=document.createElement('div');keepGrid.className='culture-grid';wrap.appendChild(keepGrid);
+    }
+    const seen=new Set();
+    function absorbGrid(grid){
+      if(!grid)return;
+      [...grid.querySelectorAll(':scope > .culture-card')].forEach(card=>{
+        const title=norm(card.querySelector('b')?.textContent||'');
+        if(!title)return;
+        if(seen.has(title)){
+          const did=card.dataset.show; card.remove(); if(did)document.getElementById(did)?.remove();
+        }else{seen.add(title);if(grid!==keepGrid)keepGrid.appendChild(card);}
+      });
+    }
+    // 먼저 첫 영역의 카드들을 기록
+    absorbGrid(keepGrid);
+    heads.slice(1).forEach(h=>{
+      const sec=h.nextElementSibling;
+      const grid=sec?.querySelector('.culture-grid')||sec?.classList.contains('culture-grid')&&sec;
+      absorbGrid(grid);
+      h.remove(); if(sec && sec!==keepGrid.parentElement)sec.remove();
+    });
+    // 혹시 같은 제목 아래에 culture-section이 여러 개 남아 있으면 추가 흡수
+    [...root.querySelectorAll('.culture-grid')].forEach(g=>{if(g!==keepGrid)absorbGrid(g);});
+    keepGrid.parentElement?.classList.add('merged-culture-section');
+  }
+  function dedupeDetails(root){
+    const seen=new Set();
+    [...root.querySelectorAll('.culture-card')].forEach(card=>{
+      const title=norm(card.querySelector('b')?.textContent||'');if(!title)return;
+      if(seen.has(title)){const id=card.dataset.show;card.remove();if(id)document.getElementById(id)?.remove();}
+      else seen.add(title);
+    });
+  }
+  function boot(){
+    document.querySelectorAll('section.screen[id^="country-"]').forEach(root=>{mergeCulture(root);dedupeDetails(root);syncPhotos(root)});
+  }
+  window.addEventListener('load',()=>setTimeout(boot,1200));
+  window.addEventListener('hashchange',()=>setTimeout(()=>{const id=location.hash.slice(1);if(id.startsWith('detail-')){const d=document.getElementById(id);if(d){const root=document.getElementById('country-'+(d.querySelector('.back')?.dataset?.show||'').replace('country-',''));if(root)syncPhotos(root)}}},250));
+  window.v52Resync=boot;
+})();
+</script>
+<style id="v52-backup-style">
+.backup-download-link{display:inline-block;margin-top:10px;padding:11px 15px;border-radius:14px;background:#eaf2ff;color:#174a8b;font-weight:800;text-decoration:none}
+</style>
+<script id="v52-backup-script">
+(function(){
+ const PREFIX='worldCountry',FORMAT='world-country-encyclopedia-backup';
+ function entries(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(PREFIX))o[k]=localStorage.getItem(k)}return o}
+ function make(){const storage=entries();const payload={format:FORMAT,backupVersion:3,app:'세계 나라 백과사전',createdAt:new Date().toISOString(),storage};const file=new File([JSON.stringify(payload)],'세계나라백과사전_백업_'+new Date().toISOString().slice(0,16).replace(/[-:T]/g,'')+'.json',{type:'application/json'});return file}
+ async function saveBackup(){
+  try{
+   const file=make();
+   if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+    try{await navigator.share({title:'세계 나라 백과사전 백업',text:'백업 파일을 저장하세요.',files:[file]});return}catch(e){if(e?.name==='AbortError')return}
+   }
+   const url=URL.createObjectURL(file);const a=document.createElement('a');a.href=url;a.download=file.name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();
+   const panel=document.getElementById('backup-panel');if(panel){let l=panel.querySelector('.backup-download-link');if(!l){l=document.createElement('a');l.className='backup-download-link';l.textContent='📥 백업 파일 다시 저장하기';panel.appendChild(l)}l.href=url;l.download=file.name;l.textContent='📥 '+file.name+' 다시 저장하기'}
+   setTimeout(()=>URL.revokeObjectURL(url),60000);
+   alert('백업 파일을 만들었습니다.\n\n아이패드에서는 Safari의 다운로드 항목 또는 파일 앱의 다운로드 폴더를 확인해 주세요. 공유 화면이 열리면 「파일에 저장」을 선택하는 것이 가장 확실합니다.');
+  }catch(e){alert('백업 파일을 만들지 못했어요. 저장공간을 확인해 주세요.')}
+ }
+ function importFile(file){if(!file)return;const r=new FileReader();r.onload=()=>{try{const p=JSON.parse(r.result);if(!p||p.format!==FORMAT||!p.storage)throw 0;if(!confirm('이 백업으로 현재 자료를 복원할까요?'))return;const old={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k?.startsWith(PREFIX))old[k]=localStorage.getItem(k)};try{Object.keys(old).forEach(k=>localStorage.removeItem(k));Object.entries(p.storage).forEach(([k,v])=>{if(k.startsWith(PREFIX)&&typeof v==='string')localStorage.setItem(k,v)})}catch(e){Object.keys(p.storage).forEach(k=>{if(k.startsWith(PREFIX))localStorage.removeItem(k)});Object.entries(old).forEach(([k,v])=>localStorage.setItem(k,v));throw e}alert('복원이 완료되었습니다.');location.reload()}catch(e){alert('백업 파일을 읽을 수 없어요. 세계 나라 백과사전 백업 파일인지 확인해 주세요.')}};r.readAsText(file)}
+ window.addEventListener('load',()=>{const ex=document.getElementById('backup-export'),im=document.getElementById('backup-import'),fi=document.getElementById('backup-file');if(ex)ex.onclick=saveBackup;if(im)im.onclick=()=>fi?.click();if(fi)fi.onchange=e=>{importFile(e.target.files?.[0]);fi.value=''}})
+})();
+</script>
+<style id="v52-naver-style">
+.naver-verify-note{margin-top:10px;padding:10px 12px;border-radius:12px;background:#fff5f5;border:1px solid #ffd7d7;font-size:.9rem;line-height:1.55}
+</style>
+<script id="v53-search-script">
+(function(){
+  // GitHub Pages용: 비밀 API 키 없이 한국어 위키백과 검색을 사용합니다.
+  // 네이버 API는 Client Secret이 필요하므로 순수 HTML/GitHub Pages에 직접 넣지 않습니다.
+  function clean(s){return String(s||'').replace(/<[^>]+>/g,'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').trim()}
+  async function nwiki(q){
+    const u='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&format=json&origin=*&srlimit=8';
+    const r=await fetch(u); if(!r.ok) throw new Error('검색 실패'); return r.json();
+  }
+  async function summary(title){
+    try{const r=await fetch('https://ko.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title.replace(/ /g,'_')));if(!r.ok)return null;return await r.json()}catch(e){return null}
+  }
+  function score(h,name,country,cat){
+    const n=normName(name), t=String(h.title||''), tn=normName(t), sn=clean(h.snippet); let s=0;
+    if(tn===n)s+=100; else if(tn.includes(n)||n.includes(tn))s+=35;
+    if(sn.includes(country)||tn.includes(normName(country)))s+=15;
+    const rx={food:/음식|요리|국|탕|찌개|면|밥|떡|디저트|food|dish|cuisine/i,fruit:/과일|열매|fruit/i,animal:/동물|포유|조류|어류|파충류|animal|bird|mammal/i,places:/궁|산|섬|공원|사원|궁전|도시|폭포|유적|place|city|mountain|island/i,culture:/축제|문화|전통|행사|festival|culture|tradition/i};
+    if(rx[cat]?.test(t+' '+sn))s+=12;
+    return s;
+  }
+  async function verifyGitHub(name,cat,code){
+    const country=(window.COUNTRY_NAMES_V18||{})[code]||'';
+    const queries=[name+' '+country,name]; let all=[];
+    for(const q of queries){try{const j=await nwiki(q);all=all.concat(j.query?.search||[])}catch(e){}}
+    const uniq=[];const seen=new Set();all.forEach(x=>{if(!seen.has(x.pageid)){seen.add(x.pageid);uniq.push(x)}});
+    uniq.sort((a,b)=>score(b,name,country,cat)-score(a,name,country,cat));
+    const exact=uniq.find(h=>normName(h.title)===normName(name));
+    const best=exact||uniq[0];
+    if(!best) {const e=new Error('한국어 검색 결과를 찾지 못했어요.');e.suggestions=[];throw e}
+    const d=await summary(best.title);
+    const suggestions=uniq.filter(h=>normName(h.title)!==normName(name)).slice(0,5).map(h=>h.title);
+    // 너무 엉뚱한 결과는 자동 등록하지 않고 사용자가 선택하도록 합니다.
+    const sc=score(best,name,country,cat);
+    if(sc<35){const e=new Error('입력한 이름과 정확히 맞는 자료를 찾지 못했어요.');e.suggestions=suggestions;throw e}
+    return {id:'wiki-'+best.pageid,name:name,source:'한국어 위키백과 검색',description:d?.extract||clean(best.snippet)||name,image:d?.thumbnail?.source||'',verified:true,matchType:exact?'exact-kowiki':'ranked-kowiki',suggestions};
+  }
+  window.verifyCustomItemV53=verifyGitHub;
+  window.addEventListener('load',()=>{
+    const old=window.handleCustomVerify;
+    if(typeof old!=='function')return;
+    window.handleCustomVerify=async function(code,box){
+      const input=box.querySelector('.custom-name'),name=input.value.trim(),cat=box.querySelector('.custom-category').value,status=box.querySelector('.custom-status'),btn=box.querySelector('.custom-verify-btn');
+      if(!name){status.innerHTML='<span class="verify-warn">먼저 추가할 이름을 입력해 주세요.</span>';return}
+      if(isAlreadyRegistered(code,cat,name)){status.innerHTML='<div class="verify-card"><span class="verify-warn">✓ 이미 등록되어 있어요.</span><br>'+escapeHtml(name)+'은(는) 이 나라의 '+escapeHtml(CUSTOM_CAT_LABEL[cat].replace(/^\S+\s/,''))+' 목록에 이미 있습니다.</div>';return}
+      btn.disabled=true;btn.textContent='🔎 한국어 자료를 찾는 중…';status.innerHTML='<span class="verify-info">한국어 자료에서 이름·설명을 확인하고 있어요…</span>';
+      try{
+        const item=await verifyGitHub(name,cat,code); item.cat=cat; item.uid='u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+        status.innerHTML='<div class="custom-preview"><div class="preview-row">'+(item.image?'<img src="'+escapeHtml(item.image)+'" alt="'+escapeHtml(item.name)+'">':'<div style="width:130px;height:100px;border-radius:12px;background:#eef2f7;display:grid;place-items:center;font-size:42px">📚</div>')+'<div><div class="preview-title">'+escapeHtml(item.name)+'</div><div class="preview-desc">'+escapeHtml(item.description||'설명을 찾았습니다.')+'</div></div></div><div class="naver-verify-note">🔎 확인 출처: 한국어 위키백과<br/>사진과 설명을 확인한 뒤 「이 항목 추가하기」를 눌러 주세요.</div><div class="custom-preview-actions"><button type="button" class="custom-add-confirm">✅ 이 항목 추가하기</button><button type="button" class="custom-add-cancel">↩ 다시 선택하기</button></div></div>';
+        status.querySelector('.custom-add-confirm').onclick=()=>confirmCustomPreview(code,box,item);
+        status.querySelector('.custom-add-cancel').onclick=()=>{status.innerHTML='';input.focus()};
+      }catch(e){status.innerHTML='<span class="verify-warn">'+escapeHtml(e.message||'검색 결과를 찾지 못했어요.')+'</span>';showSuggestions(box,e.suggestions||[])}
+      finally{btn.disabled=false;btn.textContent='🔎 이름 확인'}
+    };
+  });
+})();
+</script>
+
+<style id="v53-final-style">
+.culture-section{margin-bottom:18px}.culture-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media(max-width:700px){.culture-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:430px){.culture-grid{grid-template-columns:1fr 1fr!important}}
+.v53-photo-note{margin-top:8px;padding:9px 11px;border-radius:12px;background:#f3f8ff;font-size:.84rem;line-height:1.5}
+</style>
+<script id="v53-final-normalize">
+(function(){
+ const CATS=['places','food','fruit','animal','culture'];
+ const norm=s=>String(s||'').toLowerCase().replace(/[\s·•.,!?()[\]{}'"“”‘’`~!@#$%^&*_=+\-]/g,'').replace(/^[^가-힣a-z0-9]+|[^가-힣a-z0-9]+$/g,'');
+ function countryRoot(card){return card.closest('section.screen[id^="country-"]')}
+ function mergeCultureFinal(root){
+   const hs=[...root.querySelectorAll('h2')].filter(h=>/유명한 축제\s*\/\s*문화/.test(h.textContent||'')); if(!hs.length)return;
+   const keep=hs[0]; let wrap=keep.nextElementSibling;
+   let grid=wrap?.classList.contains('culture-grid')?wrap:wrap?.querySelector('.culture-grid');
+   if(!grid){wrap=document.createElement('section');wrap.className='culture-section';grid=document.createElement('div');grid.className='culture-grid';wrap.appendChild(grid);keep.after(wrap)}
+   const seen=new Set();
+   function absorb(g){if(!g)return;[...g.querySelectorAll(':scope > .culture-card')].forEach(card=>{const key=norm(card.querySelector('b')?.textContent||'');if(!key)return;if(seen.has(key)){const did=card.dataset.show;card.remove();if(did)document.getElementById(did)?.remove()}else{seen.add(key);if(g!==grid)grid.appendChild(card)}})}
+   absorb(grid);
+   hs.slice(1).forEach(h=>{let n=h.nextElementSibling;let g=n?.classList.contains('culture-grid')?n:n?.querySelector('.culture-grid');absorb(g);if(n&&n!==grid&&n.classList.contains('culture-section'))n.remove();h.remove()});
+   [...root.querySelectorAll('.culture-grid')].forEach(g=>{if(g!==grid)absorb(g)});
+ }
+ function syncOne(card){
+   const did=card.dataset.show;if(!did)return;const detail=document.getElementById(did);if(!detail)return;
+   const cimg=card.querySelector('img');const dimgs=[...detail.querySelectorAll('img.detailphoto,img.culture-detail-photo')];
+   const good=x=>x&&x.getAttribute('src')&&!/^$|photo-missing|missing-photo/.test(x.getAttribute('src'));
+   let src=good(cimg)?cimg.getAttribute('src'):'';
+   if(!src){src=dimgs.map(x=>x.getAttribute('src')).find(x=>x&&!x.startsWith('data:'))||dimgs.map(x=>x.getAttribute('src')).find(x=>x.startsWith('data:'))||''}
+   if(!src)return;
+   if(cimg){cimg.src=src;cimg.classList.remove('photo-missing','missing-photo')}
+   dimgs.forEach(i=>{i.src=src;i.classList.remove('photo-missing','missing-photo')});
+   const key=card.querySelector('[data-photo-key]')?.dataset.photoKey||dimgs[0]?.dataset.photoKey;
+   if(key){try{localStorage.setItem('worldCountryPhotoV53:'+key,src)}catch(e){}}
+ }
+ function syncPhotos(root){root.querySelectorAll('.item,.place-card,.culture-card').forEach(syncOne)}
+ function migrateHidden(){
+   document.querySelectorAll('section.screen[id^="country-"]').forEach(root=>{
+     const code=root.id.replace('country-','');let raw;try{raw=JSON.parse(localStorage.getItem('worldCountryHiddenDefaultsV22:'+code)||'[]')}catch(e){raw=[]}
+     if(!Array.isArray(raw))return;
+     const cleaned=[];raw.forEach(x=>{if(!x||!x.cat||!x.name)return;const n=norm(x.name);if(!cleaned.some(y=>y.cat===x.cat&&norm(y.name)===n))cleaned.push(x)});
+     try{localStorage.setItem('worldCountryHiddenDefaultsV22:'+code,JSON.stringify(cleaned))}catch(e){}
+   });
+ }
+ function boot(){migrateHidden();document.querySelectorAll('section.screen[id^="country-"]').forEach(root=>{mergeCultureFinal(root);syncPhotos(root)})}
+ window.addEventListener('load',()=>setTimeout(boot,1600));
+ window.addEventListener('hashchange',()=>setTimeout(()=>{document.querySelectorAll('section.screen[id^="country-"]').forEach(root=>{mergeCultureFinal(root);syncPhotos(root)})},200));
+ window.v53Resync=boot;
+})();
+</script>
 </body></html>
 <style>
 .country-map-real{margin:18px 0 26px;padding:18px;border-radius:22px;background:#f7fbff;border:2px solid #dbeaf5}
