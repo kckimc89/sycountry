@@ -3,149 +3,279 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f3e8">
-<title>세계 나라 백과사전</title>
+<meta name="theme-color" content="#f5f0e5">
+<title>세계 나라 백과사전 · 대한민국</title>
 <style>
-:root{--bg:#f7f3e8;--paper:#fffdf7;--ink:#263238;--muted:#68747b;--line:#ded8ca;--accent:#315f7a;--soft:#eaf1f4}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;font-size:18px;line-height:1.75}
-button,input{font:inherit} button{cursor:pointer}.wrap{max-width:900px;margin:auto;padding:20px 18px 60px}
-header{padding:18px 4px 12px}.brand{font-size:30px;font-weight:800}.sub{color:var(--muted);font-size:16px}
-.homeBtns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}.homeBtns button{border:1px solid var(--line);background:var(--paper);border-radius:18px;padding:22px 12px;font-size:21px;font-weight:800}
-.paper{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;margin:14px 0}
-.hero{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:center}.hero img{width:180px;height:150px;object-fit:cover;border-radius:16px}
-h1{font-size:32px;line-height:1.25;margin:0 0 8px}h2{font-size:24px;margin:0 0 10px}h3{font-size:20px;margin:20px 0 6px}
-.section{margin:25px 0}.topic{border:0;background:transparent;color:#174e70;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;padding:0 2px;font-weight:800}
-.note{color:var(--muted);font-size:15px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.toolbar button,.smallbtn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px}
-.back{border:0;background:transparent;padding:0;color:#315f7a;font-weight:800;margin-bottom:10px}
-.hidden{display:none!important}
-.topicHero img{width:100%;max-height:330px;object-fit:cover;border-radius:16px}
-.topicActions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.topicActions button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px}
-.searchbox{display:flex;gap:8px}.searchbox input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
-.result{background:var(--soft);border-radius:14px;padding:14px;margin-top:12px}.result button{margin-top:8px}
-.collection{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.mini{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px}.mini img{width:100%;height:140px;object-fit:cover;border-radius:12px}.mini h3{margin:6px 0}
-.empty{padding:30px;text-align:center;color:var(--muted)}
-@media(max-width:650px){.hero{grid-template-columns:1fr}.hero img{width:100%;height:220px}.homeBtns{grid-template-columns:1fr}.collection{grid-template-columns:1fr}}
+:root{--bg:#f5f0e5;--paper:#fffdf8;--ink:#202a30;--muted:#66727a;--line:#ddd5c6;--accent:#315f7a;--soft:#edf3f6;--gold:#b8892e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;font-size:18px;line-height:1.72}
+button,input{font:inherit}button{cursor:pointer}.wrap{max-width:980px;margin:auto;padding:16px 18px 70px}
+.top{position:sticky;top:0;z-index:30;background:rgba(245,240,229,.96);backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line)}
+.brand{font-size:27px;font-weight:900}.sub{font-size:14px;color:var(--muted)}
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-top:18px}
+.hero img{width:100%;height:290px;object-fit:cover;display:block}.heroText{padding:20px}.heroText h1{font-size:34px;line-height:1.2;margin:0 0 6px}.heroText p{margin:0;color:var(--muted)}
+h2{font-size:25px;line-height:1.35;margin:0 0 12px}h3{font-size:21px;line-height:1.4;margin:0 0 8px}
+.overview{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:16px}
+.overviewGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.fact{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px}.fact b{display:block;font-size:13px;color:var(--muted)}.fact span{font-weight:800}
+.contents{display:flex;gap:8px;overflow:auto;padding:12px 0}.contents button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px}
+.section{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:18px}
+.sectionLead{color:#4f5c63;margin-top:0}.visual{width:100%;max-height:390px;object-fit:cover;border-radius:16px;margin:10px 0 14px;background:#eef3f5}
+.map{background:#eaf1f4;border-radius:16px;padding:12px;margin:10px 0 14px}.map img{width:100%;max-height:360px;object-fit:contain;border-radius:12px;background:white}
+.topicList{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.topic{border:1px solid var(--line);background:#fff;border-radius:17px;padding:0;overflow:hidden;text-align:left}.topic img{width:100%;height:135px;object-fit:cover;display:block;background:#edf2f4}.topicBody{padding:12px}.topicName{font-weight:900;font-size:19px}.topicDesc{font-size:14px;color:var(--muted);margin-top:4px}
+.linkTopic{border:0;background:transparent;color:#155a7e;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;font-weight:800;padding:0 2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;font-weight:800}.primary{background:#e7f0f4;border-color:#cbdde5}.gold{background:#fbf3dc;border-color:#ead6a3}
+.detail{display:none}.detailPanel{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden}.detailPanel>img{width:100%;height:330px;object-fit:cover;background:#edf2f4}.detailBody{padding:20px}.detailBody p{white-space:pre-line}.source{font-size:13px;color:var(--muted);border-top:1px solid var(--line);margin-top:18px;padding-top:12px}
+.back{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;margin:14px 0;font-weight:800}
+.photoBox{background:#f0f4f5;border-radius:17px;padding:12px;margin-top:15px}.photoBox img{width:100%;height:240px;object-fit:cover;border-radius:12px}.photoHint{font-size:14px;color:var(--muted)}
+.more{background:var(--soft);border:1px solid #d7e4e9;border-radius:17px;padding:15px;margin-top:18px}.search{display:flex;gap:8px}.search input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.result{background:#fff;border-radius:14px;padding:14px;margin-top:10px}.result button{margin-top:8px}
+.collection{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.myCard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px}.myCard img{width:100%;height:180px;object-fit:cover;border-radius:13px}.empty{text-align:center;color:var(--muted);padding:35px}
+.note{font-size:14px;color:var(--muted)}
+@media(max-width:760px){.overviewGrid{grid-template-columns:repeat(2,1fr)}.topicList{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){body{font-size:17px}.hero img{height:220px}.heroText h1{font-size:29px}.topicList{grid-template-columns:1fr}.topic img{height:190px}.collection{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div class="brand">🌍 세계 나라 백과사전</div><div class="sub">읽다가 궁금한 것을 골라 나만의 설명카드로 만들어 보세요.</div></header>
+<header class="top"><div class="brand">🌍 세계 나라 백과사전</div><div class="sub">대한민국을 읽고, 보고, 궁금한 것을 골라 나만의 설명카드로 만들어 보세요.</div></header>
 
 <main id="home">
-<div class="homeBtns">
-<button onclick="show('encyclopedia')">📖 백과사전 보기</button>
-<button onclick="show('collection')">⭐ 내가 알아본 것</button>
-</div>
-<div class="paper">
-<h2>대한민국</h2>
-<p>먼저 한 나라를 천천히 읽어보고, 관심이 생기는 낱말을 눌러 자세히 알아보세요.</p>
-</div>
-</main>
-
-<main id="encyclopedia" class="hidden">
-<button class="back" onclick="show('home')">← 처음으로</button>
-<div class="paper hero">
+<section class="hero">
 <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg" alt="대한민국 국기">
-<div><h1>대한민국 🇰🇷</h1><p>대한민국은 동아시아에 있는 나라입니다. 한반도의 남쪽에 자리하고 있으며, 바다와 산이 가까이 있는 곳이 많습니다.</p></div>
+<div class="heroText"><h1>🇰🇷 대한민국</h1><p>동아시아의 한반도 남쪽에 자리한 나라. 자연·지리·역사·사회·문화·경제를 차례로 살펴봅니다.</p></div>
+</section>
+
+<section class="overview">
+<h2>🔎 대한민국 한눈에 보기</h2>
+<div class="overviewGrid">
+<div class="fact"><b>정식 국호</b><span>대한민국</span></div>
+<div class="fact"><b>수도</b><span>서울특별시</span></div>
+<div class="fact"><b>대륙·지역</b><span>아시아 · 동아시아</span></div>
+<div class="fact"><b>언어</b><span>한국어</span></div>
+<div class="fact"><b>문자</b><span>한글</span></div>
+<div class="fact"><b>화폐</b><span>대한민국 원(₩)</span></div>
+<div class="fact"><b>국기</b><span>태극기</span></div>
+<div class="fact"><b>국화</b><span>무궁화</span></div>
+<div class="fact"><b>정치체제</b><span>민주공화국</span></div>
+<div class="fact"><b>국토</b><span>약 10만㎢</span></div>
+<div class="fact"><b>국가</b><span>애국가</span></div>
+<div class="fact"><b>표준시</b><span>한국 표준시</span></div>
 </div>
+<p class="note">※ 면적·인구 같은 수치는 자료의 기준 시점에 따라 달라질 수 있으므로, 본문에서는 지나치게 많은 숫자를 외우기보다 의미를 이해하도록 구성했습니다.</p>
+</section>
 
-<div class="paper">
-<section class="section"><h2>어떤 나라일까요?</h2>
-<p>대한민국의 수도는 서울입니다. 돈은 원을 사용하고, 우리말인 한국어를 사용합니다. 대한민국에는 도시와 농촌, 섬과 산, 넓은 바다와 여러 강이 함께 있습니다.</p></section>
+<nav class="contents" id="contents"></nav>
+<div id="sections"></div>
 
-<section class="section"><h2>어디에 있을까요?</h2>
-<p>대한민국은 아시아의 동쪽에 있습니다. 동쪽에는 동해, 서쪽에는 서해, 남쪽에는 남해가 있습니다. 북쪽으로는 북한과 맞닿아 있습니다.</p></section>
-
-<section class="section"><h2>자연은 어떤 모습일까요?</h2>
-<p>우리나라는 산이 많은 편이고 사계절의 변화가 뚜렷합니다. <button class="topic" onclick="openTopic('한라산')">한라산</button>처럼 높은 산도 있고, <button class="topic" onclick="openTopic('제주도')">제주도</button>처럼 화산 활동으로 만들어진 섬도 있습니다.</p></section>
-
-<section class="section"><h2>사람들은 어떻게 살아갈까요?</h2>
-<p>사람들은 아파트와 단독주택 등 여러 형태의 집에서 생활합니다. 학교에 다니고, 버스와 지하철, 기차와 자동차 등을 이용합니다. 서울처럼 큰 도시도 있고 농촌과 바닷가 마을도 있습니다.</p></section>
-
-<section class="section"><h2>어떤 말을 할까요?</h2>
-<p>대한민국에서는 한국어를 사용합니다. 한국어를 적는 글자는 <button class="topic" onclick="openTopic('한글')">한글</button>입니다. 한글은 자음과 모음을 조합해 글자를 만드는 특징이 있습니다.</p></section>
-
-<section class="section"><h2>무엇을 먹을까요?</h2>
-<p>한국에는 밥과 국, 여러 반찬을 함께 먹는 식문화가 있습니다. <button class="topic" onclick="openTopic('김치')">김치</button>처럼 채소를 양념해 발효시키는 음식도 잘 알려져 있습니다. 비빔밥, 불고기, 떡 등 다양한 음식이 있습니다.</p></section>
-
-<section class="section"><h2>어떤 과일과 농작물이 있을까요?</h2>
-<p>사과, 배, 감귤, 딸기 등이 재배됩니다. 지역과 계절에 따라 재배하는 작물이 다릅니다.</p></section>
-
-<section class="section"><h2>동물과 식물은 어떤 것이 있을까요?</h2>
-<p>산과 들, 바다에는 다양한 생물이 살아갑니다. <button class="topic" onclick="openTopic('호랑이')">호랑이</button>처럼 우리나라를 상징하는 동물도 있고, 소나무처럼 친숙한 나무도 있습니다.</p></section>
-
-<section class="section"><h2>아주 오래전에는 어땠을까요?</h2>
-<p>한반도에는 아주 오래전부터 여러 나라와 사회가 만들어졌습니다. <button class="topic" onclick="openTopic('고조선')">고조선</button>에서 시작해 여러 시대를 거쳤고, <button class="topic" onclick="openTopic('고려')">고려</button>와 <button class="topic" onclick="openTopic('조선')">조선</button>을 거쳐 오늘날의 대한민국으로 이어지는 역사가 있습니다. 조선 시대에는 <button class="topic" onclick="openTopic('세종대왕')">세종대왕</button>이 훈민정음을 만들도록 했습니다.</p></section>
-
-<section class="section"><h2>우리나라의 전통은 무엇일까요?</h2>
-<p>한국에는 오랜 시간 이어져 온 생활과 문화가 있습니다. <button class="topic" onclick="openTopic('한복')">한복</button>, <button class="topic" onclick="openTopic('한옥')">한옥</button>, <button class="topic" onclick="openTopic('설날')">설날</button>, <button class="topic" onclick="openTopic('추석')">추석</button>, 전통음악과 태권도 등 다양한 문화가 있습니다.</p></section>
-
-<section class="section"><h2>유명한 곳은 어디일까요?</h2>
-<p><button class="topic" onclick="openTopic('경복궁')">경복궁</button>, 제주도, 한라산 등은 한국을 알아볼 때 자주 만나는 장소입니다. 직접 가 보거나 사진으로 살펴보며 어떤 곳인지 알아볼 수 있습니다.</p></section>
-
-<section class="section"><h2>오늘날 대한민국은 어떤 모습일까요?</h2>
-<p>대한민국에는 과학기술, 제조업, 문화예술, 스포츠 등 여러 분야에서 활동하는 사람들이 있습니다. 영화, 음악, 음식처럼 한국의 문화를 세계 여러 곳에서 접하기도 합니다.</p></section>
-</div>
+<section class="section">
+<h2>⭐ 내가 알아본 것</h2>
+<p class="sectionLead">백과사전을 읽다가 관심이 생긴 항목을 골라 보세요. 사진을 직접 바꾸고, 더 찾아본 내용을 자신의 설명에 넣을 수 있습니다.</p>
+<div id="collection" class="collection"></div>
+</section>
 </main>
 
-<main id="topic" class="hidden">
-<button class="back" onclick="show('encyclopedia')">← 대한민국 백과사전으로</button>
-<div class="paper topicHero">
-<h1 id="topicTitle"></h1>
-<img id="topicImg" alt="">
-<div class="topicActions">
-<button onclick="choosePhoto()">📷 사진 선택</button>
-<button onclick="replacePhoto()">🔄 내가 찾은 사진으로 바꾸기</button>
-<button onclick="toggleMore()">🔎 더 궁금한 점</button>
-<button onclick="addToCollection()">⭐ 내 설명카드에 넣기</button>
-</div>
-<p id="topicText"></p>
-<div id="extra" class="hidden">
-<h2>더 궁금한 점</h2>
-<div class="searchbox"><input id="q" placeholder="궁금한 것을 입력해 보세요"><button onclick="searchWiki()">검색</button></div>
-<div id="searchResult"></div>
-</div>
-</div>
-</main>
-
-<main id="collection" class="hidden">
-<button class="back" onclick="show('home')">← 처음으로</button>
-<div class="paper"><h1>⭐ 내가 알아본 것</h1><p class="note">아이가 직접 고른 주제와 사진이 여기에 모입니다.</p></div>
-<div id="cards" class="collection"></div>
+<main id="detail" class="detail">
+<button class="back" onclick="goHome()">← 대한민국 백과사전으로</button>
+<div id="detailBody"></div>
 </main>
 </div>
 
-<input id="photoInput" type="file" accept="image/*" class="hidden">
+<input id="photoInput" type="file" accept="image/*" hidden>
 
 <script>
-const KEY='worldCountryV2';
-const topics={
-'한글':['한글','한국어를 적는 글자입니다. 자음과 모음을 조합해 하나의 글자를 만드는 특징이 있습니다. 세종대왕이 훈민정음을 만들도록 했으며, 오늘날 대한민국의 문자로 사용됩니다.','https://upload.wikimedia.org/wikipedia/commons/0/0c/Hangul.svg'],
-'김치':['김치','배추나 무 같은 채소에 여러 양념을 넣어 발효시켜 먹는 음식입니다. 종류가 매우 다양하며 한국의 대표적인 전통 음식 가운데 하나입니다.','https://upload.wikimedia.org/wikipedia/commons/2/2d/Various_kimchi.jpg'],
-'한복':['한복','한국의 전통 옷입니다. 저고리와 치마, 바지 등 여러 옷으로 이루어지며 색과 모양도 다양합니다. 명절이나 특별한 날에 입기도 합니다.','https://upload.wikimedia.org/wikipedia/commons/7/79/Korean_traditional_dress.jpg'],
-'한옥':['한옥','한국의 전통적인 집을 가리키는 말입니다. 나무와 흙 등을 사용하고, 온돌과 마루 같은 특징적인 공간이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/3/3d/Bukchon_Hanok_Village_Seoul.jpg'],
-'경복궁':['경복궁','조선 시대에 지어진 궁궐입니다. 서울에 있으며 조선 왕실과 관련된 여러 건물과 넓은 마당을 볼 수 있습니다.','https://upload.wikimedia.org/wikipedia/commons/5/5a/Gyeongbokgung-Geunjeongjeon.jpg'],
-'세종대왕':['세종대왕','조선의 제4대 왕입니다. 백성이 쉽게 글을 사용할 수 있도록 훈민정음을 만들도록 했습니다. 과학과 문화 발전에도 관심을 기울였습니다.','https://upload.wikimedia.org/wikipedia/commons/5/5a/King_Sejong_the_Great.jpg'],
-'한라산':['한라산','제주도에 있는 높은 산으로, 제주도의 중심에 자리하고 있습니다. 산의 높이는 약 1,947m이며 정상 부근에는 백록담이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/1/1d/Hallasan_from_the_south.jpg'],
-'제주도':['제주도','대한민국 남쪽 바다에 있는 큰 섬입니다. 화산 활동으로 만들어진 섬이며 한라산과 오름, 바다 풍경 등으로 알려져 있습니다.','https://upload.wikimedia.org/wikipedia/commons/8/8e/Jeju_Island.jpg'],
-'호랑이':['호랑이','고양잇과에 속하는 큰 육식동물입니다. 한국의 옛이야기와 그림 등에 자주 등장해 우리나라를 상징하는 동물 가운데 하나로 소개되기도 합니다.','https://upload.wikimedia.org/wikipedia/commons/5/56/Siberian_Tiger_2.jpg'],
-'고조선':['고조선','한반도와 주변 지역의 고대 국가로 알려져 있습니다. 우리 역사에서 아주 오래된 시기의 나라로 배우며, 단군 이야기도 함께 전해집니다.','https://upload.wikimedia.org/wikipedia/commons/5/5b/Ancient_Korea_map.jpg'],
-'고려':['고려','918년에 세워진 왕조로, 약 500년 동안 이어졌습니다. 오늘날 Korea라는 이름과 관련된 이름으로도 알려져 있습니다. 고려청자와 팔만대장경 등이 유명합니다.','https://upload.wikimedia.org/wikipedia/commons/3/3b/Goryeo_map.jpg'],
-'조선':['조선','1392년에 세워져 약 500년 동안 이어진 왕조입니다. 한양을 중심으로 발전했으며 궁궐과 유교 문화, 한글 창제 등 다양한 역사적 사건이 있었습니다.','https://upload.wikimedia.org/wikipedia/commons/2/2c/Joseon_map.png'],
-'설날':['설날','음력 1월 1일을 중심으로 지내는 전통 명절입니다. 가족이 모이고 차례나 세배를 하며 떡국을 먹는 풍습 등이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/0/0f/Tteokguk.jpg'],
-'추석':['추석','음력 8월 15일에 지내는 큰 명절입니다. 가족이 모이고 조상에게 차례를 지내거나 성묘를 하며 송편을 먹는 풍습 등이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/8/83/Songpyeon.jpg']
+const STORE='worldCountryV2Korea';
+const data={
+'지리와 지도':{
+intro:'대한민국의 위치와 국토를 이해하면 다른 나라와의 관계도 함께 생각할 수 있습니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/4/4f/South_Korea_map.png',
+topics:[
+['한반도','대한민국은 한반도의 남쪽에 있습니다. 한반도는 아시아 대륙의 동쪽으로 뻗어 나온 반도입니다.','https://upload.wikimedia.org/wikipedia/commons/4/4f/Korean_peninsula_satellite_image.jpg'],
+['동해·서해·남해','동쪽·서쪽·남쪽으로 바다와 접하고 있어 해안 지역의 모습과 기후가 지역마다 조금씩 다릅니다.','https://upload.wikimedia.org/wikipedia/commons/5/5d/Korea_map_zh.png'],
+['제주도','제주도는 우리나라 남쪽 바다에 있는 섬입니다. 화산 활동으로 만들어진 지형과 한라산이 유명합니다.','https://upload.wikimedia.org/wikipedia/commons/8/8e/Jeju_Island.jpg'],
+['행정구역','대한민국은 특별시·광역시·특별자치시·도·특별자치도 등으로 나뉘어 있습니다.','https://upload.wikimedia.org/wikipedia/commons/7/7a/South_Korea_administrative_map.png']
+]},
+'자연환경과 기후':{
+intro:'산지와 평야, 강과 바다, 섬이 함께 있어 지역에 따라 자연환경이 다양합니다. 사계절의 변화도 비교적 뚜렷합니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/3/3e/Baekdudaegan.jpg',
+topics:[
+['한라산','제주도에 있는 산으로 높이는 약 1,947m입니다. 정상 부근에 백록담이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/1/1d/Hallasan_from_the_south.jpg'],
+['설악산','강원도에 있으며 험준한 산세와 계곡, 다양한 생태환경으로 알려져 있습니다.','https://upload.wikimedia.org/wikipedia/commons/8/8f/Seoraksan.jpg'],
+['한강','서울을 지나 서해로 흘러가는 큰 강으로 수도권의 생활과 역사에서 중요한 역할을 해 왔습니다.','https://upload.wikimedia.org/wikipedia/commons/5/5c/Han_River_Seoul.jpg'],
+['사계절','봄·여름·가을·겨울의 계절 변화가 나타납니다. 여름에는 장마와 태풍의 영향을 받을 수 있고 겨울에는 한랭한 날씨가 나타납니다.','https://upload.wikimedia.org/wikipedia/commons/9/9c/Korea_four_seasons.jpg']
+]},
+'사람과 생활':{
+intro:'대한민국에는 대도시부터 농촌과 어촌까지 다양한 생활공간이 있습니다. 인구와 산업이 수도권에 많이 모여 있는 것도 중요한 특징입니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/0/0c/Seoul_skyline.jpg',
+topics:[
+['서울','대한민국의 수도이며 정치·경제·문화·교육의 중심지 가운데 하나입니다.','https://upload.wikimedia.org/wikipedia/commons/1/1a/Seoul_skyline.jpg'],
+['대중교통','지하철·버스·철도 등 여러 교통수단이 연결되어 있어 도시와 지역 사이의 이동을 돕습니다.','https://upload.wikimedia.org/wikipedia/commons/5/5f/Seoul_Metro_train.jpg'],
+['학교와 교육','대한민국에서는 초등학교·중학교·고등학교 등의 학교에서 교육이 이루어집니다. 교육은 개인의 삶과 사회의 변화에도 큰 영향을 줍니다.','https://upload.wikimedia.org/wikipedia/commons/4/4b/Korean_school.jpg'],
+['도시와 농촌','도시에서는 서비스업과 제조업 등 다양한 산업이 발달하고, 농촌에서는 농업을 비롯한 여러 산업이 이루어집니다.','https://upload.wikimedia.org/wikipedia/commons/7/7d/Korean_rice_field.jpg']
+]},
+'언어와 문자':{
+intro:'한국어는 대한민국의 언어이며, 한글은 한국어를 적는 대표적인 문자입니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/0/0c/Hangul.svg',
+topics:[
+['한글','한글은 자음과 모음을 조합해 음절 단위의 글자를 만드는 문자입니다. 세종대왕 때 훈민정음을 만들도록 했고 1446년에 반포되었습니다.','https://upload.wikimedia.org/wikipedia/commons/0/0c/Hangul.svg'],
+['세종대왕','조선의 제4대 왕입니다. 백성이 쉽게 글을 읽고 쓰도록 훈민정음을 만들도록 했습니다.','https://upload.wikimedia.org/wikipedia/commons/5/5a/King_Sejong_the_Great.jpg'],
+['한국어','한국어는 대한민국에서 사용되는 언어입니다. 높임말과 다양한 표현이 발달해 있으며 상황에 따라 말투가 달라질 수 있습니다.','https://upload.wikimedia.org/wikipedia/commons/3/3d/Hangul_grammar.jpg']
+]},
+'음식과 농업':{
+intro:'한국의 음식은 지역·계절·재료에 따라 다양합니다. 농업과 어업, 축산업은 식생활과도 연결되어 있습니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/2/2d/Various_kimchi.jpg',
+topics:[
+['김치','채소를 소금에 절이고 양념해 발효시켜 먹는 음식입니다. 배추김치·깍두기 등 종류가 매우 다양합니다.','https://upload.wikimedia.org/wikipedia/commons/2/2d/Various_kimchi.jpg'],
+['김장','김치를 담그고 나누는 문화입니다. 2013년 유네스코 인류무형문화유산에 등재되었습니다.','https://upload.wikimedia.org/wikipedia/commons/0/0f/Kimjang.jpg'],
+['비빔밥','밥에 여러 나물과 재료를 넣고 양념과 함께 비벼 먹는 음식입니다.','https://upload.wikimedia.org/wikipedia/commons/4/40/Bibimbap.jpg'],
+['쌀과 벼농사','쌀은 한국 식생활에서 오랫동안 중요한 곡물이었습니다. 평야와 물을 이용할 수 있는 지역에서 벼농사가 발달했습니다.','https://upload.wikimedia.org/wikipedia/commons/7/7d/Korean_rice_field.jpg']
+]},
+'동물·식물·생태':{
+intro:'산·강·갯벌·바다 등 여러 생태환경이 있어 다양한 생물이 살아갑니다. 멸종위기종을 보호하기 위한 노력도 이루어지고 있습니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/6/6a/Korean_wetland.jpg',
+topics:[
+['반달가슴곰','가슴에 반달 모양의 흰 무늬가 있는 곰입니다. 지리산을 중심으로 복원 사업이 진행되어 왔습니다.','https://upload.wikimedia.org/wikipedia/commons/8/8a/Ursus_thibetanus.jpg'],
+['두루미','겨울철 우리나라의 습지와 농경지 등에서 볼 수 있는 철새입니다.','https://upload.wikimedia.org/wikipedia/commons/5/5f/Grus_japonensis.jpg'],
+['소나무','한국의 산과 들에서 친숙하게 볼 수 있는 나무입니다. 한국 문화와 문학에서도 자주 등장합니다.','https://upload.wikimedia.org/wikipedia/commons/7/7d/Pinus_densiflora.jpg'],
+['갯벌','바닷물이 드나드는 해안의 진흙·모래 지역입니다. 다양한 생물의 서식지이며 해양 생태계에서 중요한 역할을 합니다.','https://upload.wikimedia.org/wikipedia/commons/2/2b/Korean_mudflat.jpg']
+]},
+'역사':{
+intro:'대한민국의 역사는 고대 국가부터 여러 왕조와 근현대를 거쳐 이어져 왔습니다. 여기서는 시대의 큰 흐름을 중심으로 살펴봅니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/2/2c/Korea_history_map.jpg',
+topics:[
+['고조선','한반도와 주변 지역의 고대 국가로 알려져 있으며 우리 역사에서 매우 이른 시기의 국가입니다. 단군 이야기도 함께 전해집니다.','https://upload.wikimedia.org/wikipedia/commons/5/5b/Ancient_Korea_map.jpg'],
+['삼국시대','고구려·백제·신라를 비롯한 여러 나라가 성장하고 경쟁·교류하던 시기입니다.','https://upload.wikimedia.org/wikipedia/commons/0/0e/Three_Kingdoms_of_Korea_map.png'],
+['고려','918년에 세워진 왕조입니다. 고려청자와 불교문화, 팔만대장경 등으로 알려져 있습니다.','https://upload.wikimedia.org/wikipedia/commons/3/3b/Goryeo_map.jpg'],
+['조선','1392년에 세워져 약 500년 동안 이어진 왕조입니다. 한양을 중심으로 발전했고 세종대왕 때 훈민정음이 만들어졌습니다.','https://upload.wikimedia.org/wikipedia/commons/2/2c/Joseon_map.png'],
+['대한제국','1897년에 선포된 국가입니다. 근대 국가로 변화하려는 여러 시도가 이루어졌습니다.','https://upload.wikimedia.org/wikipedia/commons/3/3b/Korean_Empire_map.png'],
+['대한민국 정부 수립','1945년 광복 이후 정치적 변화가 이어졌고, 1948년 8월 15일 대한민국 정부 수립이 선포되었습니다. 1948년 7월 17일에는 대한민국 헌법이 공포되었습니다.','https://upload.wikimedia.org/wikipedia/commons/7/78/1948_South_Korea.jpg']
+]},
+'전통과 문화':{
+intro:'전통문화는 과거의 생활 방식과 지식·기술·예술이 이어져 온 것입니다. 오늘날에도 전통을 현대적인 방식으로 이어 가는 모습이 있습니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/7/79/Korean_traditional_dress.jpg',
+topics:[
+['한복','한국의 전통 옷입니다. 저고리와 치마·바지 등으로 이루어지며 색과 형태가 다양합니다.','https://upload.wikimedia.org/wikipedia/commons/7/79/Korean_traditional_dress.jpg'],
+['한옥과 온돌','한옥은 한국의 전통 건축을 보여주는 집입니다. 온돌은 바닥을 데워 방을 따뜻하게 하는 전통 난방 방식입니다.','https://upload.wikimedia.org/wikipedia/commons/3/3d/Bukchon_Hanok_Village_Seoul.jpg'],
+['설날','음력 1월 1일을 중심으로 새해를 맞는 명절입니다. 세배와 떡국 등 여러 풍습이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/0/0f/Tteokguk.jpg'],
+['추석','음력 8월 15일을 중심으로 가족이 모이는 명절입니다. 송편과 성묘 등의 풍습이 있습니다.','https://upload.wikimedia.org/wikipedia/commons/8/83/Songpyeon.jpg'],
+['태권도','한국에서 발전한 무술·스포츠입니다. 발차기와 품새 등 여러 동작을 사용하며 세계 여러 나라에서도 수련합니다.','https://upload.wikimedia.org/wikipedia/commons/3/3e/Taekwondo.jpg']
+]},
+'유산과 유명한 장소':{
+intro:'대한민국에는 궁궐·사찰·성곽과 같은 문화유산, 그리고 제주 화산섬과 용암동굴 같은 자연유산이 있습니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/5/5a/Gyeongbokgung-Geunjeongjeon.jpg',
+topics:[
+['경복궁','조선 왕조의 법궁으로 지어진 궁궐입니다. 서울에 있으며 근정전과 경회루 등이 유명합니다.','https://upload.wikimedia.org/wikipedia/commons/5/5a/Gyeongbokgung-Geunjeongjeon.jpg'],
+['창덕궁','조선의 궁궐 가운데 하나로 자연 지형을 살린 후원으로 유명합니다. 유네스코 세계문화유산입니다.','https://upload.wikimedia.org/wikipedia/commons/6/6f/Changdeokgung_Injeongjeon.jpg'],
+['불국사','경주에 있는 신라 시대의 대표적인 사찰입니다. 석굴암과 함께 유네스코 세계유산으로 등재되어 있습니다.','https://upload.wikimedia.org/wikipedia/commons/5/5c/Bulguksa_Temple.jpg'],
+['제주 화산섬과 용암동굴','제주의 화산 지형을 보여주는 자연유산으로, 한라산과 용암동굴 등이 포함됩니다.','https://upload.wikimedia.org/wikipedia/commons/8/8e/Jeju_Island.jpg']
+]},
+'경제와 산업':{
+intro:'대한민국의 경제는 제조업과 서비스업을 비롯해 정보통신, 자동차, 조선, 반도체 등 여러 산업으로 구성되어 있습니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/0/0f/Seoul_night.jpg',
+topics:[
+['반도체','전기를 제어하는 작은 부품인 반도체는 컴퓨터·스마트폰·자동차 등 많은 전자제품에 사용됩니다. 대한민국은 반도체 산업이 발달한 나라 가운데 하나입니다.','https://upload.wikimedia.org/wikipedia/commons/1/1a/Semiconductor_wafer.jpg'],
+['자동차 산업','자동차를 설계·생산하고 부품을 만드는 산업입니다. 국내 기업들이 세계 여러 나라에 자동차를 판매합니다.','https://upload.wikimedia.org/wikipedia/commons/8/8a/Hyundai_car.jpg'],
+['조선업','배를 설계하고 건조하는 산업입니다. 대형 선박과 해양 구조물을 만드는 기술이 발전해 있습니다.','https://upload.wikimedia.org/wikipedia/commons/6/6e/Shipyard_Korea.jpg'],
+['문화산업','음악·영화·드라마·게임·웹툰 등 문화 콘텐츠를 만들고 세계 여러 지역에 소개하는 산업입니다.','https://upload.wikimedia.org/wikipedia/commons/9/9a/Korean_culture.jpg']
+]},
+'오늘의 대한민국':{
+intro:'오늘날 대한민국은 민주공화국으로서 헌법에 따라 국가가 운영됩니다. 동시에 과학기술, 산업, 문화와 국제교류가 활발한 사회이기도 합니다.',
+image:'https://upload.wikimedia.org/wikipedia/commons/0/0f/Seoul_night.jpg',
+topics:[
+['민주공화국','대한민국 헌법 제1조는 대한민국이 민주공화국임을 규정하고 있습니다. 주권이 국민에게 있다는 내용도 헌법에 담겨 있습니다.','https://upload.wikimedia.org/wikipedia/commons/3/3d/National_Assembly_of_South_Korea.jpg'],
+['과학기술','정보통신·반도체·바이오·우주 등 여러 분야에서 연구와 기술 개발이 이루어지고 있습니다.','https://upload.wikimedia.org/wikipedia/commons/7/7a/Korean_satellite.jpg'],
+['국제사회와 교류','대한민국은 여러 나라와 외교·무역·문화·교육 등 다양한 분야에서 교류하고 있습니다.','https://upload.wikimedia.org/wikipedia/commons/0/0d/United_Nations_flag.jpg'],
+['한국 문화의 세계화','K-pop, 영화, 드라마, 음식 등 한국의 문화 콘텐츠가 세계 여러 지역에서 소비되고 있습니다.','https://upload.wikimedia.org/wikipedia/commons/6/6b/Korean_culture_festival.jpg']
+]}
 };
-let state=JSON.parse(localStorage.getItem(KEY)||'{"cards":{},"photos":{}}'), current='';
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function show(id){['home','encyclopedia','topic','collection'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));if(id==='collection')renderCards()}
-function openTopic(n){current=n;let t=topics[n];document.getElementById('topicTitle').textContent=t[0];document.getElementById('topicText').textContent=t[1];document.getElementById('topicImg').src=state.photos[n]||t[2];document.getElementById('topicImg').alt=n;document.getElementById('extra').classList.add('hidden');document.getElementById('searchResult').innerHTML='';show('topic')}
-function addToCollection(){state.cards[current]={name:current,text:document.getElementById('topicText').textContent,photo:state.photos[current]||topics[current][2]};save();renderCards();alert('내 설명카드에 넣었어요.')}
-function renderCards(){let box=document.getElementById('cards');let a=Object.values(state.cards);box.innerHTML=a.length?a.map(c=>`<div class="mini"><img src="${c.photo}" alt="${c.name}"><h3>${c.name}</h3><div>${c.text}</div><button class="smallbtn" onclick="openTopic('${c.name.replaceAll("'","\\\\'")}')">자세히 보기</button></div>`).join(''):'<div class="paper empty">아직 알아본 것이 없어요.<br>백과사전에서 관심있는 낱말을 골라보세요.</div>'}
-function toggleMore(){document.getElementById('extra').classList.toggle('hidden')}
-async function searchWiki(){let q=document.getElementById('q').value.trim();if(!q)return;let box=document.getElementById('searchResult');box.textContent='찾아보고 있어요…';try{let u='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&format=json&origin=*';let r=await fetch(u);let j=await r.json();if(!j.query.search.length){box.textContent='찾은 내용을 찾지 못했어요. 다른 말로 검색해 보세요.';return}let title=j.query.search[0].title;let s='https://ko.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&titles='+encodeURIComponent(title)+'&format=json&origin=*';let d=await (await fetch(s)).json();let p=Object.values(d.query.pages)[0].extract||'';p=p.slice(0,650);box.innerHTML=`<div class="result"><b>${title}</b><p>${p}</p><button class="smallbtn" onclick="useSearch(${JSON.stringify(p)})">➕ 이 내용을 설명에 추가</button></div>`}catch(e){box.textContent='검색 중 문제가 생겼어요. 잠시 후 다시 해보세요.'}}
-function useSearch(p){document.getElementById('topicText').textContent += '\\n\\n[아이와 함께 찾아본 내용]\\n'+p;state.cards[current]={name:current,text:document.getElementById('topicText').textContent,photo:state.photos[current]||topics[current][2]};save();alert('설명에 추가했어요. 다음부터 카드에서 선택할 수 있어요.')}
-function choosePhoto(){let input=document.getElementById('photoInput');input.onchange=()=>{if(!input.files[0])return;let r=new FileReader();r.onload=()=>{state.photos[current]=r.result;state.cards[current]&&(state.cards[current].photo=r.result);save();document.getElementById('topicImg').src=r.result;};r.readAsDataURL(input.files[0])};input.click()}
-function replacePhoto(){choosePhoto()}
+
+let state=JSON.parse(localStorage.getItem(STORE)||'{"cards":{},"photos":{},"added":{}}');
+let current=null;
+
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function save(){localStorage.setItem(STORE,JSON.stringify(state))}
+function photoFor(name, fallback){return state.photos[name]||fallback}
+function build(){
+ const nav=document.getElementById('contents'), sections=document.getElementById('sections');
+ nav.innerHTML=Object.keys(data).map((k,i)=>`<button onclick="document.getElementById('s${i}').scrollIntoView({behavior:'smooth'})">${esc(k)}</button>`).join('');
+ sections.innerHTML=Object.entries(data).map(([title,d],i)=>`
+ <section class="section" id="s${i}">
+   <h2>${esc(title)}</h2>
+   <p class="sectionLead">${esc(d.intro)}</p>
+   ${d.image?`<img class="visual" src="${photoFor(title,d.image)}" alt="${esc(title)}">`:''}
+   <div class="topicList">${d.topics.map((t,j)=>`
+    <button class="topic" onclick='openTopic(${JSON.stringify(title)},${JSON.stringify(t[0])},${JSON.stringify(t[1])},${JSON.stringify(t[2])})'>
+      <img src="${photoFor(t[0],t[2])}" alt="${esc(t[0])}">
+      <div class="topicBody"><div class="topicName">${esc(t[0])}</div><div class="topicDesc">${esc(t[1].slice(0,92))}${t[1].length>92?'…':''}</div></div>
+    </button>`).join('')}</div>
+ </section>`).join('');
+ renderCollection();
+}
+function openTopic(section,name,text,img){
+ current={section,name,text,img};
+ const detail=document.getElementById('detailBody');
+ detail.innerHTML=`
+ <div class="detailPanel">
+   <img id="detailImg" src="${photoFor(name,img)}" alt="${esc(name)}">
+   <div class="detailBody">
+    <div class="note">${esc(section)}</div>
+    <h2>${esc(name)}</h2>
+    <p id="topicText">${esc(text)}</p>
+    <div class="actions">
+      <button class="btn primary" onclick="choosePhoto()">📷 사진 선택</button>
+      <button class="btn" onclick="choosePhoto()">🔄 내가 찾은 사진으로 바꾸기</button>
+      <button class="btn gold" onclick="addCard()">⭐ 내 설명카드에 넣기</button>
+    </div>
+    <div class="photoBox"><b>아이의 사진</b><p class="photoHint">인터넷에서 직접 찾은 사진이나 직접 찍은 사진을 기기에서 선택해 바꿀 수 있습니다. 선택한 사진은 이 기기에 저장됩니다.</p></div>
+    <div class="more">
+      <h3>🔎 더 궁금한 점</h3>
+      <div class="search"><input id="q" placeholder="예: 왜 그런가요? 어떻게 만들어졌나요?"><button class="btn" onclick="searchMore()">검색</button></div>
+      <div id="result"></div>
+    </div>
+    <div class="source">기본 설명은 중학교 1학년 정도의 읽기 수준을 목표로 작성했습니다. 더 자세한 내용은 검색을 통해 확인할 수 있습니다.</div>
+   </div>
+ </div>`;
+ document.getElementById('home').style.display='none';document.getElementById('detail').style.display='block';window.scrollTo(0,0);
+}
+function goHome(){document.getElementById('detail').style.display='none';document.getElementById('home').style.display='block';build();window.scrollTo(0,0)}
+function choosePhoto(){
+ const input=document.getElementById('photoInput');
+ input.onchange=()=>{
+  const f=input.files[0]; if(!f)return;
+  const r=new FileReader();r.onload=()=>{
+   state.photos[current.name]=r.result;
+   const im=document.getElementById('detailImg');if(im)im.src=r.result;
+   if(state.cards[current.name]){state.cards[current.name].photo=r.result}
+   save();build();
+  };r.readAsDataURL(f)
+ };input.click()
+}
+function addCard(){
+ const text=document.getElementById('topicText').textContent;
+ state.cards[current.name]={section:current.section,name:current.name,text,photo:photoFor(current.name,current.img)};
+ save();renderCollection();alert('내 설명카드에 저장했습니다.');
+}
+function renderCollection(){
+ const box=document.getElementById('collection'); const arr=Object.values(state.cards);
+ box.innerHTML=arr.length?arr.map(c=>`<article class="myCard"><img src="${c.photo}" alt="${esc(c.name)}"><div class="note">${esc(c.section)}</div><h3>${esc(c.name)}</h3><p>${esc(c.text)}</p><button class="btn" onclick='openTopic(${JSON.stringify(c.section)},${JSON.stringify(c.name)},${JSON.stringify(c.text)},${JSON.stringify(c.photo)})'>자세히 보기</button></article>`).join(''):`<div class="empty">아직 알아본 항목이 없습니다.<br>위 백과사전에서 관심 있는 항목을 골라 보세요.</div>`
+}
+async function searchMore(){
+ const q=document.getElementById('q').value.trim(), box=document.getElementById('result'); if(!q)return;
+ box.textContent='찾아보고 있습니다…';
+ try{
+  const u='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&srlimit=3&format=json&origin=*';
+  const j=await (await fetch(u,{signal:AbortSignal.timeout(7000)})).json();
+  if(!j.query.search.length){box.textContent='찾은 내용을 찾지 못했습니다. 다른 표현으로 검색해 보세요.';return}
+  const title=j.query.search[0].title;
+  const x='https://ko.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&titles='+encodeURIComponent(title)+'&format=json&origin=*';
+  const d=await (await fetch(x,{signal:AbortSignal.timeout(7000)})).json();
+  const p=(Object.values(d.query.pages)[0].extract||'').slice(0,1000);
+  box.innerHTML=`<div class="result"><b>${esc(title)}</b><p>${esc(p)}</p><button class="btn gold" onclick='addSearch(${JSON.stringify(p)})'>➕ 이 내용을 설명에 추가</button></div>`;
+ }catch(e){box.textContent='검색 중 문제가 생겼습니다. 인터넷 연결을 확인해 주세요.'}
+}
+function addSearch(p){
+ const el=document.getElementById('topicText');el.textContent += '\\n\\n[아이와 함께 찾아본 내용]\\n'+p;
+ state.cards[current.name]={section:current.section,name:current.name,text:el.textContent,photo:photoFor(current.name,current.img)};
+ save();alert('찾아본 내용을 설명에 추가했습니다.');renderCollection()
+}
+build();
 </script>
 </body>
 </html>
