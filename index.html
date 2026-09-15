@@ -733,8 +733,30 @@ const CUSTOM_CAT_ANCHOR={places:'places',food:'food',fruit:'fruit',animal:'anima
 function customItemsKey(code){return CUSTOM_STORE+':'+code}
 function getCustomItems(code){try{return JSON.parse(localStorage.getItem(customItemsKey(code))||'[]')}catch(e){return []}}
 function saveCustomItems(code,items){localStorage.setItem(customItemsKey(code),JSON.stringify(items))}
-function getHidden(code){try{return JSON.parse(localStorage.getItem(HIDDEN_STORE+':'+code)||'[]')}catch(e){return []}}
-function saveHidden(code,a){localStorage.setItem(HIDDEN_STORE+':'+code,JSON.stringify(a))}
+function getHidden(code){
+ try{
+  const raw=JSON.parse(localStorage.getItem(HIDDEN_STORE+':'+code)||'[]');
+  if(Array.isArray(raw)) return raw.filter(x=>x&&x.cat&&x.name);
+  // 구버전에서는 {"cat-uid":true} 형태로 저장되어 있었습니다.
+  // 현재 화면의 카드에서 실제 기본항목 이름을 찾아 배열형 기록으로 자동 변환합니다.
+  if(raw&&typeof raw==='object'){
+   const out=[];
+   Object.keys(raw).forEach(k=>{
+    if(!raw[k])return;
+    const p=k.split('-'), cat=p.shift(), uid=p.join('-');
+    const cont=categoryContainer(code,cat); if(!cont)return;
+    const card=cont.querySelector('.default-delete-btn[data-cat=\"'+CSS.escape(cat)+'\"][data-uid=\"'+CSS.escape(uid)+'\"]')?.closest('a');
+    if(!card)return;
+    const original=card.dataset.defaultOriginName||originalNameForCard(code,cat,card)||defaultCardName(card,cat);
+    if(original&&!out.some(x=>x.cat===cat&&normName(x.name)===normName(original)))out.push({cat,name:original,uid});
+   });
+   try{localStorage.setItem(HIDDEN_STORE+':'+code,JSON.stringify(out))}catch(e){}
+   return out;
+  }
+  return [];
+ }catch(e){return []}
+}
+function saveHidden(code,a){localStorage.setItem(HIDDEN_STORE+':'+code,JSON.stringify(Array.isArray(a)?a:[]))}
 function getRenames(code){try{return JSON.parse(localStorage.getItem(RENAME_STORE+':'+code)||'{}')}catch(e){return {}}}
 function saveRenames(code,o){localStorage.setItem(RENAME_STORE+':'+code,JSON.stringify(o))}
 function normName(x){return String(x||'').toLowerCase().replace(/[\s·•.,!?()[\]{}'"“”‘’`~!@#$%^&*_=+\-]/g,'').replace(/^[^가-힣a-z0-9]+|[^가-힣a-z0-9]+$/g,'')}
@@ -775,14 +797,13 @@ function findDetailId(card){return card.dataset.show||card.getAttribute('href')?
 function isHiddenDefault(code,cat,name){return getHidden(code).some(x=>x.cat===cat&&normName(x.name)===normName(name))}
 function isAlreadyRegistered(code,cat,name){
  const target=normName(name);if(!target)return false;
- // 삭제되어 숨겨진 기본 항목은 "등록되어 있음"으로 보지 않습니다.
- // 사용자가 같은 이름을 다시 등록할 수 있도록 합니다.
+ // 삭제된 기본항목은 등록된 것으로 취급하지 않습니다.
  if(getCustomItems(code).some(x=>x.cat===cat&&normName(x.name)===target))return true;
  const cont=categoryContainer(code,cat);if(!cont)return false;
  return Array.from(cont.querySelectorAll(':scope > a')).some(card=>{
-   if(card.classList.contains('custom-added')||card.classList.contains('default-hidden'))return false;
-   const original=originalNameForCard(code,cat,card);
-   if(isHiddenDefault(code,cat,original))return false;
+   if(card.classList.contains('custom-added')||card.classList.contains('default-hidden')||card.style.display==='none')return false;
+   const original=card.dataset.defaultOriginName||originalNameForCard(code,cat,card);
+   if(isHiddenDefault(code,cat,original)||isHiddenDefault(code,cat,defaultCardName(card,cat)))return false;
    return normName(defaultCardName(card,cat))===target || normName(original)===target;
  });
 }
@@ -1217,43 +1238,7 @@ section.screen[id^="country-"] > main > .facts,
 section.screen[id^="country-"] .country > .facts{display:none !important;}
 .backup-share-note{margin-top:12px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #dbeaf5;line-height:1.6;font-size:.92rem}
 </style>
-<script id="v50-unify-script">
-(function(){
- const SPECIAL={
-  kr:{region:'아시아 · 동아시아',capital:'서울',area:'약 10.0만 km²',population:'약 5,100만 명',language:'한국어 · 한글'},
-  jp:{region:'아시아 · 동아시아',capital:'도쿄',area:'약 37.8만 km²',population:'약 1억 2,400만 명',language:'일본어 · 히라가나 · 가타카나 · 한자'},
-  cn:{region:'아시아 · 동아시아',capital:'베이징',area:'약 960만 km²',population:'약 14억 명',language:'중국어 · 한자'}
- };
- const KO_AREA=100210;
- function esc(x){return typeof escapeHtml==='function'?escapeHtml(String(x)):String(x).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
- function parseArea(text){const m=String(text||'').replace(/,/g,'').match(/([0-9]+(?:\.[0-9]+)?)\s*(억|만)?\s*km/iu);if(!m)return null;let n=parseFloat(m[1]);if(m[2]==='만')n*=10000;else if(m[2]==='억')n*=100000000;return n;}
- function ratio(a){if(!a)return '자료를 확인해 보세요';const r=a/KO_AREA;if(Math.abs(r-1)<.05)return '대한민국과 비슷해요';if(r>=1)return '대한민국의 약 '+(r>=10?r.toFixed(0):r.toFixed(1).replace(/\.0$/,''))+'배 넓어요';return '대한민국의 약 '+(1/r>=10?(1/r).toFixed(0):(1/r).toFixed(1).replace(/\.0$/,''))+'배 정도예요';}
- function addOne(cs){
-  if(cs.querySelector('.basic-extra'))return;
-  const code=cs.id.replace('country-','');
-  let vals={};
-  const facts=cs.querySelector('.facts');
-  if(facts) facts.querySelectorAll('.fact').forEach(f=>{const b=f.querySelector('b');if(b)vals[b.textContent.trim()]=f.textContent.replace(b.textContent,'').trim();});
-  if(SPECIAL[code]) vals=Object.assign(vals,SPECIAL[code]);
-  if(!vals.capital&&!vals.area&&!vals.population&&!vals.language)return;
-  const home=document.querySelector('#home .card[data-show="country-'+code+'"]');
-  const region=vals.region||home?.querySelector('.homecarddesc')?.textContent?.trim()||'세계의 한 나라';
-  const box=document.createElement('section');box.className='basic-extra';
-  box.innerHTML='<div class="basic-extra-title">🌍 한눈에 알아보기</div><div class="basic-extra-grid">'
-   +'<div class="basic-extra-card"><b>대륙·지역</b><span>'+esc(region)+'</span></div>'
-   +'<div class="basic-extra-card"><b>수도</b><span>'+esc(vals.capital||'자료를 확인해 보세요')+'</span></div>'
-   +'<div class="basic-extra-card"><b>면적</b><span>'+esc(vals.area||'자료를 확인해 보세요')+'</span></div>'
-   +'<div class="basic-extra-card"><b>한국과의 면적 비교</b><span class="area-compare">'+esc(ratio(parseArea(vals.area)))+'</span></div>'
-   +'<div class="basic-extra-card"><b>인구</b><span>'+esc(vals.population||'자료를 확인해 보세요')+'</span></div>'
-   +'<div class="basic-extra-card"><b>주요 언어</b><span>'+esc(vals.language||'자료를 확인해 보세요')+'</span></div></div>';
-  const head=cs.querySelector('.head.country-sticky')||cs.querySelector('.head');
-  if(head) head.insertAdjacentElement('afterend',box); else cs.insertBefore(box,cs.firstChild);
- }
- function boot(){document.querySelectorAll('section.screen[id^="country-"]').forEach(addOne);document.querySelectorAll('section.screen[id^="country-"] .facts').forEach(f=>{const h=f.previousElementSibling;if(h&&h.tagName==='H2'&&h.textContent.includes('기본정보'))h.remove();f.remove();});}
- window.addEventListener('load',()=>setTimeout(boot,250));
- window.addEventListener('hashchange',()=>setTimeout(boot,50));
-})();
-</script>
+<script id="v50-unify-script">/* v51 final normalization supersedes this earlier patch. */</script>
 <script id="v50-backup-script">
 (function(){
  const PREFIX='worldCountry', FORMAT='world-country-encyclopedia-backup', VERSION=2;
@@ -1281,6 +1266,42 @@ section.screen[id^="country-"] .country > .facts{display:none !important;}
   if(ex)ex.onclick=exportBackup;if(imp)imp.onclick=()=>input?.click();if(input)input.onchange=e=>{importBackup(e.target.files?.[0]);e.target.value='';};
   const panel=document.getElementById('backup-panel');if(panel&&!panel.querySelector('.backup-share-note')){const n=document.createElement('div');n.className='backup-share-note';n.innerHTML='<b>📱 아이폰에서 백업할 때</b><br/>「내 자료 백업하기」를 누른 뒤 공유 화면이 나오면 <b>「파일에 저장」</b>을 선택하세요. 이렇게 저장하면 나중에 「백업 파일에서 복원하기」를 눌러 파일 앱에서 쉽게 찾을 수 있습니다.';panel.appendChild(n);}
  });
+})();
+</script>
+
+<style id="v51-final-style">
+/* v51: 모든 나라가 동일하게 '한눈에 알아보기'만 사용합니다. */
+section.screen[id^="country-"] .facts{display:none !important;}
+</style>
+<script id="v51-final-script">
+(function(){
+ const KO_AREA=100210;
+ function esc(x){return typeof escapeHtml==='function'?escapeHtml(String(x)):String(x).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+ function areaNum(t){const m=String(t||'').replace(/,/g,'').match(/([0-9]+(?:\.[0-9]+)?)\s*(억|만)?\s*km/iu);if(!m)return null;let n=+m[1];if(m[2]==='만')n*=10000;else if(m[2]==='억')n*=1e8;return n}
+ function compare(t){const a=areaNum(t);if(!a)return '자료를 확인해 보세요';const r=a/KO_AREA;if(Math.abs(r-1)<.05)return '대한민국과 비슷해요';if(r>=1)return '대한민국의 약 '+(r>=10?r.toFixed(0):r.toFixed(1).replace(/\.0$/,''))+'배 넓어요';const x=1/r;return '대한민국의 약 '+(x>=10?x.toFixed(0):x.toFixed(1).replace(/\.0$/,''))+'배 정도예요'}
+ function ensure(code,cs){
+  let box=cs.querySelector(':scope > main .basic-extra, .basic-extra');
+  const facts=cs.querySelector('.facts');
+  const vals={};
+  if(facts)facts.querySelectorAll('.fact').forEach(f=>{const b=f.querySelector('b');if(b)vals[b.textContent.trim()]=f.textContent.replace(b.textContent,'').trim()});
+  const home=document.querySelector('#home .card[data-show="country-'+code+'"]');
+  const region=home?.querySelector('.homecarddesc')?.textContent?.trim()||'세계의 한 나라';
+  const special={kr:['서울','약 10.0만 km²','약 5,100만 명','한국어 · 한글'],jp:['도쿄','약 37.8만 km²','약 1억 2,400만 명','일본어 · 히라가나 · 가타카나 · 한자'],cn:['베이징','약 960만 km²','약 14억 명','중국어 · 한자']}[code];
+  const capital=special?.[0]||vals['수도']||'자료를 확인해 보세요', area=special?.[1]||vals['면적']||'자료를 확인해 보세요', pop=special?.[2]||vals['인구']||'자료를 확인해 보세요', lang=special?.[3]||vals['언어']||'자료를 확인해 보세요';
+  if(!box){box=document.createElement('section');box.className='basic-extra';}
+  box.innerHTML='<div class="basic-extra-title">🌍 한눈에 알아보기</div><div class="basic-extra-grid">'
+   +'<div class="basic-extra-card"><b>대륙·지역</b><span>'+esc(region)+'</span></div>'
+   +'<div class="basic-extra-card"><b>수도</b><span>'+esc(capital)+'</span></div>'
+   +'<div class="basic-extra-card"><b>면적</b><span>'+esc(area)+'</span></div>'
+   +'<div class="basic-extra-card"><b>한국과의 면적 비교</b><span class="area-compare">'+esc(compare(area))+'</span></div>'
+   +'<div class="basic-extra-card"><b>인구</b><span>'+esc(pop)+'</span></div>'
+   +'<div class="basic-extra-card"><b>주요 언어</b><span>'+esc(lang)+'</span></div></div>';
+  if(!box.parentNode){const main=cs.querySelector('main.wrap, main');const first=main?.querySelector('.hero,.country-fixed-nav');if(first)first.insertAdjacentElement('afterend',box);else if(main)main.insertBefore(box,main.firstChild);}
+  if(facts){const h=facts.previousElementSibling;if(h?.tagName==='H2'&&h.textContent.includes('기본정보'))h.remove();facts.remove();}
+ }
+ function boot(){document.querySelectorAll('section.screen[id^="country-"]').forEach(cs=>ensure(cs.id.replace('country-',''),cs));}
+ window.addEventListener('load',()=>setTimeout(boot,900));
+ window.addEventListener('hashchange',()=>setTimeout(boot,100));
 })();
 </script>
 </body></html>
