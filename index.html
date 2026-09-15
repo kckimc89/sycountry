@@ -1529,6 +1529,118 @@ section.screen[id^="country-"] .facts{display:none !important;}
  window.v53Resync=boot;
 })();
 </script>
+
+<style id="v54-final-style">
+/* v54: 문화/축제 단일 섹션 + 사진 fallback */
+.v54-culture-heading{margin-top:18px}
+.v54-culture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:700px){.v54-culture-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.v54-culture-grid{grid-template-columns:1fr 1fr}}
+</style>
+<script id="v54-final-fix">
+(function(){
+ const norm=s=>String(s||'').toLowerCase().replace(/\s+/g,'').replace(/[·•.,!?()[\]{}'"“”‘’`~!@#$%^&*_=+\-]/g,'');
+ const cultureLabel='🎉 유명한 축제 / 문화';
+ function codeOf(root){return root.id.replace('country-','')}
+ function mergeCulture(root){
+   const code=codeOf(root); if(!code)return;
+   const headings=[...root.querySelectorAll('h2')].filter(h=>/유명한 축제\s*\/\s*문화/.test(h.textContent||''));
+   const all=[...root.querySelectorAll('.culture-card')];
+   const seenName=new Set(), seenId=new Set(), cards=[];
+   for(const card of all){
+     const name=norm(card.querySelector('b')?.textContent||card.textContent||'');
+     const id=card.dataset.show||card.getAttribute('href')||'';
+     if((name&&seenName.has(name))||(id&&seenId.has(id))){
+       if(id)document.getElementById(id.replace(/^#/,'').trim())?.remove();
+       card.remove(); continue;
+     }
+     if(name)seenName.add(name); if(id)seenId.add(id); cards.push(card);
+   }
+   // remove every old culture heading/container, then rebuild exactly one section
+   headings.forEach(h=>h.remove());
+   [...root.querySelectorAll('.culture-section,.v54-culture-section')].forEach(x=>x.remove());
+   // cards were removed only if duplicates; surviving cards may now be detached if their old wrapper was removed.
+   const section=document.createElement('section'); section.className='culture-section v54-culture-section';
+   const h=document.createElement('h2'); h.id=code+'-culture'; h.className='v54-culture-heading'; h.textContent=cultureLabel; section.appendChild(h);
+   const grid=document.createElement('div'); grid.className='culture-grid v54-culture-grid'; section.appendChild(grid);
+   cards.forEach(c=>grid.appendChild(c));
+   // place before the next major category, or at the end of country main content
+   const food=root.querySelector('#food');
+   if(food) food.parentNode.insertBefore(section,food);
+   else root.querySelector('main')?.appendChild(section);
+   // Back links from culture details must return to this exact anchor.
+   const details=[...document.querySelectorAll('section.screen[id^="detail-"]')];
+   cards.forEach(card=>{
+     const did=(card.dataset.show||'').replace(/^#/,''); const d=document.getElementById(did); if(!d)return;
+     const back=d.querySelector('.back'); if(back){back.dataset.return=code+'-culture';back.dataset.show='country-'+code;back.href='#country-'+code;back.textContent='← '+(COUNTRY_NAMES_V18?.[code]||'이 나라')+'의 축제 / 문화로 돌아가기';}
+   });
+ }
+ async function commonsImage(title){
+   try{
+     const q=encodeURIComponent(title);
+     const u='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+q+'&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url|mime|size&iiurlwidth=640&format=json&origin=*';
+     const r=await fetch(u); if(!r.ok)return '';
+     const j=await r.json(); const pages=Object.values(j.query?.pages||{});
+     const p=pages.find(x=>x.imageinfo?.[0]?.mime?.startsWith('image/'));
+     return p?.imageinfo?.[0]?.thumburl||p?.imageinfo?.[0]?.url||'';
+   }catch(e){return ''}
+ }
+ async function wikiImage(title, country){
+   const qs=[title+' '+country,title];
+   for(const q of qs){
+     try{
+       const r=await fetch('https://ko.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(q)+'&gsrnamespace=0&gsrlimit=5&prop=pageimages&pithumbsize=640&format=json&origin=*');
+       if(!r.ok)continue; const j=await r.json(); const pages=Object.values(j.query?.pages||{});
+       const exact=pages.find(x=>norm(x.title)===norm(title)); const best=exact||pages[0];
+       if(best?.thumbnail?.source)return best.thumbnail.source;
+     }catch(e){}
+   }
+   return commonsImage(title);
+ }
+ async function fillPhotos(root){
+   const code=codeOf(root), country=COUNTRY_NAMES_V18?.[code]||'';
+   const cards=[...root.querySelectorAll('.item,.place-card,.culture-card')];
+   const jobs=[];
+   for(const card of cards){
+     const img=card.querySelector('img'); const title=(card.querySelector('b')?.textContent||card.querySelector('div')?.firstChild?.textContent||img?.alt||'').trim();
+     if(!img||!title||img.dataset.v54Bound)return;
+     img.dataset.v54Bound='1';
+     const load=async()=>{
+       if(img.dataset.v54PhotoTried)return;
+       if(img.complete&&img.naturalWidth>20)return;
+       img.dataset.v54PhotoTried='1';
+       const src=await wikiImage(title,country); if(!src)return;
+       img.src=src;img.classList.remove('photo-missing','missing-photo');
+       const did=(card.dataset.show||'').replace(/^#/,''); const d=document.getElementById(did);
+       const di=d?.querySelector('.detailphoto,.culture-detail-photo'); if(di){di.src=src;di.classList.remove('photo-missing','missing-photo');}
+     };
+     img.addEventListener('error',()=>load(),{once:true});
+     if(img.complete&&img.naturalWidth===0) jobs.push(load());
+   }
+   if(jobs.length) await Promise.allSettled(jobs);
+ }
+
+ function fixBackNow(){
+   document.querySelectorAll('section.screen[id^="detail-"] .back').forEach(back=>{
+     const code=(back.dataset.show||'').replace('country-','');
+     const ret=back.dataset.return||'';
+     if(ret.endsWith('-place')){back.dataset.return=code+'-places';}
+     // culture detail anchors are normalized from their heading/text
+     const txt=back.textContent||'';
+     if(/축제\s*\/\s*문화/.test(txt)){back.dataset.return=code+'-culture';back.href='#country-'+code;}
+   });
+ }
+ function boot(){
+   document.querySelectorAll('section.screen[id^="country-"]').forEach(root=>mergeCulture(root));
+   fixBackNow();
+   document.querySelectorAll('section.screen[id^="country-"]').forEach(root=>{fillPhotos(root).catch(()=>{})});
+ }
+ window.addEventListener('load',()=>setTimeout(boot,2200));
+ window.addEventListener('hashchange',()=>setTimeout(()=>{fixBackNow();const id=location.hash.slice(1);if(id.startsWith('country-')){const r=document.getElementById(id);if(r)fillPhotos(r).catch(()=>{})}},250));
+ // Re-run after custom registrations without creating duplicate sections.
+ window.v54Resync=boot;
+})();
+</script>
 </body></html>
 <style>
 .country-map-real{margin:18px 0 26px;padding:18px;border-radius:22px;background:#f7fbff;border:2px solid #dbeaf5}
