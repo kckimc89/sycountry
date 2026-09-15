@@ -282,21 +282,38 @@ function resizePhoto(file,max,quality){
     }; r.readAsDataURL(file);
   });
 }
+// 과일/음식/동물/장소 상세화면의 사진도 카드와 같은 키를 사용하도록 연결합니다.
+// 상세 화면에서는 사진 등록 버튼을 없앴지만, 카드에서 등록한 사진은 상세 설명에도 그대로 보여야 합니다.
+function linkDetailPhotos(){
+  document.querySelectorAll('section.screen[id^="detail-info-"] img.detailphoto').forEach(img=>{
+    const section=img.closest('section.screen');
+    if(section) img.dataset.photoKey=section.id;
+  });
+}
 function applyPhoto(key,data){
   document.querySelectorAll('[data-photo-key="'+CSS.escape(key)+'"]').forEach(el=>{
-    const card=el.closest('a,.detail-photo-wrap,section,.hero,.photo');
-    let img=card&&card.querySelector('img');
-    if(!img && el.previousElementSibling && el.previousElementSibling.tagName==='IMG') img=el.previousElementSibling;
+    let img=null;
+    if(el.tagName==='IMG') img=el;
+    else {
+      const card=el.closest('a,.detail-photo-wrap,section,.hero,.photo');
+      img=card&&card.querySelector('img');
+      if(!img && el.previousElementSibling && el.previousElementSibling.tagName==='IMG') img=el.previousElementSibling;
+    }
     if(img){img.src=data;img.classList.remove('photo-missing');}
   });
 }
 function restorePhotos(){
+  linkDetailPhotos();
   document.querySelectorAll('[data-photo-key]').forEach(el=>{
     const key=el.dataset.photoKey, data=localStorage.getItem(PHOTO_STORE+':'+key); if(!data)return;
-    const card=el.closest('a,.detail-photo-wrap,section,.hero,.photo');
-    let img=card&&card.querySelector('img');
-    if(!img && el.previousElementSibling && el.previousElementSibling.tagName==='IMG') img=el.previousElementSibling;
-    if(img) img.src=data;
+    let img=null;
+    if(el.tagName==='IMG') img=el;
+    else {
+      const card=el.closest('a,.detail-photo-wrap,section,.hero,.photo');
+      img=card&&card.querySelector('img');
+      if(!img && el.previousElementSibling && el.previousElementSibling.tagName==='IMG') img=el.previousElementSibling;
+    }
+    if(img){img.src=data;img.classList.remove('photo-missing');}
   });
 }
 restorePhotos();
