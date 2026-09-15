@@ -2206,7 +2206,118 @@ section.screen[id^="country-"] .facts{display:none !important;}
   fixExistingDeleteRecords();wireVerify();fixCultureBacks();
   window.v59Repair={readHidden,strongAlready,fixCultureBacks};
 })();
-</script></body></html>
+</script><script id="v60-definitive-fix">
+(function(){
+  /* v60: 문화 제목/돌아가기와 기본항목 삭제→재등록을 마지막 규칙으로 확정 */
+  const HIDDEN='worldCountryHiddenDefaultsV22', CUSTOM='worldCountryCustomItemsV18';
+  const names=window.COUNTRY_NAMES_V18||{};
+  const nn=s=>String(s||'').toLowerCase().replace(/\s+/g,'').replace(/[·•.,!?()[\]{}'"“”‘’`~!@#$%^&*_=+\-]/g,'');
+  const CAT={places:'🏛️ 유명한 장소',food:'🍜 음식',fruit:'🍎 과일',animal:'🐘 자연·동물',culture:'🎉 유명한 축제 / 문화'};
+  function cname(code){return names[code]||code}
+  function hiddenRaw(code){try{return JSON.parse(localStorage.getItem(HIDDEN+':'+code)||'[]')}catch(e){return []}}
+  function saveHidden(code,a){try{localStorage.setItem(HIDDEN+':'+code,JSON.stringify(a))}catch(e){}}
+  function getCustom(code){try{const a=JSON.parse(localStorage.getItem(CUSTOM+':'+code)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
+  function hasCustom(code,cat,name){return getCustom(code).some(x=>x&&x.cat===cat&&nn(x.name)===nn(name))}
+  function wasDeletedDefault(code,cat,name){
+    const raw=hiddenRaw(code);
+    if(Array.isArray(raw)&&raw.some(x=>x&&x.cat===cat&&x.name&&nn(x.name)===nn(name)))return true;
+    return false;
+  }
+  /* 핵심: 삭제된 기본항목은 '이미 등록'으로 절대 판정하지 않습니다.
+     사용자가 검색 결과에서 다시 추가할 때 삭제 기록을 지우지 않아도 됩니다. */
+  window.isAlreadyRegistered=function(code,cat,name){
+    const target=nn(name); if(!target)return false;
+    if(wasDeletedDefault(code,cat,name))return hasCustom(code,cat,name);
+    if(hasCustom(code,cat,name))return true;
+    const cs=document.getElementById('country-'+code); if(!cs)return false;
+    let found=false;
+    cs.querySelectorAll('.default-delete-btn').forEach(btn=>{
+      if(found||btn.dataset.cat!==cat)return;
+      const card=btn.closest('a');if(!card)return;
+      if(card.classList.contains('default-hidden')||card.style.display==='none'||card.classList.contains('custom-added'))return;
+      const nm=card.dataset.defaultOriginName||card.querySelector('b')?.textContent?.trim()||card.querySelector('img')?.alt||'';
+      if(wasDeletedDefault(code,cat,nm))return;
+      if(nn(nm)===target)found=true;
+    });
+    return found;
+  };
+  /* 기존 confirm 함수가 먼저 삭제기록을 지워서 기본 카드와 다시 충돌하던 문제를 제거.
+     삭제기록은 유지하고, 재등록된 항목은 사용자 등록 항목으로 저장합니다. */
+  const oldConfirm=window.confirmCustomPreview;
+  window.confirmCustomPreview=function(code,box,item){
+    const status=box?.querySelector('.custom-status'),input=box?.querySelector('.custom-name');
+    if(!item||!item.cat||!item.name)return;
+    if(hasCustom(code,item.cat,item.name)){
+      if(status)status.innerHTML='<div class="verify-card"><span class="verify-warn">이미 같은 항목이 등록되어 있어요.</span></div>';
+      return;
+    }
+    /* 삭제된 기본항목은 그대로 숨김 상태로 두고, 동일 이름의 사용자 등록 항목을 새로 만듭니다. */
+    const items=getCustom(code); if(items.some(x=>x&&x.cat===item.cat&&nn(x.name)===nn(item.name)))return;
+    if(!item.uid)item.uid='u'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+    items.push(item);
+    try{localStorage.setItem(CUSTOM+':'+code,JSON.stringify(items))}catch(e){
+      if(status)status.innerHTML='<span class="verify-warn">저장공간이 부족해 추가하지 못했어요.</span>';return;
+    }
+    if(typeof window.addCustomCardToDOM==='function')window.addCustomCardToDOM(code,item);
+    if(typeof window.restorePhotos==='function')window.restorePhotos();
+    if(status)status.innerHTML='<div class="verify-card"><span class="verify-ok">✓ '+escapeHtml(item.name)+'을(를) 추가했어요!</span><br><span class="verify-info">삭제했던 기본항목을 다시 등록했습니다.</span></div>';
+    if(input)input.value='';
+  };
+  function cultureCards(cs){
+    const out=[],seen=new Set(),details=new Set();
+    cs.querySelectorAll('.culture-card').forEach(card=>{
+      const name=(card.querySelector('b')?.textContent||card.querySelector('img')?.alt||'').replace(/📷.*$/,'').trim();
+      const k=nn(name),d=card.dataset.show||card.getAttribute('href')||'';
+      if(!name||seen.has(k)||(d&&details.has(d)))return;
+      seen.add(k);if(d)details.add(d);out.push(card);
+    });
+    return out;
+  }
+  function ensureCulture(cs){
+    const code=cs.id.replace('country-',''),main=cs.querySelector('main.wrap,main');if(!main)return;
+    let cards=cultureCards(cs);
+    /* 제목은 반드시 하나만 남긴다. */
+    main.querySelectorAll('h2').forEach(h=>{if(/유명한 축제\s*\/\s*문화/.test(h.textContent||''))h.remove()});
+    main.querySelectorAll('.culture-section').forEach(sec=>sec.remove());
+    if(!cards.length)return null;
+    const h=document.createElement('h2');h.id='country-'+code+'-culture-final';h.dataset.category='culture';h.textContent='🎉 유명한 축제 / 문화';
+    const sec=document.createElement('section');sec.className='culture-section';sec.dataset.category='culture';
+    const grid=document.createElement('div');grid.className='culture-grid';cards.forEach(c=>grid.appendChild(c));sec.appendChild(grid);
+    const ah=[...main.querySelectorAll('h2')].find(x=>/자연·동물/.test(x.textContent||''));
+    if(ah&&ah.parentElement)ah.insertAdjacentElement('afterend',h);else main.appendChild(h);
+    h.insertAdjacentElement('afterend',sec);
+    return sec;
+  }
+  function placeAdd(cs,sec){
+    const boxes=[...cs.querySelectorAll('.custom-add-box')];if(!boxes.length)return;
+    const box=boxes[0];boxes.slice(1).forEach(x=>x.remove());
+    if(sec)sec.insertAdjacentElement('afterend',box);else cs.querySelector('main')?.appendChild(box);
+  }
+  function fixBacks(cs){
+    const code=cs.id.replace('country-',''),country=cname(code);
+    cs.querySelectorAll('.culture-card').forEach(card=>{
+      const did=card.dataset.show||card.getAttribute('href')?.replace(/^#/,'');const d=did&&document.getElementById(did);if(!d)return;
+      const back=d.querySelector('.back');if(back){back.dataset.show='country-'+code;back.dataset.return='country-'+code+'-culture-final';back.href='#country-'+code;back.textContent='← '+country+'의 축제 / 문화로 돌아가기';}
+    });
+    document.querySelectorAll('section.screen[id^="detail-"] .back').forEach(back=>{
+      if(back.dataset.show==='country-'+code&&/축제\s*\/\s*문화/.test(back.textContent||'')){
+        back.dataset.return='country-'+code+'-culture-final';back.textContent='← '+country+'의 축제 / 문화로 돌아가기';
+      }
+    });
+  }
+  function boot(){
+    document.querySelectorAll('section.screen[id^="country-"]').forEach(cs=>{const sec=ensureCulture(cs);placeAdd(cs,sec);fixBacks(cs)});
+  }
+  /* 다른 레거시 보정 코드보다 늦게 실행하고, 화면을 열 때도 최종 확정 */
+  setTimeout(boot,18000);
+  let n=0;const t=setInterval(()=>{boot();if(++n>=10)clearInterval(t)},1200);
+  window.addEventListener('hashchange',()=>setTimeout(()=>{
+    const id=location.hash.slice(1),cs=id.startsWith('country-')?document.getElementById(id):null;if(cs)boot();
+  },150));
+  window.v60Definitive={boot,wasDeletedDefault};
+})();
+</script>
+</body></html>
 <style>
 .country-map-real{margin:18px 0 26px;padding:18px;border-radius:22px;background:#f7fbff;border:2px solid #dbeaf5}
 .country-map-real .map-title{font-size:1.35rem;font-weight:800;margin-bottom:12px}
