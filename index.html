@@ -1,98 +1,153 @@
 <!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>세계 나라 백과사전</title>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ea">
+<title>세계 나라 백과사전 · 대한민국</title>
 <style>
-:root{--ink:#243247;--muted:#687386;--line:#e4e8ee;--bg:#f6f7f9;--card:#fff;--blue:#315f9e}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;line-height:1.75}
-header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:12px 16px}.head,main{max-width:1050px;margin:auto}.head{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:900;font-size:20px}.small{font-size:12px;color:var(--muted)}
-button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 13px;cursor:pointer}
-main{padding:20px 16px 60px}.hero{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;margin-bottom:16px}.hero h1{font-size:36px;line-height:1.25;margin:4px 0}.hero p{color:#596678}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.country{padding:18px;text-align:left;font-weight:800}.flag{font-size:32px;display:block;margin-bottom:4px}
-.page{display:none}.page.active{display:block}.back{margin-bottom:12px}.section{background:var(--card);border:1px solid var(--line);border-radius:20px;margin:14px 0;padding:22px}.section h2{margin:0 0 12px;font-size:25px}.section h3{margin:20px 0 5px;font-size:19px}.lead{font-size:17px}.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.fact{background:#f7f9fb;border-radius:12px;padding:11px}.fact b{display:block;color:var(--muted);font-size:12px}.fact span{font-weight:800}
-.flagbox{text-align:center;background:#fafafa;border:1px solid var(--line);border-radius:16px;padding:18px}.flagbox img{max-width:100%;width:420px;max-height:240px;object-fit:contain}.caption{font-size:12px;color:var(--muted)}
-.mapwrap{background:#eef6fb;border-radius:16px;padding:10px}.mapwrap img{width:100%;max-height:400px;object-fit:contain;display:block}.note{background:#f5f8fc;border-left:4px solid var(--blue);padding:12px 15px;margin-top:12px}.timeline{display:flex;gap:0;flex-wrap:wrap}.time{padding:10px 14px;background:#f5f7fa;border-right:1px solid #fff}.time b{display:block}.photo-tools{display:flex;gap:8px;flex-wrap:wrap}.upload{padding:12px;border:1px dashed #b9c2cf;border-radius:12px}.userphotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.userphotos img{width:100%;height:140px;object-fit:cover;border-radius:12px}
-@media(max-width:650px){.hero h1{font-size:29px}.facts{grid-template-columns:1fr}.section{padding:17px}}
-</style>
-</head>
+*{box-sizing:border-box}body{margin:0;background:#f7f3ea;color:#263238;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;line-height:1.72}
+header{position:sticky;top:0;z-index:5;background:#fffaf2ee;backdrop-filter:blur(10px);border-bottom:1px solid #ddd3c5;padding:14px 18px}
+h1{margin:0;font-size:25px}header p{margin:3px 0 0;color:#6d6257;font-size:14px}.wrap{max-width:980px;margin:auto;padding:18px}
+nav{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}nav a{white-space:nowrap;text-decoration:none;color:#31444d;background:#fff;border:1px solid #ddd3c5;border-radius:999px;padding:7px 11px;font-size:13px}
+section{background:#fff;border:1px solid #e1d8cd;border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 2px 9px #00000008}
+h2{font-size:21px;margin:0 0 12px;color:#263d46}h3{font-size:17px;margin:18px 0 5px;color:#394f58}
+.lead{font-size:16px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.fact{background:#faf7f1;border-radius:12px;padding:11px 13px}.label{font-size:12px;color:#7b7065}.value{font-size:16px;font-weight:600}
+.map{background:#eef5f5;border-radius:14px;padding:15px;text-align:center}.map svg{max-width:100%;height:300px}
+.flag{display:flex;justify-content:center;background:#fafafa;border-radius:14px;padding:18px}.flag img{width:min(440px,100%);border:1px solid #ddd}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid #e5ddd2;border-radius:14px;padding:14px;background:#fffdf9}.card h3{margin:0 0 5px}.tag{display:inline-block;background:#eef3f4;border-radius:999px;padding:2px 8px;font-size:12px;margin-bottom:7px}
+button{border:0;border-radius:9px;padding:7px 10px;background:#edf1f2;color:#29414a;font-weight:600;cursor:pointer}.myphotos{margin-top:9px;border-top:1px dashed #ddd3c5;padding-top:9px}.mine{background:#fff7d6;border-radius:10px;padding:9px;margin-top:8px}.mine strong{display:block;font-size:13px;color:#795b00}
+.timeline{border-left:3px solid #d7c9b7;padding-left:16px}.event{margin:12px 0}.year{font-weight:800;color:#72543a}
+footer{color:#776d63;font-size:12px;padding:12px 4px 35px}
+@media(max-width:650px){.grid,.cards{grid-template-columns:1fr}.wrap{padding:10px}section{padding:16px}.map svg{height:240px}}
+</style></head>
 <body>
-<header><div class="head"><div><div class="brand">🌏 세계 나라 백과사전</div><div class="small">초등학교 3학년 · 설명 중심</div></div><button onclick="home()">나라 목록</button></div></header>
-<main>
-<div id="home" class="page active">
-<div class="hero"><div class="small">새로운 설계</div><h1>사진보다 먼저,<br>나라를 제대로 알아봐요.</h1><p>정확한 설명을 중심으로 지도·국기·필요한 사진만 곁들이는 나라 백과사전입니다.</p></div>
-<div class="section"><h2>나라를 골라보세요</h2><div class="grid">
-<button class="country" onclick="openCountry()"><span class="flag">🇰🇷</span>대한민국<br><span class="small">첫 번째 완성 국가</span></button>
-<button class="country" disabled><span class="flag">🇯🇵</span>일본<br><span class="small">준비 중</span></button>
-<button class="country" disabled><span class="flag">🇨🇳</span>중국<br><span class="small">준비 중</span></button>
-<button class="country" disabled><span class="flag">🇺🇸</span>미국<br><span class="small">준비 중</span></button>
-</div></div>
-</div>
+<header><div class="wrap"><h1>🌏 세계 나라 백과사전</h1><p>대한민국 · 설명을 읽으며 나라를 알아보아요</p></div></header>
+<div class="wrap">
+<nav>
+<a href="#basic">기본정보</a><a href="#map">실제 지도</a><a href="#flag">국기</a><a href="#capital">수도</a><a href="#nature">자연과 기후</a><a href="#language">언어와 문자</a><a href="#food">음식</a><a href="#life">동식물</a><a href="#places">전국의 명소</a><a href="#culture">대표 문화</a><a href="#history">역사</a>
+</nav>
 
-<div id="kr" class="page">
-<button class="back" onclick="home()">← 나라 목록</button>
-<div class="hero"><div class="small">대한민국 · 한눈에 보기</div><h1>🇰🇷 대한민국</h1><p>대한민국은 한반도 남쪽에 있는 나라입니다. 이 백과사전에서는 나라의 위치와 수도, 국기, 자연, 사람들의 생활, 문화와 주요 장소를 차례로 알아봅니다.</p></div>
+<section id="basic"><h2>1. 기본정보</h2><p class="lead">대한민국은 동아시아의 한반도 남쪽에 있는 나라입니다. 동쪽·남쪽·서쪽은 바다와 맞닿아 있고, 북쪽으로는 북한과 이어져 있습니다.</p>
+<div class="grid">
+<div class="fact"><div class="label">나라 이름</div><div class="value">대한민국 (Republic of Korea)</div></div>
+<div class="fact"><div class="label">수도</div><div class="value">서울특별시</div></div>
+<div class="fact"><div class="label">언어</div><div class="value">한국어</div></div>
+<div class="fact"><div class="label">문자</div><div class="value">한글</div></div>
+<div class="fact"><div class="label">화폐</div><div class="value">대한민국 원(₩)</div></div>
+<div class="fact"><div class="label">지역</div><div class="value">동아시아 · 한반도 남쪽</div></div>
+</div></section>
 
-<div class="section"><h2>1. 대한민국 기본 정보</h2><div class="facts">
-<div class="fact"><b>정식 국호</b><span>대한민국</span></div><div class="fact"><b>수도</b><span>서울</span></div>
-<div class="fact"><b>언어</b><span>한국어</span></div><div class="fact"><b>문자</b><span>한글</span></div>
-<div class="fact"><b>화폐</b><span>대한민국 원(₩)</span></div><div class="fact"><b>국기</b><span>태극기</span></div>
-<div class="fact"><b>국화</b><span>무궁화</span></div><div class="fact"><b>위치</b><span>동아시아</span></div>
-</div></div>
+<section id="map"><h2>2. 실제 지도</h2><p>대한민국의 위치를 주변 바다와 함께 살펴보세요. 동쪽은 동해, 서쪽은 서해, 남쪽은 남해와 이어집니다.</p>
+<div class="map"><svg viewBox="0 0 700 390" role="img" aria-label="대한민국 위치를 보여주는 간단한 지도">
+<rect width="700" height="390" rx="18" fill="#dfeff2"/><path d="M250 35 C305 55 340 82 358 120 C375 155 400 190 392 225 C382 262 350 288 327 330 L265 347 C235 315 220 285 214 250 C207 213 221 183 206 147 C194 116 210 72 250 35Z" fill="#cfe0c5" stroke="#6d7f63" stroke-width="4"/>
+<path d="M265 347 C300 330 320 325 345 338 C363 348 370 365 354 377 C330 389 296 381 265 347Z" fill="#cfe0c5" stroke="#6d7f63" stroke-width="3"/>
+<text x="80" y="195" font-size="22" fill="#53747b">서해</text><text x="470" y="180" font-size="22" fill="#53747b">동해</text><text x="305" y="365" font-size="20" fill="#53747b">남해</text>
+<text x="245" y="190" font-size="22" font-weight="700">대한민국</text><text x="500" y="330" font-size="17" fill="#687b83">일본</text><text x="90" y="70" font-size="17" fill="#687b83">중국</text><text x="275" y="18" font-size="17" fill="#687b83">북한</text>
+<circle cx="278" cy="174" r="7" fill="#9b5a4a"/><text x="292" y="170" font-size="16">서울</text></svg></div>
+<p class="label">실제 지형과 국경의 세부 표현은 국토교통부 국토지리정보원 「대한민국 국가지도집」을 참고할 수 있습니다.</p></section>
 
-<div class="section"><h2>2. 대한민국의 실제 지도</h2>
-<p class="lead">대한민국의 위치를 지도에서 살펴보세요. 나라의 모양뿐 아니라 주변의 바다와 중국·일본 등 가까운 지역과의 위치 관계를 이해하는 것이 중요합니다.</p>
-<div class="mapwrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/South_Korea_map.png/800px-South_Korea_map.png" alt="대한민국 지도" onerror="this.style.display='none'"><div class="caption">지도 자료는 실제 지도를 우선 사용하며, 최종판에서는 공식 지도 자료를 우선 검증합니다.</div></div>
-<h3>어디에 있을까요?</h3><p>대한민국은 동아시아에 있습니다. 한반도 남쪽에 자리하고 있으며 서쪽은 황해, 동쪽은 동해, 남쪽은 대한해협과 남해에 접해 있습니다.</p>
-</div>
+<section id="flag"><h2>3. 국기 · 태극기</h2>
+<div class="flag"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Korea.svg" alt="대한민국 태극기"></div>
+<p><b>태극기</b>는 흰 바탕 가운데 태극 문양이 있고, 네 모서리에 네 개의 괘가 있습니다.</p>
+<div class="grid"><div class="fact"><div class="label">흰 바탕</div><div class="value">밝음·순수·평화를 나타냅니다.</div></div><div class="fact"><div class="label">태극</div><div class="value">음과 양이 어울리는 조화를 나타냅니다.</div></div><div class="fact"><div class="label">네 괘</div><div class="value">건·곤·감·리로 하늘·땅·물·불을 상징합니다.</div></div><div class="fact"><div class="label">역사</div><div class="value">1883년 국기로 공식 사용되기 시작했습니다.</div></div></div></section>
 
-<div class="section"><h2>3. 🇰🇷 국기 ― 태극기</h2>
-<div class="flagbox"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/640px-Flag_of_South_Korea.svg.png" alt="대한민국 태극기"><div class="caption">태극기 전체 모습 · 최종판에서는 공식 규격 자료를 기준으로 표시</div></div>
-<h3>태극기에는 무엇이 그려져 있을까요?</h3>
-<p>흰 바탕 가운데에는 빨강과 파랑으로 이루어진 태극 문양이 있고, 네 모서리에는 네 개의 괘가 있습니다. 대한민국 공식 소개 자료는 흰색 바탕을 밝음·순수·평화의 의미로 설명하고, 가운데 태극은 음과 양의 조화를 나타내며 네 괘는 하늘·땅·물·불을 상징한다고 설명합니다. citeturn0search0</p>
-<h3>언제부터 사용했을까요?</h3>
-<p>태극기는 1883년 공식적으로 사용되기 시작했습니다. 다만 초기에는 모양과 규격이 여러 가지였고, 이후 규격이 정비되었습니다. 국사편찬위원회 자료도 1883년 1월부터 공식적으로 태극기가 사용되었다고 설명합니다. citeturn0search5turn0search7</p>
-<div class="note"><b>알아두면 좋은 점</b><br>국기는 단순한 그림이 아니라 그 나라의 역사와 생각을 담은 국가 상징입니다. 그래서 국기의 모양과 의미를 함께 알아보는 것이 좋습니다.</div>
-</div>
+<section id="capital"><h2>4. 수도 서울</h2>
+<p class="lead">서울은 한강을 중심으로 발전한 대한민국의 수도입니다. 조선 시대부터 오랫동안 나라의 중심 도시였으며, 오늘날에는 정치·경제·문화 활동이 모이는 큰 도시입니다.</p>
+<div class="grid"><div class="fact"><div class="label">위치</div><div class="value">한반도 중서부, 한강 주변</div></div><div class="fact"><div class="label">면적</div><div class="value">약 605 km²</div></div><div class="fact"><div class="label">인구</div><div class="value">약 958만 명 수준(2026년 1분기 기준)</div></div><div class="fact"><div class="label">대표 산</div><div class="value">북한산·도봉산·관악산·인왕산</div></div></div>
+<h3>문화유산</h3><p>경복궁·창덕궁·종묘·한양도성 등 조선 시대의 역사와 관련된 유산을 만날 수 있습니다.</p>
+<h3>볼거리</h3><p>남산서울타워, 국립중앙박물관, 한강공원 등 역사와 현대 생활을 함께 볼 수 있는 곳이 많습니다.</p>
+<h3>산과 강</h3><p>북한산과 관악산 등이 도시 주변에 있고, 한강이 서울을 동서로 가로지릅니다.</p></section>
 
-<div class="section"><h2>4. 🏙️ 수도 서울</h2>
-<p class="lead">서울은 대한민국의 수도입니다. 단순히 '수도'라고 외우는 것보다 서울이 어떤 도시인지 살펴보면 대한민국을 더 잘 이해할 수 있습니다.</p>
-<h3>서울에는 얼마나 많은 사람이 살까요?</h3>
-<p>서울시가 공개한 2026년 1분기 기준 자료에서 서울 인구는 <b>9,579,449명</b>입니다. 인구는 계속 변하므로 백과사전에는 반드시 기준 시점을 함께 표시하도록 합니다. citeturn0search11</p>
-<h3>서울의 면적은 얼마나 될까요?</h3>
-<p>서울특별시의 행정구역 면적과 인구는 공식 통계에서 확인할 수 있습니다. 최종판에서는 서울시 최신 통계를 기준으로 면적과 인구를 함께 표시하고, 인구 숫자에는 기준일을 붙입니다.</p>
-<h3>서울은 세계에서 얼마나 큰 도시일까요?</h3>
-<p>도시의 '크기'는 행정구역인지, 도시권인지에 따라 달라집니다. 따라서 단순한 세계 순위 하나를 넣지 않고, 같은 기준으로 비교한 국제자료가 있을 때만 비교합니다. 이것은 어린이가 도시의 규모를 정확하게 이해하도록 하기 위한 원칙입니다.</p>
-<h3>서울에서 볼 만한 곳</h3>
-<p><b>경복궁 · 창덕궁 · 종묘 · 숭례문 · 북촌한옥마을 · 한강 · 북한산 · 남산 · N서울타워 · 롯데월드타워</b> 등 역사·문화·자연·현대 도시의 모습을 함께 볼 수 있습니다.</p>
-</div>
+<section id="nature"><h2>5. 자연과 기후</h2>
+<p>대한민국은 산지가 많은 나라입니다. 계절의 변화가 뚜렷하며 봄·여름·가을·겨울의 모습이 서로 다릅니다.</p>
+<div class="cards"><div class="card"><h3>산</h3><p>태백산맥을 비롯한 산지가 동쪽에 많이 모여 있습니다. 한라산은 제주도에 있는 우리나라의 대표적인 화산입니다.</p></div><div class="card"><h3>강</h3><p>한강·낙동강·금강·영산강 등 큰 강이 흐릅니다. 강은 사람들의 생활과 농업에도 중요한 역할을 합니다.</p></div><div class="card"><h3>바다</h3><p>삼면이 바다로 둘러싸여 있어 섬과 갯벌, 해안 경관이 발달했습니다.</p></div><div class="card"><h3>계절</h3><p>여름은 덥고 비가 많은 편이며, 겨울은 차갑고 건조한 편입니다. 지역에 따라 날씨가 다릅니다.</p></div></div></section>
 
-<div class="section"><h2>5. 🏯 경복궁</h2>
-<p class="lead">경복궁은 서울에 있는 조선 왕실의 궁궐입니다. 건물 하나만 보는 것이 아니라 언제 만들어졌고, 누가 사용했으며, 어떤 공간으로 이루어졌는지를 함께 알아봅니다.</p>
-<h3>언제 만들어졌을까요?</h3>
-<p>경복궁은 조선이 세워진 뒤 한양에 새 궁궐을 만들면서 <b>1395년</b>에 처음 지어졌습니다. 국가유산포털은 경복궁의 건립 시기를 태조 4년(1395)으로 기록하고 있습니다. citeturn0search0</p>
-<p>2026년을 기준으로 처음 건립된 해로부터 계산하면 <b>631년</b>이 됩니다. 하지만 지금의 건물들이 631년 동안 그대로 남아 있는 것은 아닙니다.</p>
-<h3>임진왜란 때 무슨 일이 있었을까요?</h3>
-<p>경복궁은 1592년 임진왜란 때 불탔고, 오랫동안 복구되지 못했습니다. 이후 고종 때인 <b>1867년</b>에 크게 다시 지어졌습니다. 따라서 '1395년에 만들어진 궁궐'과 '현재 볼 수 있는 주요 건물 가운데 19세기에 다시 지어진 것'을 구분해서 이해해야 합니다.</p>
-<h3>누가 살고 무엇을 했을까요?</h3>
-<p>경복궁은 조선 왕실의 궁궐이었습니다. 왕이 나라의 중요한 일을 처리하는 공간이 있었고, 왕실 가족이 생활하는 공간과 휴식을 위한 공간도 있었습니다. 국가유산포털은 궁궐이 정무 시설과 왕족의 생활 공간, 휴식 공간 등으로 이루어졌다고 설명합니다.</p>
-<h3>건축의 특징은 무엇일까요?</h3>
-<p>경복궁은 북악산을 배경으로 자리 잡았고, 광화문에서 궁궐 안쪽으로 들어가면서 중요한 건물들이 배치되어 있습니다. 근정전은 국가의 중요한 의식이 열리던 중심 건물이고, 경회루는 연못과 함께 조성된 건물로 잘 알려져 있습니다.</p>
-<div class="timeline"><div class="time"><b>1395</b>처음 건립</div><div class="time"><b>1592</b>임진왜란으로 소실</div><div class="time"><b>1867</b>중건</div><div class="time"><b>현재</b>복원·정비</div></div>
-</div>
+<section id="language"><h2>6. 언어와 문자</h2>
+<p>대한민국의 주된 언어는 <b>한국어</b>이고, 글을 쓸 때는 <b>한글</b>을 사용합니다. 한글은 소리의 원리를 생각하여 만든 문자로, 자음과 모음을 조합해 글자를 만듭니다.</p>
+<div class="grid"><div class="fact"><div class="label">안녕하세요</div><div class="value">안녕하세요 (Annyeonghaseyo)</div></div><div class="fact"><div class="label">고맙습니다</div><div class="value">고맙습니다 (Gomapseumnida)</div></div></div></section>
 
-<div class="section"><h2>6. 사진은 필요한 만큼만</h2>
-<p>이 백과사전에서는 사진의 개수를 늘리는 것이 목표가 아닙니다. <b>내용을 정확하게 보여주는 사진만</b> 기본 자료로 사용합니다.</p>
-<p>예를 들어 경복궁에서는 대표 사진 1장과 근정전·경회루처럼 설명에 꼭 필요한 사진 정도만 사용합니다.</p>
-<div class="upload"><b>📷 내가 찾은 사진</b><br><span class="small">아이 또는 부모가 직접 찾은 정확한 사진을 추가할 수 있는 공간입니다.</span><br><br><input id="photo" type="file" accept="image/*" multiple onchange="addPhotos(event)"></div>
-<div id="userphotos" class="userphotos"></div>
+<section id="food"><h2>7. 음식</h2><p>한국 음식은 밥·국·김치·나물 등을 함께 먹는 식문화가 발달했습니다. 지역과 계절에 따라 다양한 음식이 있습니다.</p>
+<div class="cards" id="foodCards"></div></section>
+<section id="life"><h2>8. 동식물</h2><p>산·숲·강·갯벌·바다 등 여러 환경이 있어 다양한 동식물이 살아갑니다.</p><div class="cards" id="lifeCards"></div></section>
+<section id="places"><h2>9. 전국의 명소</h2><p>역사 유산부터 산·바다·갯벌까지 전국에서 다양한 장소를 만날 수 있습니다.</p><div class="cards" id="placeCards"></div></section>
+<section id="culture"><h2>10. 대표 문화</h2><p>한국의 전통문화와 현대문화가 함께 발전하고 있습니다.</p><div class="cards" id="cultureCards"></div></section>
+
+<section id="history"><h2>11. 한눈에 보는 대한민국 역사</h2><div class="timeline">
+<div class="event"><span class="year">1392년</span> 조선이 세워졌습니다.</div>
+<div class="event"><span class="year">1395년</span> 경복궁이 처음 지어졌습니다.</div>
+<div class="event"><span class="year">1443년</span> 훈민정음이 완성되었습니다.</div>
+<div class="event"><span class="year">1446년</span> 훈민정음이 세상에 널리 반포되었습니다.</div>
+<div class="event"><span class="year">1919년</span> 3·1운동이 일어났고 대한민국 임시정부가 활동했습니다.</div>
+<div class="event"><span class="year">1945년</span> 광복을 맞았습니다.</div>
+<div class="event"><span class="year">1948년</span> 대한민국 정부가 수립되었습니다.</div>
+<div class="event"><span class="year">1950~1953년</span> 한국전쟁이 일어났습니다.</div>
+<div class="event"><span class="year">오늘</span> 전통문화와 현대문화가 함께 이어지고 있습니다.</div>
+</div></section>
+
+<footer>내용을 확인할 때는 국토교통부 국토지리정보원 국가지도집, 국가유산 관련 공식 자료, Korea.net 등의 자료를 우선 참고했습니다.</footer>
 </div>
-</div>
-</main>
 <script>
-function home(){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('home').classList.add('active');scrollTo(0,0)}
-function openCountry(){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById('kr').classList.add('active');scrollTo(0,0)}
-function addPhotos(e){const box=document.getElementById('userphotos');[...e.target.files].forEach(f=>{const r=new FileReader();r.onload=()=>{const img=document.createElement('img');img.src=r.result;box.appendChild(img)};r.readAsDataURL(f)})}
+const groups={
+food:[
+["김치","배추·무 등에 양념을 넣어 발효시킨 음식입니다.","발효 음식"],
+["비빔밥","밥에 여러 나물과 재료를 넣고 양념과 함께 비벼 먹습니다.","밥 음식"],
+["불고기","얇게 썬 고기를 양념해 구워 먹는 음식입니다.","고기 음식"],
+["냉면","차갑게 식힌 면을 국물이나 양념과 함께 먹는 음식입니다.","면 음식"],
+["떡","쌀 등을 쪄서 여러 모양으로 만든 전통 음식입니다.","전통 음식"],
+["잡채","당면과 여러 채소, 고기 등을 볶아 만든 음식입니다.","잔치 음식"],
+["호떡","반죽 안에 달콤한 소를 넣어 구운 간식입니다.","간식"],
+["고추장","고추와 곡물 등을 발효시켜 만든 매운 양념입니다.","양념"]
+],
+life:[
+["호랑이","예전에는 한반도 여러 지역에 살았던 큰 고양잇과 동물입니다. 현재 야생 개체는 우리나라에서 볼 수 없습니다.","동물"],
+["반달가슴곰","가슴에 반달 모양의 흰 무늬가 있는 곰입니다. 지리산에서 복원 사업이 진행되고 있습니다.","동물"],
+["두루미","긴 다리와 목을 가진 새로, 습지와 논 주변에서 관찰됩니다.","새"],
+["수달","물가에서 생활하는 포유류로 우리나라의 하천과 해안에 분포합니다.","동물"],
+["무궁화","대한민국을 상징하는 꽃으로 알려져 있으며 여름부터 가을까지 꽃을 피웁니다.","식물"],
+["소나무","우리나라 산과 들에서 흔히 볼 수 있는 대표적인 나무입니다.","식물"],
+["벼","논에서 기르는 곡식으로 쌀을 얻습니다.","식물"],
+["제주 식물","제주도는 한라산의 높이에 따라 다양한 식물이 나타납니다.","식물"]
+],
+places:[
+["경복궁","조선 왕조의 법궁으로 1395년에 처음 지어졌습니다.","서울"],
+["창덕궁","자연 지형을 살려 지은 궁궐로 후원으로도 유명합니다.","서울 · 세계유산"],
+["불국사","신라 시대 불교 문화를 보여주는 대표적인 사찰입니다.","경주 · 세계유산"],
+["석굴암","신라 시대에 만들어진 석굴 사원으로 본존불이 유명합니다.","경주 · 세계유산"],
+["한라산","제주도 중앙에 있는 화산으로 제주 화산섬의 중요한 자연유산입니다.","제주"],
+["성산일출봉","바다에서 솟아오른 화산 지형으로 일출 명소로 알려져 있습니다.","제주"],
+["순천만","넓은 갯벌과 갈대밭이 있는 대표적인 습지 경관입니다.","전남"],
+["설악산","기암괴석과 계곡, 숲이 아름다운 산악 경관으로 유명합니다.","강원"],
+["해운대","부산의 대표적인 해변 관광지입니다.","부산"],
+["고창·화순·강화 고인돌 유적","청동기 시대의 고인돌이 여러 지역에 모여 있는 세계유산입니다.","전북·전남·인천 · 세계유산"],
+["수원화성","조선 정조 때 축성된 성곽으로 군사 시설과 도시 계획을 함께 보여줍니다.","경기 · 세계유산"],
+["하회마을","전통 한옥과 마을 모습이 잘 남아 있는 역사마을입니다.","경북 · 세계유산"],
+["해인사 장경판전","팔만대장경 목판을 보관하는 건물로 전통적인 보존 기술을 보여줍니다.","경남 · 세계유산"]
+],
+culture:[
+["한복","한국의 전통 옷입니다. 저고리와 치마 또는 바지 등을 조화롭게 입습니다.","전통 의생활"],
+["설날","새해를 맞는 명절로 차례와 세배, 떡국 등의 풍습이 있습니다.","명절"],
+["추석","가을 수확철과 관련된 큰 명절로 가족이 모여 송편 등을 먹습니다.","명절"],
+["윷놀이","윷가락 네 개를 던져 말을 움직이는 전통 놀이입니다.","놀이"],
+["판소리","한 명의 소리꾼과 고수가 함께 긴 이야기를 노래와 말로 표현하는 공연 예술입니다.","전통예술"],
+["강강술래","여러 사람이 손을 잡고 원을 만들며 노래하고 춤추는 전통 놀이입니다.","전통예술"],
+["한옥","나무·흙·기와 등을 이용해 지은 전통적인 한국의 집입니다.","건축"],
+["K-pop","한국의 대중음악으로 여러 나라에서 널리 즐기고 있습니다.","현대문화"],
+["한국 영화와 드라마","한국의 영화와 드라마는 다양한 장르의 작품으로 세계 여러 지역에서 소개되고 있습니다.","현대문화"]
+]};
+function makeCards(id,arr,key){
+ const el=document.getElementById(id);
+ el.innerHTML=arr.map((x,i)=>`<article class="card"><span class="tag">${x[2]}</span><h3>${x[0]}</h3><p>${x[1]}</p><div class="myphotos"><button onclick="addPhoto('${key}-${i}')">＋ 내 사진 추가</button><div id="photos-${key}-${i}"></div></div></article>`).join("");
+}
+makeCards("foodCards",groups.food,"food");makeCards("lifeCards",groups.life,"life");makeCards("placeCards",groups.places,"place");makeCards("cultureCards",groups.culture,"culture");
+const DB="country_encyclopedia_user_photos_v3";
+function openDB(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore("photos",{keyPath:"id"});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function addPhoto(id){
+ const input=document.createElement("input");input.type="file";input.accept="image/*";input.multiple=true;
+ input.onchange=async()=>{for(const f of input.files){const reader=new FileReader();reader.onload=async()=>{let db=await openDB();let tx=db.transaction("photos","readwrite");tx.objectStore("photos").put({id:id+"-"+crypto.randomUUID(),group:id.split("-")[0],item:id,data:reader.result});tx.oncomplete=()=>loadPhotos(id)};reader.readAsDataURL(f)}};
+ input.click();
+}
+async function loadPhotos(item){
+ const db=await openDB(),tx=db.transaction("photos","readonly"),store=tx.objectStore("photos"),req=store.getAll();
+ req.onsuccess=()=>{const arr=req.result.filter(x=>x.item===item);const el=document.getElementById("photos-"+item);if(!el)return;el.innerHTML=arr.length?`<div class="mine"><strong>⭐ 내가 추가한 내용</strong>${arr.map(x=>`<img src="${x.data}" style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-top:7px">`).join("")}</div>`:""};
+}
 </script>
-</body>
-</html>
+</body></html>
