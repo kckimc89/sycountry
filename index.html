@@ -343,10 +343,10 @@ async function render(section){
    <p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
    <div class="actions">
      <div class="action-left"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden></div>
-     <div class="action-right"><button type="button" class="edit-desc">설명 수정</button>${edited&&!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>
+     <div class="action-right"><button type="button" class="edit-desc">설명 수정</button>${!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>
    </div>`;
   card.querySelector(".edit-desc").onclick=()=>editDescription(section,x);
-  if(edited&&!x.mine)card.querySelector(".reset-desc").onclick=()=>resetDescription(section,x);
+  if(!x.mine)card.querySelector(".reset-desc").onclick=()=>resetDescription(section,x);
   const buttons=card.querySelectorAll(".actions button");
   const photoButton=[...buttons].find(b=>b.textContent.includes("사진"));
   const input=card.querySelector("input");
