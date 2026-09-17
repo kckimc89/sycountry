@@ -1,374 +1,64 @@
 <!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>세계 나라 백과사전</title>
-<style>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전</title><style>
 :root{--bg:#f4f7fb;--card:#fff;--ink:#182234;--muted:#667085;--line:#dce3ed;--blue:#2457a6;--soft:#eef5ff}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.75}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.75}
 header{position:fixed;left:0;right:0;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #0000000b}
-.head{max-width:1180px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.title{font-size:1.85rem;font-weight:950;letter-spacing:-.02em}.title-edit{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:5px 9px;font-weight:800;font-size:.82rem;margin-left:7px}
-.country{font-size:1.65rem;font-weight:900}
-.back{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 12px;font-weight:800}
-main{max-width:1180px;margin:auto;padding:18px 16px 60px;padding-top:150px}
-nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;max-width:1180px;margin:0 auto;padding:8px 16px 11px;border-top:1px solid #eef2f7;scrollbar-width:thin;background:#fff}
-nav a{flex:0 0 auto;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:#27405f;text-decoration:none;font-size:.9rem;white-space:nowrap}
-nav a:active,nav a:hover{background:#eef5ff}
-section{scroll-margin-top:150px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}
-h2{font-size:1.5rem;margin:0 0 14px}
-h3{font-size:1.1rem;margin:14px 0 7px}
-p{margin:8px 0}
-.note{color:var(--muted);font-size:.9rem}
-.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
-.info{background:var(--soft);border-radius:13px;padding:14px}
-.info b{display:block;color:#31507c;margin-bottom:2px}
-.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.map-card{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fbfdff}
-.map-image{position:relative;background:#fff;border-radius:10px;overflow:hidden}
-.map-image img{display:block;width:100%;height:350px;object-fit:contain}
-.seoul-dot{position:absolute;left:33.2%;top:21.5%;width:15px;height:15px;border-radius:50%;background:#e11d48;border:3px solid #fff;box-shadow:0 1px 7px #0007}
-.seoul-label{position:absolute;left:35%;top:17%;background:#e11d48;color:#fff;font-weight:900;padding:2px 7px;border-radius:8px;font-size:.82rem}.globe-wrap{position:relative;cursor:zoom-in}.globe-label{position:absolute;font-size:.82rem;font-weight:800;color:#26364d;background:#ffffffdd;padding:1px 5px;border-radius:5px;box-shadow:0 1px 3px #0002;pointer-events:none}.globe-label.china{left:38%;top:47%}.globe-label.nk{left:54%;top:35%}.globe-label.japan{left:64%;top:54%}.globe-label.russia{left:55%;top:22%}.globe-label.korea{left:51%;top:43%;color:#b91c1c}.zoom-map{position:absolute;right:8px;bottom:8px;border:1px solid #b9c4d3;background:#ffffffee;border-radius:9px;padding:5px 8px;font-weight:800}.map-modal{display:none;position:fixed;inset:0;background:#000b;z-index:100;align-items:center;justify-content:center;padding:18px}.map-modal.open{display:flex}.map-modal-inner{position:relative;background:#fff;border-radius:16px;padding:12px;max-width:94vw;max-height:92vh}.map-modal img{display:block;width:min(90vw,820px);height:auto;max-height:88vh;object-fit:contain}.modal-globe-label{position:absolute;font-size:1rem;font-weight:900;color:#26364d;background:#ffffffed;padding:3px 7px;border-radius:7px;box-shadow:0 1px 5px #0003;pointer-events:none}.modal-globe-label.china{left:39%;top:48%}.modal-globe-label.nk{left:55%;top:36%}.modal-globe-label.japan{left:65%;top:55%}.modal-globe-label.russia{left:56%;top:23%}.modal-globe-label.korea{left:51.5%;top:44%;color:#b91c1c}.map-close{position:absolute;right:8px;top:8px;border:0;background:#fff;border-radius:50%;width:36px;height:36px;font-size:22px;font-weight:900}
-.flag{display:block;max-width:640px;width:100%;margin:8px auto;border-radius:8px;box-shadow:0 2px 10px #0002}
-.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.lang{border:1px solid var(--line);border-radius:13px;padding:15px;background:#fbfdff}
-.lang .kr{font-weight:800;color:#31507c}.lang .native{font-size:1.35rem;font-weight:900}.lang .sound{color:#5f6b7a}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}
-.item h3{margin-top:0}.photo-area{height:190px;border-radius:10px;background:#eef2f6;overflow:hidden;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center}
-.photo-area img{width:100%;height:100%;object-fit:cover}
-.photo-area .empty{color:#7a8698;font-size:.9rem}.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
-.action-right{display:flex;align-items:center;gap:7px;margin-left:auto}
-button{cursor:pointer}
-.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700}
-.actions .edit-desc{background:#eef5ff;border-color:#c9daf7}
-.actions .reset-desc{background:#f8fafc;color:#667085}
-.actions .delete{background:#fff;border-color:#d7dce3;color:#667085}
-.related-status{margin-left:10px;font-size:.72rem;font-weight:600;color:#7a8491;white-space:nowrap}
-.mine{display:inline-block;margin-top:7px;background:#fff3cd;color:#765500;border-radius:999px;padding:2px 7px;font-size:.78rem;font-weight:800}
-.history{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.history .event{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
-.sources li{margin:6px 0}
-@media(max-width:720px){
- main{padding-top:125px}
- .info-grid,.map-grid,.lang-grid,.cards,.history{grid-template-columns:1fr}
- .map-image img{height:270px}
- .head{align-items:flex-start}.title{font-size:1.3rem}
- .country{font-size:1.4rem}
- section{padding:18px}
-}
-</style>
-</head>
+.head{max-width:1180px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.title{font-size:1.85rem;font-weight:950;letter-spacing:-.02em}.title-edit{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:5px 9px;font-weight:800;font-size:.82rem;margin-left:7px}.country{font-size:1.65rem;font-weight:900}.back{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 12px;font-weight:800}
+nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;max-width:1180px;margin:0 auto;padding:8px 16px 11px;border-top:1px solid #eef2f7;scrollbar-width:thin;background:#fff}nav a{flex:0 0 auto;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:#27405f;text-decoration:none;font-size:.9rem;white-space:nowrap}nav a:hover{background:#eef5ff}
+main{max-width:1180px;margin:auto;padding:18px 16px 60px;padding-top:150px}section{scroll-margin-top:150px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}h2{font-size:1.5rem;margin:0 0 14px}h3{font-size:1.1rem;margin:14px 0 7px}p{margin:8px 0}.note{color:var(--muted);font-size:.9rem}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.info{background:var(--soft);border-radius:13px;padding:14px}.info b{display:block;color:#31507c;margin-bottom:2px}.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.map-card{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fbfdff}.map-image{position:relative;background:#fff;border-radius:10px;overflow:hidden}.map-image img{display:block;width:100%;height:350px;object-fit:contain}.world-wrap{position:relative}.zoom-map{position:absolute;right:8px;bottom:8px;border:1px solid #b9c4d3;background:#ffffffee;border-radius:9px;padding:5px 8px;font-weight:800}.flag{display:block;max-width:640px;width:100%;margin:8px auto;border-radius:8px;box-shadow:0 2px 10px #0002}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.item h3{margin-top:0}.photo-area{height:190px;border-radius:10px;background:#eef2f6;overflow:hidden;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center}.photo-area img{width:100%;height:100%;object-fit:contain;background:#f7f9fc}.empty{color:#8b97a8;font-size:.9rem}.mine{display:inline-block;margin-top:5px;color:#31507c;font-size:.78rem;font-weight:800}.related-status{font-size:.76rem;color:#7a8594;font-weight:700;margin-left:8px}.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}.action-left,.action-right{display:flex;gap:7px;align-items:center}.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:9px;padding:6px 9px;font-weight:800;font-size:.82rem}.add-btn{margin-top:12px;background:#f8fafc}.event-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.event{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfdff}.event b{color:#31507c}.source-list{margin:0;padding-left:20px}.country-modal{display:none;position:fixed;inset:0;background:#0009;z-index:200;align-items:center;justify-content:center;padding:20px}.country-modal.open{display:flex}.country-panel{background:#fff;border-radius:18px;width:min(700px,94vw);max-height:88vh;overflow:auto;padding:20px}.country-panel h2{margin-top:0}.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.country-choice{border:1px solid var(--line);background:#f8fafc;border-radius:12px;padding:13px;font-size:1rem;font-weight:900;text-align:left}.country-choice.active{background:#eef5ff;border-color:#8bb3ea}.close-list{float:right;border:0;background:#eef2f7;border-radius:50%;width:34px;height:34px;font-size:20px;font-weight:900}
+.map-note{padding:8px 10px;background:#f8fafc;border-radius:10px;color:#56657a}.section-intro{font-size:1rem}.source-box{background:#fbfdff;border:1px solid var(--line);border-radius:12px;padding:14px}
+@media(max-width:760px){.head{flex-wrap:wrap;padding:9px 12px}.title{font-size:1.45rem}.country{font-size:1.3rem}.back{margin-left:auto}.head .title-edit{font-size:.75rem}nav{padding-left:10px;padding-right:10px}main{padding:125px 10px 45px}section{padding:17px}.info-grid,.cards,.event-grid,.map-grid,.country-grid{grid-template-columns:1fr}.map-image img{height:270px}.photo-area{height:180px}.actions{flex-wrap:wrap}.action-right{margin-left:auto}}
+</style></head>
 <body>
-<header>
- <div class="head">
-  <div><div class="title"><span id="appTitle">세계 나라 백과사전</span><button class="title-edit" type="button" onclick="editTitle()">이름 수정</button></div><div class="country">대한민국</div></div>
-  <button class="back" id="countryBack">나라 목록으로 돌아가기</button>
- </div>
-<nav>
-<a href="#basic">기본정보</a><a href="#map">실제 지도</a><a href="#flag">국기</a><a href="#capital">수도 설명</a><a href="#nature">자연과 기후</a><a href="#language">언어와 문자</a><a href="#food">음식</a><a href="#animals">동식물</a><a href="#places">전국의 명소</a><a href="#culture">대표 문화</a><a href="#history">역사</a><a href="#sources">자료</a>
-</nav>
-</header>
-
-<main>
-
-<section id="basic">
-<h2>1. 기본정보</h2>
-<div class="info-grid">
-<div class="info"><b>나라 이름</b>대한민국 (Republic of Korea)</div>
-<div class="info"><b>위치</b>동아시아 · 한반도 남쪽</div>
-<div class="info"><b>수도</b>서울특별시</div>
-<div class="info"><b>면적</b>약 100,459㎢ (2025년 기준)</div>
-<div class="info"><b>인구</b>약 5,168만 명 (2025년 추계)</div>
-<div class="info"><b>언어</b>한국어</div>
-<div class="info"><b>문자</b>한글</div>
-<div class="info"><b>화폐</b>대한민국 원 (₩)</div>
-<div class="info"><b>국가</b>애국가</div>
-</div>
-<p>대한민국은 동아시아의 한반도 남쪽에 자리한 나라입니다. 동쪽·남쪽·서쪽은 바다와 맞닿아 있고 북쪽으로는 북한과 접합니다. 국토에는 산지가 많으며, 서쪽과 남쪽에는 평야와 넓은 해안이 발달해 있습니다.</p>
-<p>대한민국의 면적은 약 100,459㎢이며, 인구는 국가통계의 기준에 따라 달라집니다. KOSIS는 2025년 추계인구를 51,684,564명으로 제시하고 있습니다.</p>
-<p class="note">※ 인구는 2025년 추계인구를 사용했고, 면적은 대한민국 정부가 안내하는 2025년 기준 약 100,459㎢를 사용했습니다.</p>
-</section>
-
-<section id="map">
-<h2>2. 실제 지도</h2>
-<div class="map-grid">
-<div class="map-card">
-<div class="map-image">
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20location%20map.svg" alt="대한민국 위치 지도">
-<span class="seoul-dot"></span><span class="seoul-label">서울</span>
-</div>
-<h3>대한민국 위치 지도</h3>
-<p class="note">붉은 점은 대한민국의 수도 서울의 위치를 나타냅니다. 지도는 Wikimedia Commons 자료를 사용했습니다.</p>
-</div>
-<div class="map-card">
-<div class="map-image globe-wrap">
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20on%20the%20globe%20%28Asia_centered%29.svg" alt="아시아를 중심으로 본 대한민국 위치">
-<span class="globe-label china">중국</span><span class="globe-label nk">북한</span><span class="globe-label japan">일본</span><span class="globe-label russia">러시아</span><span class="globe-label korea">대한민국</span>
-<button class="zoom-map" type="button" onclick="openMapZoom()">확대해서 보기</button>
-</div>
-<h3>지구본에서 바라본 대한민국</h3>
-<p class="note">아시아 대륙과 지구본 모양이 함께 보이는 지도입니다. 대한민국이 아시아의 어디에 있는지 살펴볼 수 있습니다.</p>
-</div>
-</div>
-<p class="note">지도 출처: Wikimedia Commons의 South Korea location map 및 South Korea on the globe (Asia centered). 두 자료 모두 CC BY-SA 계열 라이선스가 표시되어 있습니다.</p>
-</section>
-
-<section id="flag">
-<h2>3. 국기</h2>
-<img class="flag" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Korea.svg" alt="대한민국 국기 태극기">
-<p>대한민국의 국기는 <strong>태극기</strong>입니다. 흰 바탕 가운데에는 태극 문양이 있고 네 모서리에는 건·곤·감·리의 괘가 배치되어 있습니다.</p>
-<p>태극 문양은 서로 어울리는 음과 양의 모습을 나타내며, 네 괘는 하늘·땅·물·불과 관련된 의미를 담고 있습니다. 흰 바탕은 밝음과 순수함을 상징하는 것으로 설명됩니다.</p>
-<p class="note">국기 이미지는 Wikimedia Commons의 대한민국 국기 자료를 사용합니다.</p>
-</section>
-
-<section id="capital">
-<h2>4. 수도 설명</h2>
-<h3>서울특별시</h3>
-<p>서울은 대한민국의 수도이며 정치·경제·문화·교육의 중심지 가운데 하나입니다. 한강이 도시를 가로지르고 있으며, 북쪽에는 북한산을 비롯한 산지가 있습니다.</p>
-<p>서울에는 조선 시대의 궁궐과 성곽, 종묘 같은 역사 유산과 현대적인 고층 건물, 지하철과 같은 도시 기반시설이 함께 있습니다. 경복궁·창덕궁·남산·한강 등은 서울의 역사와 현재 모습을 살펴볼 수 있는 대표적인 장소입니다.</p>
-<p>서울은 조선이 한양을 수도로 정한 뒤 오랜 기간 우리나라의 중심 도시 역할을 해 왔습니다.</p>
-</section>
-
-<section id="nature">
-<h2>5. 자연과 기후</h2>
-<h3>산과 강</h3>
-<p>대한민국은 산지가 많은 나라입니다. 태백산맥과 소백산맥 등 여러 산지가 이어지며, 높은 산과 낮은 구릉이 함께 나타납니다. 한강·낙동강·금강·영산강 등 큰 강은 여러 지역의 생활과 농업에 중요한 역할을 합니다.</p>
-<h3>바다와 섬</h3>
-<p>대한민국은 동해·서해·남해에 둘러싸여 있습니다. 서해와 남해에는 섬이 많고 갯벌도 발달했습니다. 해안의 모습은 지역에 따라 모래사장, 갯벌, 암석 해안 등 다양합니다.</p>
-<h3>기후</h3>
-<p>사계절의 변화가 비교적 뚜렷합니다. 봄과 가을은 비교적 온화하고, 여름에는 덥고 습하며 비가 집중되는 시기가 있습니다. 겨울에는 차고 건조한 날씨가 나타납니다. 남쪽으로 갈수록 겨울이 비교적 온화하고, 산에서는 높이에 따라 기온 차이가 커집니다.</p>
-<h3>제주의 자연</h3>
-<p>제주도는 화산 활동으로 만들어진 섬입니다. 한라산과 오름, 용암 동굴 등 독특한 화산 지형이 발달했으며, 제주 화산섬과 용암 동굴은 유네스코 세계자연유산으로 등재되어 있습니다.</p>
-</section>
-
-<section id="language">
-<h2>6. 언어와 문자</h2>
-<p>대한민국에서 주로 사용하는 언어는 <strong>한국어</strong>이고, 한국어를 적는 데 널리 사용하는 문자는 <strong>한글</strong>입니다.</p>
-<div class="lang-grid">
-<div class="lang"><div class="kr">뜻: 안녕하세요</div><div class="native">안녕하세요</div><div class="sound">한글말음: 안녕하세요<br>로마자: annyeonghaseyo</div></div>
-<div class="lang"><div class="kr">뜻: 고맙습니다</div><div class="native">고맙습니다</div><div class="sound">한글말음: 고맙습니다<br>로마자: gomapseumnida</div></div>
-</div>
-<p>한글은 자음과 모음을 조합하여 글자를 만드는 체계를 가지고 있습니다. 세종대왕이 중심이 되어 만들어졌으며, 1443년에 창제되고 1446년에 『훈민정음』이라는 이름으로 반포되었습니다.</p>
-<p>한글은 소리의 구조를 비교적 체계적으로 나타낼 수 있어, 우리말의 발음을 글자로 표현하기에 편리한 문자입니다.</p>
-</section>
-
-<section id="food"><h2>7. 음식</h2><p>한국 음식은 밥·국·반찬을 기본으로 하면서 발효식품, 채소, 곡물, 고기와 해산물을 다양하게 활용합니다. 지역과 계절에 따라 재료와 조리법도 달라집니다.</p><div class="cards" id="foodList"></div><button class="add-btn" onclick="addItem('food')">항목 추가</button></section>
-<section id="animals"><h2>8. 동식물</h2><p>대한민국에는 산림, 하천, 습지, 갯벌, 섬과 바다 등 여러 생태환경이 있습니다. 그래서 육지 동물뿐 아니라 철새와 해양 생물, 다양한 식물이 함께 살아갑니다.</p><div class="cards" id="animalsList"></div><button class="add-btn" onclick="addItem('animals')">항목 추가</button></section>
-<section id="places"><h2>9. 전국의 명소</h2><p>대한민국의 명소에는 궁궐과 사찰 같은 역사 유산, 산과 해안 같은 자연 명소, 전통 마을과 도시 관광지가 함께 있습니다. 각 장소를 살펴보면 우리나라의 역사와 자연환경을 함께 이해할 수 있습니다.</p><div class="cards" id="placesList"></div><button class="add-btn" onclick="addItem('places')">항목 추가</button></section>
-<section id="culture"><h2>10. 대표 문화</h2><p>한국 문화는 오랜 전통문화와 현대의 대중문화가 함께 발전하고 있습니다. 명절과 전통 놀이, 음식과 주거문화뿐 아니라 음악·영화·드라마 등 현대 문화도 중요한 요소입니다.</p><div class="cards" id="cultureList"></div><button class="add-btn" onclick="addItem('culture')">항목 추가</button></section>
-
-<section id="history">
-<h2>11. 한눈에 보는 대한민국 역사</h2>
-<div class="history">
-<div class="event"><b>기원전 2333년경</b><br>고조선이 세워졌다고 전해집니다.</div>
-<div class="event"><b>기원전 1세기 무렵</b><br>한반도와 주변 지역에서 여러 고대 국가가 발전했습니다.</div>
-<div class="event"><b>668년</b><br>신라가 한반도 중남부를 중심으로 통일 신라 시대를 열었습니다.</div>
-<div class="event"><b>918년</b><br>왕건이 고려를 세웠습니다.</div>
-<div class="event"><b>1392년</b><br>이성계가 조선을 세웠습니다.</div>
-<div class="event"><b>1395년</b><br>조선의 법궁인 경복궁이 처음 지어졌습니다.</div>
-<div class="event"><b>1446년</b><br>훈민정음이 반포되었습니다.</div>
-<div class="event"><b>1592년</b><br>임진왜란이 시작되었습니다.</div>
-<div class="event"><b>1910년</b><br>대한제국이 일본에 병합되었습니다.</div>
-<div class="event"><b>1919년</b><br>3·1운동이 일어났고 대한민국 임시정부가 수립되었습니다.</div>
-<div class="event"><b>1945년</b><br>광복을 맞았습니다.</div>
-<div class="event"><b>1948년</b><br>대한민국 정부가 수립되었습니다.</div>
-<div class="event"><b>1950년</b><br>한국전쟁이 시작되었습니다.</div>
-<div class="event"><b>1953년</b><br>한국전쟁의 정전협정이 체결되었습니다.</div>
-<div class="event"><b>1988년</b><br>서울에서 하계 올림픽이 열렸습니다.</div>
-<div class="event"><b>2002년</b><br>한일 월드컵이 대한민국과 일본에서 공동 개최되었습니다.</div>
-</div>
-</section>
-
-<section id="sources">
-<h2>12. 자료를 확인한 곳</h2>
-<ul class="sources">
-<li>대한민국 정부 공식 공개자료 및 Korea.net</li>
-<li>국가통계처(KOSIS) 공개 통계</li>
-<li>국가유산 관련 공식 자료</li>
-<li>유네스코 세계유산·무형유산 공개자료</li>
-<li>Wikimedia Commons 지도·국기 자료</li>
-</ul>
-<p class="note">인구는 KOSIS 2025년 추계인구를 사용했습니다. 대한민국 면적은 Korea.net의 2025년 안내값을 사용했습니다.</p>
-</section>
-</main>
-<div class="map-modal" id="mapModal" onclick="closeMapZoom(event)"><div class="map-modal-inner"><button class="map-close" onclick="closeMapZoom(event)">×</button><img src="https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20on%20the%20globe%20%28Asia_centered%29.svg" alt="확대 지도"><span class="modal-globe-label china">중국</span><span class="modal-globe-label nk">북한</span><span class="modal-globe-label japan">일본</span><span class="modal-globe-label russia">러시아</span><span class="modal-globe-label korea">대한민국</span></div></div>
+<header><div class="head"><div><span class="title" id="appTitle">세계 나라 백과사전</span><button class="title-edit" onclick="editTitle()">이름 수정</button></div><div class="country" id="countryName"></div><button class="back" onclick="openCountryList()">나라 목록</button></div><nav id="nav"></nav></header>
+<main id="app"></main>
+<div class="country-modal" id="countryModal" onclick="closeCountryList(event)"><div class="country-panel"><button class="close-list" onclick="closeCountryList(event)">×</button><h2>나라 목록</h2><p class="note">현재는 6개 나라를 넣어 같은 틀로 확장하는 시험 단계입니다. 이후 같은 방식으로 나라를 계속 추가할 수 있습니다.</p><div class="country-grid" id="countryGrid"></div></div></div>
 <script>
-const COUNTRY="KR";
-const DB_NAME="world_country_encyclopedia_photos_v6";
-const STORE="photos";
+const COUNTRIES={"KR": {"name": "대한민국", "capital": "서울", "area": "약 100,459㎢", "population": "약 5,168만 명", "language": "한국어", "script": "한글", "currency": "대한민국 원(KRW)", "location": "동아시아의 한반도 남쪽에 자리하며 동쪽은 동해, 서쪽은 서해, 남쪽은 남해와 이어집니다.", "climate": "사계절의 변화가 비교적 뚜렷합니다. 여름은 덥고 비가 많은 편이며 겨울은 춥고 건조한 날이 많습니다.", "languageText": "한국어가 주된 언어이며, 한글은 한국어를 적는 데 사용하는 문자입니다. 한글은 자음과 모음을 조합해 글자를 만드는 체계적인 문자입니다.", "capitalText": "서울은 대한민국의 수도이며 정치·경제·문화·교육의 중심지 가운데 하나입니다. 한강이 도시를 가로지르고 북한산을 비롯한 산지가 주변에 있습니다.", "natureText": "산지가 많은 나라로 태백산맥과 소백산맥 등이 이어집니다. 한강·낙동강·금강·영산강 같은 큰 강과 동해·서해·남해의 다양한 해안 환경이 있습니다.", "flag": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Korea.svg", "map": "https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20location%20map.svg", "worldmap": "https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20on%20the%20globe%20%28Asia_centered%29.svg", "mapNote": "붉은 점은 수도 서울의 위치를 나타냅니다.", "foodIntro": "한국 음식은 밥과 국, 여러 반찬을 함께 먹는 식문화가 발달했으며 발효 음식도 많습니다.", "animalsIntro": "산림·하천·습지·갯벌·섬과 바다 등 다양한 생태환경이 있습니다.", "placesIntro": "궁궐과 사찰 같은 역사 유산부터 산·해안·전통 마을까지 다양한 명소가 있습니다.", "cultureIntro": "전통 의복·명절·놀이·공연예술과 현대의 대중문화가 함께 발전하고 있습니다.", "history": [["기원전 2333년경", "고조선이 세워졌다고 전해집니다."], ["668년", "신라가 한반도 대부분을 통합하면서 통일신라 시대가 시작되었습니다."], ["918년", "왕건이 고려를 세웠습니다."], ["1392년", "이성계가 조선을 세웠습니다."], ["1446년", "훈민정음이 반포되었습니다."], ["1919년", "3·1운동이 일어났고 대한민국 임시정부가 수립되었습니다."], ["1948년", "대한민국 정부가 수립되었습니다."], ["1950년", "한국전쟁이 시작되었습니다."], ["1953년", "정전협정이 체결되었습니다."], ["1988년", "서울에서 하계 올림픽이 열렸습니다."], ["2002년", "한일 월드컵이 대한민국과 일본에서 공동 개최되었습니다."]], "food": [["김치", "채소를 소금에 절이고 양념해 발효시킨 한국의 대표 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Kimchi.jpg?width=700"], ["비빔밥", "밥에 여러 나물과 채소, 고기 등을 올리고 양념과 함께 비벼 먹는 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Bibimbap.jpg?width=700"], ["불고기", "얇게 썬 고기를 양념해 굽거나 익혀 먹는 대표적인 한국 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Bulgogi.jpg?width=700"], ["냉면", "차가운 육수나 양념과 함께 먹는 한국의 대표적인 면 요리입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Naengmyeon.jpg?width=700"]], "animals": [["호랑이", "한반도의 전통문화에 자주 등장하는 대형 고양잇과 동물입니다. 현재 대한민국 야생에서는 보기 어렵습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Siberian%20Tiger.jpg?width=700"], ["반달가슴곰", "가슴의 흰 반달 모양 무늬가 특징이며 우리나라에서는 복원과 보호가 이루어지고 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Ursus%20thibetanus%20ussuricus.jpg?width=700"], ["두루미", "긴 다리와 목을 가진 큰 새로 우리나라 습지에 찾아오는 대표적인 겨울 철새입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Red-crowned%20crane.jpg?width=700"], ["무궁화", "여름에 꽃을 피우는 낙엽성 관목으로 대한민국을 상징하는 꽃으로 널리 알려져 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hibiscus%20syriacus.jpg?width=700"]], "places": [["경복궁", "1395년에 처음 지어진 조선의 법궁으로 근정전과 경회루 등 여러 건물이 남아 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung%20Palace.png?width=700"], ["불국사", "경주에 있는 신라 시대의 대표적인 불교 사찰로 석가탑과 다보탑 등이 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Bulguksa.jpg?width=700"], ["한라산", "제주도 중앙의 화산으로 대한민국에서 가장 높은 산입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hallasan.jpg?width=700"], ["수원 화성", "조선 정조 때 축조된 성곽으로 성문과 방어 시설이 잘 남아 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hwaseong%20Fortress.jpg?width=700"]], "culture": [["한복", "저고리와 치마 또는 바지 등을 기본으로 하는 한국의 전통 의복입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hanbok%20%ED%95%9C%EB%B3%B5%20%284261102177%29.jpg?width=700"], ["설날", "음력 1월 1일을 중심으로 새해를 맞으며 세배와 떡국 등을 즐기는 대표 명절입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Seollal.jpg?width=700"], ["판소리", "소리꾼이 고수의 북 장단에 맞춰 노래와 말, 몸짓으로 긴 이야기를 표현하는 전통예술입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Pansori.jpg?width=700"], ["K-pop", "한국에서 발전한 대중음악으로 노래·춤·공연·영상 등이 함께 어우러지는 현대 문화입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/K-pop%20concert.jpg?width=700"]]}, "JP": {"name": "일본", "capital": "도쿄", "area": "약 377,975㎢", "population": "약 1억 2,297만 명", "language": "일본어", "script": "한자·히라가나·가타카나", "currency": "일본 엔(JPY)", "location": "동아시아의 섬나라로 태평양에 길게 이어진 일본 열도를 중심으로 이루어져 있습니다.", "climate": "북쪽의 홋카이도부터 남쪽의 오키나와까지 길게 뻗어 있어 지역에 따라 기후 차이가 큽니다. 장마와 태풍의 영향도 받습니다.", "languageText": "일본어가 주된 언어입니다. 글을 쓸 때 한자와 히라가나, 가타카나를 함께 사용하는 것이 특징입니다.", "capitalText": "도쿄는 일본의 수도이자 정치·경제·문화의 중심지입니다. 넓은 도시권이 형성되어 있으며 현대적인 도시 모습과 오래된 문화가 함께 나타납니다.", "natureText": "일본은 산지가 많고 화산과 온천이 널리 분포합니다. 여러 섬으로 이루어져 해안과 바다의 자연환경도 다양합니다.", "flag": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Japan.svg", "map": "https://commons.wikimedia.org/wiki/Special:FilePath/Japan%20location%20map.svg", "worldmap": "https://commons.wikimedia.org/wiki/Special:FilePath/Japan%20%28orthographic%20projection%29.svg", "mapNote": "일본 열도와 주변 바다의 위치를 살펴볼 수 있습니다.", "foodIntro": "쌀과 생선, 채소를 다양하게 활용하며 계절의 재료를 중요하게 여기는 음식문화가 발달했습니다.", "animalsIntro": "홋카이도의 추운 지역부터 남쪽 섬까지 기후가 달라 다양한 동식물이 살아갑니다.", "placesIntro": "고대 사찰과 성, 전통 마을부터 대도시와 화산·온천 같은 자연 명소까지 다양합니다.", "cultureIntro": "전통 의상·다도·축제와 함께 애니메이션·만화·현대 대중문화도 세계적으로 알려져 있습니다.", "history": [["710년", "나라에 수도를 두고 율령 국가의 체제가 발전했습니다."], ["794년", "헤이안쿄로 수도를 옮겼습니다."], ["1192년경", "무사 계층이 정치의 중심으로 등장하는 가마쿠라 막부가 발전했습니다."], ["1603년", "도쿠가와 이에야스가 에도 막부를 열었습니다."], ["1868년", "메이지 유신을 계기로 근대 국가로의 변화가 빠르게 진행되었습니다."], ["1945년", "제2차 세계대전이 끝났습니다."], ["1964년", "도쿄에서 하계 올림픽이 열렸습니다."], ["2019년", "레이와 시대가 시작되었습니다."]], "food": [["스시", "식초로 간을 한 밥에 생선이나 해산물 등을 올려 먹는 일본의 대표 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Sushi_platter.jpg?width=700"], ["라멘", "면을 국물에 넣고 고기·채소·달걀 등을 곁들여 먹는 면 요리입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Ramen.jpg?width=700"], ["오니기리", "밥을 손으로 뭉쳐 삼각형이나 둥근 모양으로 만들고 속재료를 넣기도 하는 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Onigiri_001.jpg?width=700"], ["텐푸라", "생선이나 채소 등에 얇은 튀김옷을 입혀 바삭하게 튀긴 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Tempura.jpg?width=700"]], "animals": [["일본원숭이", "일본의 산림 지역 등에 사는 원숭이로 추운 지역에서는 눈 속에서도 활동합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_macaque.jpg?width=700"], ["시카사슴", "일본 여러 지역에 분포하는 사슴으로 나라 공원 등에서도 잘 알려져 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Sika_deer.jpg?width=700"], ["일본산양", "일본의 산악 지역에 사는 소과 동물로 바위가 많은 곳에서도 생활합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_serow.jpg?width=700"], ["벚나무", "봄철에 꽃을 피우며 일본의 계절과 문화에서 상징적으로 자주 등장하는 나무입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Prunus%20serrulata.jpg?width=700"]], "places": [["도쿄", "일본의 수도로 고층 건물과 철도망, 공원, 전통 지역이 함께 발달한 대도시입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo%20Skyline.jpg?width=700"], ["후지산", "일본에서 가장 높은 산으로 아름다운 원뿔 모양의 화산으로 널리 알려져 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Mount%20Fuji%20from%20Lake%20Kawaguchi.jpg?width=700"], ["교토", "오래된 사찰과 신사, 전통 거리 등이 많이 남아 있는 역사도시입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Kiyomizu-dera_in_Kyoto.jpg?width=700"], ["히로시마 평화기념공원", "제2차 세계대전의 원폭 피해를 기억하고 평화를 생각하는 공간입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hiroshima%20Peace%20Memorial%20Park.jpg?width=700"]], "culture": [["기모노", "일본의 전통 의상으로 긴 소매와 허리띠인 오비 등이 특징입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Kimono%20Japan.jpg?width=700"], ["다도", "차를 준비하고 대접하는 과정에 예절과 아름다움을 담은 전통 문화입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_tea_ceremony.jpg?width=700"], ["마쓰리", "지역의 신사나 공동체를 중심으로 열리는 일본의 전통 축제입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_festival.jpg?width=700"], ["애니메이션", "그림이나 디지털 기술 등을 이용해 움직이는 영상을 만드는 일본의 대표적인 대중문화 분야입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Anime_expo.jpg?width=700"]]}, "CN": {"name": "중국", "capital": "베이징", "area": "약 960만㎢", "population": "약 14억 1천만 명", "language": "중국어(보통화)", "script": "한자(간체자 중심)", "currency": "위안(CNY)", "location": "동아시아에 위치하며 매우 넓은 영토를 가지고 있습니다. 동쪽은 태평양과 여러 바다에 접합니다.", "climate": "국토가 넓어 북쪽의 추운 지역부터 남쪽의 따뜻하고 습한 지역까지 기후가 매우 다양합니다.", "languageText": "중국어가 널리 사용되며 중국 본토의 표준어는 보통화입니다. 한자를 사용하는 문자문화가 오랜 기간 이어져 왔습니다.", "capitalText": "베이징은 중국의 수도입니다. 자금성·천안문 등 역사적 유산과 현대적인 도시 시설이 함께 있는 대도시입니다.", "natureText": "히말라야산맥과 티베트고원, 고비사막, 넓은 평야와 큰 강 등 매우 다양한 지형이 있습니다.", "flag": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20People%27s%20Republic%20of%20China.svg", "map": "https://commons.wikimedia.org/wiki/Special:FilePath/China%20location%20map.svg", "worldmap": "https://commons.wikimedia.org/wiki/Special:FilePath/China%20%28orthographic%20projection%29.svg", "mapNote": "중국의 넓은 국토와 주변 국가·바다의 위치를 살펴볼 수 있습니다.", "foodIntro": "지역이 넓어 기후와 식재료에 따라 음식이 크게 달라지며 여러 지역 음식 문화가 발달했습니다.", "animalsIntro": "고산지대·초원·사막·숲·습지 등 다양한 환경에 여러 동물이 살아갑니다.", "placesIntro": "고대 도시와 궁전, 만리장성 같은 유산부터 산과 강의 자연경관까지 다양한 명소가 있습니다.", "cultureIntro": "한자문화와 전통 축제, 차 문화, 전통 공연예술 등 오랜 문화가 이어지고 있습니다.", "history": [["기원전 221년", "진이 중국을 처음으로 크게 통일하고 황제 중심의 국가를 세웠습니다."], ["기원전 206년", "한 왕조가 시작되어 넓은 영역과 교류가 발전했습니다."], ["618년", "당 왕조가 시작되어 동아시아의 국제적 교류가 활발해졌습니다."], ["1271년", "원 왕조가 성립했습니다."], ["1368년", "명 왕조가 시작되었습니다."], ["1644년", "청 왕조가 중국을 통치하기 시작했습니다."], ["1912년", "중화민국이 수립되었습니다."], ["1949년", "중화인민공화국이 수립되었습니다."]], "food": [["베이징 카오야", "오리의 껍질을 바삭하게 구워 얇은 전병과 소스, 채소와 함께 먹는 베이징의 대표 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Peking_duck.jpg?width=700"], ["딤섬", "작은 찜통이나 접시에 다양한 만두와 간식류를 담아 먹는 광둥 지역의 음식문화입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Dim_sum.jpg?width=700"], ["마파두부", "두부와 다진 고기, 매운 양념 등을 함께 조리하는 쓰촨 지역의 대표 요리입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Mapo_doufu.jpg?width=700"], ["짜장면", "중국의 면 요리에서 영향을 받아 한국에서 독자적으로 발전한 음식으로, 중국 음식과 한국 음식의 교류를 살펴볼 수 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Jajangmyeon.jpg?width=700"]], "animals": [["판다", "중국 중부의 산림에 사는 곰과 동물로 대나무를 주로 먹습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Giant_Panda_in_China.jpg?width=700"], ["티베트영양", "티베트고원 같은 높은 초원에서 생활하는 영양으로 추운 환경에 적응했습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Tibetan_antelope.jpg?width=700"], ["양쯔강돌고래", "한때 양쯔강에 살던 민물돌고래로 멸종위기와 보전 문제를 생각하게 하는 동물입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Lipotes_vexillifer.jpg?width=700"], ["대나무", "판다의 주요 먹이이면서 중국의 여러 지역에서 자라는 대표적인 식물입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Bamboo_forest.jpg?width=700"]], "places": [["만리장성", "북방 지역의 방어를 위해 여러 시대에 걸쳐 축조·정비된 거대한 성벽과 요새의 집합입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Great_Wall_of_China.jpg?width=700"], ["자금성", "베이징에 있는 거대한 궁전 단지로 명·청 시대 황실의 중심 공간이었습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Forbidden_City_Beijing.jpg?width=700"], ["장자제", "기둥 모양의 바위 봉우리와 계곡이 이어지는 독특한 자연경관으로 알려진 지역입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Zhangjiajie.jpg?width=700"], ["병마용", "시안 부근에서 발견된 진시황릉 관련 유적으로 수많은 테라코타 병사와 말 조각상이 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Terracotta_Army.jpg?width=700"]], "culture": [["춘절", "음력 새해를 맞는 중국의 대표적인 명절로 가족이 모이고 여러 전통 행사를 합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_New_Year.jpg?width=700"], ["용춤", "여러 사람이 긴 용 모형을 움직이며 춤을 추는 전통 공연입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Dragon_dance.jpg?width=700"], ["차 문화", "차를 우려 마시고 대접하는 문화가 오랜 역사 속에서 발전해 왔습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_tea.jpg?width=700"], ["서예", "붓과 먹으로 한자를 쓰면서 글씨의 모양과 선의 아름다움을 표현하는 전통 예술입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_calligraphy.jpg?width=700"]]}, "US": {"name": "미국", "capital": "워싱턴 D.C.", "area": "약 983만㎢", "population": "약 3억 4,178만 명", "language": "영어가 널리 사용됨", "script": "로마자", "currency": "미국 달러(USD)", "location": "북아메리카에 있으며 대서양과 태평양 사이에 넓게 자리합니다. 알래스카와 하와이도 미국의 주입니다.", "climate": "국토가 매우 넓어 북극권에 가까운 알래스카부터 열대 기후의 하와이까지 지역별 기후가 크게 다릅니다.", "languageText": "연방 차원의 공용어가 정해져 있지는 않지만 영어가 가장 널리 사용됩니다. 다양한 이민 배경 때문에 여러 언어가 함께 사용됩니다.", "capitalText": "워싱턴 D.C.는 미국의 수도이며 연방 정부의 주요 기관이 모여 있습니다. 백악관과 국회의사당, 여러 국가 기념시설이 있습니다.", "natureText": "로키산맥·애팔래치아산맥, 대평원, 사막, 큰 호수, 긴 해안 등 매우 다양한 자연환경을 볼 수 있습니다.", "flag": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20United%20States.svg", "map": "https://commons.wikimedia.org/wiki/Special:FilePath/United%20States%20location%20map.svg", "worldmap": "https://commons.wikimedia.org/wiki/Special:FilePath/USA%20%28orthographic%20projection%29.svg", "mapNote": "미국 본토와 알래스카·하와이의 위치를 함께 살펴볼 수 있습니다.", "foodIntro": "이민과 지역의 영향을 받아 매우 다양한 음식이 발달했으며 지역마다 대표 음식이 다릅니다.", "animalsIntro": "넓은 영토에 사막·초원·산림·습지·해안 등 다양한 생태환경이 있습니다.", "placesIntro": "대도시와 기념시설, 국립공원, 협곡과 폭포 등 자연·문화 명소가 함께 발달했습니다.", "cultureIntro": "다양한 이민 문화가 섞여 음악·영화·스포츠·문학 등 여러 현대 문화가 발달했습니다.", "history": [["1776년", "독립선언을 통해 영국으로부터의 독립을 선언했습니다."], ["1787년", "미국 헌법이 제정되었습니다."], ["1803년", "루이지애나 매입으로 영토가 크게 넓어졌습니다."], ["1861~1865년", "남북전쟁이 일어났습니다."], ["1929년", "대공황이 시작되었습니다."], ["1945년", "제2차 세계대전이 끝났습니다."], ["1969년", "아폴로 11호가 달에 착륙했습니다."], ["2001년", "9·11 테러가 발생했습니다."]], "food": [["햄버거", "빵 사이에 고기 패티와 채소 등을 넣어 먹는 미국의 대표적인 대중 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hamburger.jpg?width=700"], ["바비큐", "고기 등을 불이나 훈연으로 익히고 소스와 함께 먹는 음식문화로 지역별 방식이 다양합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Barbecue.jpg?width=700"], ["클램 차우더", "조개와 감자 등을 넣어 끓이는 걸쭉한 수프로 미국 동북부 지역 음식으로 잘 알려져 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Clam_chowder.jpg?width=700"], ["애플파이", "사과를 넣어 구운 파이로 미국의 대중문화에서 친숙한 음식으로 자주 소개됩니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Apple_pie.jpg?width=700"]], "animals": [["흰머리수리", "북아메리카에 사는 큰 맹금류로 미국의 국장과 상징에 사용됩니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Bald_Eagle.jpg?width=700"], ["아메리카들소", "북아메리카 초원에 사는 대형 초식동물로 미국의 자연을 대표하는 동물 가운데 하나입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/American_bison.jpg?width=700"], ["회색곰", "북아메리카의 산림과 산악 지역에 사는 큰 곰으로 지역에 따라 보호되고 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Grizzly_bear.jpg?width=700"], ["세쿼이아", "미국 서부의 일부 지역에서 자라는 매우 큰 나무로 오래된 개체가 유명합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Sequoia.jpg?width=700"]], "places": [["자유의 여신상", "뉴욕 항구에 있는 거대한 동상으로 자유와 미국을 상징하는 대표적인 명소입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Statue_of_Liberty.jpg?width=700"], ["그랜드캐니언", "콜로라도강이 오랜 시간 동안 암석을 깎아 만든 거대한 협곡입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Canyon.jpg?width=700"], ["옐로스톤 국립공원", "간헐천과 온천, 야생동물이 있는 세계적으로 유명한 국립공원입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Old_Faithful_Yellowstone.jpg?width=700"], ["워싱턴 D.C.", "백악관·국회의사당·국립박물관 등 미국의 중요한 정부·문화 시설이 모여 있는 수도입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Washington%20D.C.%20skyline.jpg?width=700"]], "culture": [["재즈", "미국에서 발전한 음악 장르로 즉흥연주와 다양한 리듬이 중요한 특징입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Jazz_music.jpg?width=700"], ["할리우드 영화", "미국 영화 산업의 상징적인 이름으로 세계 영화문화에 큰 영향을 준 제작 환경과 작품들이 발전했습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Hollywood_sign.jpg?width=700"], ["야구", "미국에서 오랫동안 인기 있는 스포츠 가운데 하나로 프로야구 문화가 크게 발전했습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Baseball.jpg?width=700"], ["추수감사절", "가족과 함께 식사를 나누며 감사의 의미를 생각하는 미국의 대표적인 공휴일입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Thanksgiving_dinner.jpg?width=700"]]}, "FR": {"name": "프랑스", "capital": "파리", "area": "약 551,695㎢(유럽 본토 기준)", "population": "약 6,872만 명", "language": "프랑스어", "script": "로마자", "currency": "유로(EUR)", "location": "서유럽에 위치하며 대서양과 지중해에 접합니다. 유럽 본토 외에도 여러 해외 영토가 있습니다.", "climate": "서쪽은 대서양의 영향을 받아 비교적 온화하고, 남쪽은 지중해성 기후가 나타나며 산악 지역은 기온이 낮습니다.", "languageText": "프랑스어가 국가의 주요 언어입니다. 로마자를 사용하며 문학과 예술 분야에서 프랑스어가 오랫동안 중요한 역할을 해 왔습니다.", "capitalText": "파리는 프랑스의 수도이자 유럽의 대표적인 문화·예술 도시입니다. 센강을 중심으로 박물관과 역사적인 건축물이 많이 모여 있습니다.", "natureText": "알프스와 피레네산맥, 넓은 평야, 대서양 해안과 지중해 연안 등 다양한 자연환경을 가지고 있습니다.", "flag": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20France.svg", "map": "https://commons.wikimedia.org/wiki/Special:FilePath/France%20location%20map.svg", "worldmap": "https://commons.wikimedia.org/wiki/Special:FilePath/France%20%28orthographic%20projection%29.svg", "mapNote": "유럽의 프랑스와 해외 영토를 포함한 프랑스의 위치를 살펴볼 수 있습니다.", "foodIntro": "빵·치즈·육류·해산물·채소 등을 활용한 다양한 지역 음식이 발달했으며 식사 문화도 중요한 문화유산으로 여겨집니다.", "animalsIntro": "알프스 산악지역부터 대서양·지중해 해안까지 다양한 서식지가 있습니다.", "placesIntro": "궁전과 성당, 박물관, 도시 경관과 알프스·지중해의 자연경관이 유명합니다.", "cultureIntro": "미술·문학·건축·음악·패션·요리 등 여러 분야에서 오랜 문화 전통을 가지고 있습니다.", "history": [["기원전 52년", "갈리아 지역이 로마의 지배를 받게 되었습니다."], ["843년", "베르됭 조약 이후 서프랑크 왕국이 발전했습니다."], ["987년", "위그 카페가 왕위에 오르며 카페 왕조가 시작되었습니다."], ["1789년", "프랑스 혁명이 시작되었습니다."], ["1804년", "나폴레옹이 황제로 즉위했습니다."], ["1870년", "프랑스 제3공화국이 시작되었습니다."], ["1944년", "제2차 세계대전 중 파리가 해방되었습니다."], ["1957년", "유럽 통합의 출발점 가운데 하나인 로마 조약에 참여했습니다."]], "food": [["바게트", "길고 바삭한 껍질이 특징인 프랑스의 대표적인 빵입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Baguette.jpg?width=700"], ["크루아상", "버터를 넣은 반죽을 여러 겹으로 접어 구운 초승달 모양의 빵입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Croissant-France.jpg?width=700"], ["라타투이", "가지·토마토·호박 등의 채소를 익혀 만드는 프랑스 남부의 대표적인 채소 요리입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Ratatouille.jpg?width=700"], ["치즈", "우유를 발효·숙성해 만드는 식품으로 프랑스에는 매우 다양한 종류가 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/French_cheese.jpg?width=700"]], "animals": [["알프스아이벡스", "알프스 산악지대의 바위가 많은 곳에서 생활하는 염소과 동물입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Alpine_ibex.jpg?width=700"], ["플라밍고", "남부 프랑스의 습지와 연안에서 볼 수 있는 긴 다리의 물새입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Greater_flamingo.jpg?width=700"], ["라벤더", "프랑스 남부에서 널리 재배되는 향기로운 식물로 여름철 보랏빛 들판이 유명합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Lavender_field.jpg?width=700"], ["포도나무", "프랑스 여러 지역에서 재배되며 포도와 다양한 식품·음료 문화와 연결됩니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Vineyard_France.jpg?width=700"]], "places": [["에펠탑", "파리의 센강 주변에 있는 철제 탑으로 프랑스를 상징하는 대표적인 건축물입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Eiffel_Tower.jpg?width=700"], ["루브르 박물관", "세계적으로 유명한 미술관으로 다양한 시대와 지역의 예술 작품을 소장하고 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Louvre_Museum_Wikimedia_Commons.jpg?width=700"], ["베르사유 궁전", "프랑스 왕실의 대표적인 궁전으로 화려한 건축과 정원으로 유명합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Palace_of_Versailles.jpg?width=700"], ["몽생미셸", "바닷가의 작은 섬 위에 수도원과 마을이 자리한 독특한 역사 경관입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Mont-Saint-Michel.jpg?width=700"]], "culture": [["패션", "파리는 오랫동안 세계 패션의 중심지 가운데 하나로 꼽히며 여러 유명 패션 행사가 열립니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Paris_Fashion_Week.jpg?width=700"], ["미술", "인상주의를 비롯한 여러 미술 흐름이 발전했고 많은 미술관이 작품을 보존하고 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Impression_Sunrise.jpg?width=700"], ["카페 문화", "카페에서 커피와 빵을 먹으며 사람들과 이야기하거나 책과 신문을 읽는 생활문화가 발달했습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Paris_cafe.jpg?width=700"], ["프랑스 혁명 기념문화", "프랑스 혁명은 자유·평등과 시민의 권리 등에 대한 생각이 확산되는 과정에서 중요한 역사적 사건으로 기억됩니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Bastille_Day_Paris.jpg?width=700"]]}, "EG": {"name": "이집트", "capital": "카이로", "area": "약 100만㎢", "population": "약 1억 1,800만 명", "language": "아랍어", "script": "아랍 문자", "currency": "이집트 파운드(EGP)", "location": "아프리카 북동부에 있으며 지중해와 홍해 사이에 자리합니다. 시나이반도는 아시아에 속합니다.", "climate": "대부분이 건조한 사막 기후이며 나일강 주변에는 물과 농경지가 집중되어 있습니다.", "languageText": "아랍어가 주된 언어이며 아랍 문자를 사용합니다. 이집트에서는 이집트 아랍어가 일상생활에서 널리 사용됩니다.", "capitalText": "카이로는 이집트의 수도이며 나일강을 따라 크게 발달한 도시입니다. 고대 유산과 현대 도시가 가까이 공존합니다.", "natureText": "국토 대부분은 사막이지만 나일강 계곡과 삼각주에는 농경지가 발달했습니다. 홍해 연안에는 산호초와 해양 생태계가 있습니다.", "flag": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Egypt.svg", "map": "https://commons.wikimedia.org/wiki/Special:FilePath/Egypt%20location%20map.svg", "worldmap": "https://commons.wikimedia.org/wiki/Special:FilePath/Egypt%20%28orthographic%20projection%29.svg", "mapNote": "나일강과 사막, 지중해·홍해의 위치를 함께 살펴볼 수 있습니다.", "foodIntro": "밀·쌀·콩·채소 등을 활용하는 음식이 많으며 지중해와 중동, 아프리카의 음식문화가 함께 나타납니다.", "animalsIntro": "사막과 나일강, 홍해의 산호초 등 환경에 따라 서로 다른 생물이 살아갑니다.", "placesIntro": "피라미드와 신전 같은 고대 유적과 나일강, 사막, 홍해의 자연환경이 주요 명소입니다.", "cultureIntro": "고대 이집트 문명과 이슬람 문화, 현대 아랍 문화가 함께 이어지고 있습니다.", "history": [["기원전 3100년경", "상·하 이집트가 통일되면서 고대 이집트 왕국의 기초가 마련되었습니다."], ["기원전 2560년경", "기자의 대피라미드가 건설된 시기로 알려져 있습니다."], ["기원전 332년", "알렉산드로스 대왕이 이집트를 정복했습니다."], ["기원전 30년", "로마의 지배가 시작되었습니다."], ["641년", "아랍 세력이 이집트를 정복하면서 이슬람 문화가 크게 확산되었습니다."], ["1517년", "오스만 제국의 지배를 받게 되었습니다."], ["1922년", "이집트 왕국이 독립을 선언했습니다."], ["1953년", "이집트 공화국이 수립되었습니다."]], "food": [["코샤리", "쌀·렌틸콩·파스타·병아리콩 등을 함께 담고 토마토 소스 등을 곁들여 먹는 대중 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Koshari.jpg?width=700"], ["풀 메담메스", "삶은 잠두콩을 양념해 먹는 음식으로 이집트에서 널리 먹습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Ful_medames.jpg?width=700"], ["팔라펠", "콩류를 갈아 향신료와 함께 반죽한 뒤 튀겨 먹는 음식으로 이집트에서도 친숙합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Falafel.jpg?width=700"], ["몰로키야", "몰로키야 잎을 잘게 썰어 국물과 함께 끓여 먹는 전통 음식입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Molokhia.jpg?width=700"]], "animals": [["나일악어", "나일강과 아프리카의 여러 수역에 사는 큰 악어로 물가 생태계의 대표적인 포식자입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Nile_crocodile.jpg?width=700"], ["낙타", "건조한 지역에서 생활에 이용되어 온 동물로 사막 환경에 적응한 특징이 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Camel.jpg?width=700"], ["홍해 산호초", "홍해에는 다양한 산호와 물고기가 살아가는 해양 생태계가 발달해 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Red_Sea_coral_reef.jpg?width=700"], ["대추야자", "건조한 지역에서도 자랄 수 있어 나일강 주변과 오아시스 등에서 중요한 작물로 이용되어 왔습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Date_palm.jpg?width=700"]], "places": [["기자의 피라미드", "고대 이집트의 거대한 무덤 건축물로 쿠푸왕의 대피라미드 등이 남아 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Pyramids_of_Giza.jpg?width=700"], ["스핑크스", "사람의 머리와 사자의 몸을 가진 거대한 석조 조각으로 기자의 피라미드 주변에 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Great_Sphinx_of_Giza.jpg?width=700"], ["룩소르 신전", "고대 테베 지역에 세워진 거대한 신전 유적으로 나일강 동쪽에 자리합니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Luxor_Temple.jpg?width=700"], ["나일강", "아프리카를 북쪽으로 흐르며 이집트의 농업과 도시 발달에 오랫동안 중요한 역할을 해 온 강입니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Nile_River.jpg?width=700"]], "culture": [["상형문자", "고대 이집트에서 사용된 그림 모양의 문자 체계로 신전과 무덤 등에 많이 남아 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Egyptian_hieroglyphs.jpg?width=700"], ["고대 이집트 미술", "사람과 신, 동물 등을 일정한 규칙과 자세로 표현한 벽화와 조각이 많이 남아 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Egyptian_art.jpg?width=700"], ["이슬람 건축", "모스크와 학교 등에서 기하학적 무늬와 아치, 돔 등을 활용한 건축 전통이 발달했습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Islamic_architecture_Cairo.jpg?width=700"], ["현대 이집트 음악", "아랍 음악 전통과 현대 대중음악이 함께 발전해 다양한 음악을 즐길 수 있습니다.", "https://commons.wikimedia.org/wiki/Special:FilePath/Egyptian_music.jpg?width=700"]]}};
+const ORDER=["KR","JP","CN","US","FR","EG"];
+let COUNTRY=localStorage.getItem("selected_country")||"KR";
+const DB_NAME="world_country_encyclopedia_photos_v12", STORE="photos";
+const sectionNames={basic:"기본정보",map:"실제 지도",flag:"국기",capital:"수도 설명",nature:"자연과 기후",language:"언어와 문자",food:"음식",animals:"동식물",places:"전국의 명소",culture:"대표 문화",history:"한눈에 보는 역사",sources:"자료를 확인한 곳"};
 
-const data={
-food:[
-["김치","배추·무 등의 채소를 소금에 절인 뒤 고춧가루, 마늘, 생강 등의 양념을 넣어 발효시키는 한국의 대표적인 음식입니다. 재료와 양념, 만드는 방법에 따라 배추김치·깍두기·동치미 등 여러 종류가 있습니다. 김치는 밥과 함께 반찬으로 먹기도 하고 김치찌개·김치볶음밥처럼 다른 음식의 재료로도 활용합니다. 김장을 통해 가족이나 이웃이 함께 김치를 준비하고 나누는 문화도 이어져 왔습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Kimchi.jpg?width=700"],
-["비빔밥","따뜻한 밥 위에 여러 나물과 채소, 고기, 달걀 등의 재료를 올리고 양념을 넣어 비벼 먹는 한국 음식입니다. 재료의 색과 맛을 한 그릇에 조화롭게 담는 것이 특징이며, 지역과 재료에 따라 여러 형태가 있습니다. 돌솥비빔밥처럼 뜨거운 그릇에 담아 밥의 일부를 눌어붙게 해서 먹기도 합니다. 여러 가지 재료를 한 번에 먹을 수 있어 한국 음식의 다양성을 보여주는 음식으로 알려져 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bibimbap.jpg?width=700"],
-["불고기","소고기나 돼지고기 등을 얇게 썰어 간장, 설탕, 마늘, 참기름 등의 양념에 재운 뒤 구워 먹거나 국물이 조금 있는 방식으로 익혀 먹는 음식입니다. 고기에 양념이 배도록 미리 재우는 것이 특징이며 양파·버섯·파 같은 채소를 함께 넣기도 합니다. 지역과 가정에 따라 양념의 단맛과 조리 방법이 조금씩 다릅니다. 밥과 함께 먹는 대표적인 한국 고기 음식 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bulgogi.jpg?width=700"],
-["냉면","메밀이나 전분 등을 이용해 만든 면을 차가운 육수 또는 매콤한 양념과 함께 먹는 한국의 면 요리입니다. 대표적으로 물냉면과 비빔냉면이 있으며, 지역에 따라 면의 재료와 육수, 양념이 다릅니다. 평양냉면은 담백한 육수를 사용하는 것으로 알려져 있고, 함흥냉면은 감자나 고구마 전분을 사용한 쫄깃한 면과 매콤한 양념이 특징입니다. 더운 계절에 많이 찾지만 계절과 관계없이 먹을 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Naengmyeon.jpg?width=700"],
-["떡","쌀이나 다른 곡식을 가루로 만들어 찌거나 삶고 빚어서 만드는 한국의 전통 음식입니다. 백설기·송편·인절미·가래떡 등 종류가 매우 많으며 재료와 만드는 방법에 따라 맛과 모양이 달라집니다. 명절이나 생일, 잔치 같은 특별한 날에 먹는 음식으로도 오랫동안 사랑받아 왔습니다. 떡볶이처럼 다른 음식의 재료로 사용되는 떡도 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Tteok.jpg?width=700"],
-["잡채","고구마 전분으로 만든 당면에 시금치·당근·양파·버섯 같은 채소와 고기 등을 넣고 간장 양념으로 볶아 만드는 음식입니다. 재료를 각각 알맞게 익힌 뒤 함께 섞어 만드는 경우가 많아 여러 색과 식감이 어우러집니다. 명절이나 잔치, 가족 모임에서 자주 차려지는 음식이며 따뜻하게 먹거나 식혀서 먹기도 합니다. 재료를 다양하게 넣을 수 있어 가정과 지역에 따라 모습이 조금씩 다릅니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Japchae.jpg?width=700"],
-["호떡","밀가루 등을 이용한 반죽 안에 설탕과 계피, 견과류 등을 넣고 납작하게 눌러 기름에 구워 먹는 한국의 간식입니다. 뜨거울 때 속의 설탕이 녹아 달콤한 시럽처럼 되는 것이 특징입니다. 겨울철 길거리 간식으로 특히 많이 알려져 있으며 씨앗이나 채소 등을 넣는 여러 종류의 호떡도 있습니다. 지역과 가게에 따라 반죽과 속재료의 맛이 달라질 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hotteok.jpg?width=700"],
-["고추장","고춧가루와 곡물, 메줏가루, 소금 등을 이용해 발효시키는 한국의 전통 장류입니다. 매운맛뿐 아니라 단맛과 감칠맛도 있어 비빔밥·떡볶이·찌개·양념장 등 여러 음식에 사용합니다. 재료의 비율과 숙성 기간에 따라 맛과 색이 달라질 수 있습니다. 한국 음식에서 양념과 맛을 더하는 중요한 재료 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Gochujang.jpg?width=700"]
-],
-animals:[
-["호랑이","호랑이는 한반도에서 오랫동안 살아온 대표적인 야생 동물이며 우리나라의 전통 그림과 이야기에도 자주 등장합니다. 몸에 검은 줄무늬가 있고 숲과 산악 지역에서 생활하는 대형 고양잇과 동물입니다. 과거 한반도 여러 지역에 분포했지만 현재 대한민국의 야생에서는 사실상 관찰하기 어렵습니다. 우리나라의 자연과 전통문화를 상징하는 동물로 자주 소개됩니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Siberian_Tiger.jpg?width=700"],
-["반달가슴곰","반달가슴곰은 가슴에 반달 모양의 흰 무늬가 있어 이런 이름이 붙은 곰입니다. 주로 산림에서 생활하며 나무를 잘 타고 식물의 열매와 여러 먹이를 먹습니다. 우리나라에서는 지리산을 중심으로 복원 사업이 이루어지고 있으며 야생에서 살아갈 수 있도록 보호하고 있습니다. 산림 생태계의 한 구성원으로서 자연환경을 이해하는 데 중요한 동물입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Ursus_thibetanus_ussuricus.jpg?width=700"],
-["두루미","두루미는 긴 다리와 긴 목을 가진 큰 새로 습지와 논, 강 주변에서 관찰되는 대표적인 겨울 철새입니다. 우리나라에서는 추운 계절에 여러 습지를 찾아오는 모습을 볼 수 있으며, 얕은 물과 논 주변에서 먹이를 찾습니다. 몸의 대부분이 흰색이고 머리 윗부분에 붉은색 피부가 보이는 것이 특징입니다. 서식지가 줄어들지 않도록 보호가 필요한 새로 알려져 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Red-crowned%20crane.jpg?width=700"],
-["수달","수달은 강과 하천, 호수 주변에서 생활하는 포유류로 물속에서 움직이기에 알맞은 몸을 가지고 있습니다. 물고기와 여러 수생 생물을 먹으며 물가에 굴이나 은신처를 마련해 생활합니다. 우리나라에서도 하천과 해안 주변에서 살아가지만 깨끗하고 먹이가 충분한 서식지가 필요합니다. 수달의 모습과 생활을 살펴보면 하천 생태계의 중요성도 함께 생각할 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Otter.jpg?width=700"],
-["무궁화","무궁화는 대한민국을 상징하는 꽃으로 널리 알려진 낙엽성 관목입니다. 여름철에 분홍색·흰색 등 여러 색의 꽃을 피우며 꽃이 짧은 시간 동안 피고 지는 특징이 있습니다. 우리나라 곳곳에서 관상용으로 심으며 나라꽃을 상징하는 식물로 오랫동안 알려져 왔습니다. 꽃과 잎의 모습을 살펴보면 우리나라의 식물 가운데 어떤 특징이 있는지 알아볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hibiscus_syriacus.jpg?width=700"],
-["소나무","소나무는 우리나라 산과 들에서 흔히 볼 수 있는 대표적인 상록수입니다. 바늘처럼 생긴 잎이 두 개씩 모여 달리고, 줄기가 붉은빛을 띠는 경우가 많습니다. 추운 겨울에도 잎을 유지하기 때문에 사계절의 자연을 살펴볼 때 눈에 잘 띄는 나무입니다. 예부터 생활 재료와 그림, 문학 등에 자주 등장해 우리 문화와도 친숙한 나무입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Pinus_densiflora.jpg?width=700"],
-["벼","벼는 논에서 재배하여 쌀을 얻는 곡식으로 우리나라 식생활과 매우 밀접한 식물입니다. 따뜻한 계절에 자라며 물을 댄 논에서 재배하는 모습이 우리 농촌의 대표적인 풍경 가운데 하나입니다. 벼가 익으면 이삭의 색이 초록색에서 누런색으로 변하고, 수확한 벼에서 왕겨를 벗기면 우리가 먹는 쌀을 얻을 수 있습니다. 밥과 여러 쌀 음식의 기본 재료가 되는 중요한 농작물입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Rice%20paddy%20in%20Korea.jpg?width=700"],
-["제주도의 식물","제주도에는 따뜻한 기후와 화산 지형의 영향을 받은 다양한 식물이 자랍니다. 해안 지역과 중산간 지역, 한라산의 높은 곳은 기온과 바람이 달라 서로 다른 식물들이 나타납니다. 돌담 주변이나 오름, 숲 등에서도 제주도 특유의 식물 모습을 관찰할 수 있습니다. 제주도의 식물을 살펴보면 섬의 기후와 지형이 생물의 생활에 어떤 영향을 주는지도 알 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Jeju%20Island%20forest.jpg?width=700"]
-],
-places:[
-["경복궁","경복궁은 조선 왕조의 법궁으로 1395년에 처음 지어졌습니다. 왕이 나라의 중요한 일을 처리하고 생활하던 중심 궁궐이며 근정전·경회루·향원정 등 여러 건물이 있습니다. 임진왜란 때 크게 훼손되었고 이후 여러 차례 복원되면서 현재의 모습을 갖추어 가고 있습니다. 궁궐의 건물과 연못, 정원을 함께 살펴보면 조선 시대 왕실의 공간 구성을 이해하는 데 도움이 됩니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung%20Palace.png?width=700"],
-["창덕궁","창덕궁은 조선 시대에 지어진 궁궐로 자연 지형을 크게 바꾸지 않고 건물을 배치한 것이 특징입니다. 궁궐의 전각뿐 아니라 뒤쪽의 넓은 정원인 후원도 잘 알려져 있습니다. 건물과 자연이 조화를 이루는 공간 구성 때문에 조선 궁궐의 모습을 이해하는 데 중요한 장소입니다. 유네스코 세계유산으로 등재되어 있어 세계적으로도 문화유산의 가치를 인정받고 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Changdeokgung.jpg?width=700"],
-["불국사","불국사는 경상북도 경주에 있는 신라 시대의 대표적인 불교 사찰입니다. 대웅전으로 이어지는 계단과 석가탑·다보탑 등 여러 문화유산이 함께 남아 있습니다. 신라의 건축과 불교문화를 이해할 수 있는 중요한 장소이며 석굴암과 함께 유네스코 세계유산으로 등재되어 있습니다. 건물과 석조물의 배치에서 신라인들이 만든 건축 기술과 아름다움을 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bulguksa.jpg?width=700"],
-["석굴암","석굴암은 경상북도 경주 토함산에 있는 신라 시대의 석굴 사원입니다. 인공적으로 만든 석굴 안에 본존불을 중심으로 여러 불상과 조각이 배치되어 있습니다. 석굴의 구조와 조각은 신라 시대 불교문화와 뛰어난 석조 기술을 보여주는 중요한 자료입니다. 불국사와 함께 유네스코 세계유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seokguram.jpg?width=700"],
-["한라산","한라산은 제주도 한가운데에 솟아 있는 화산으로 대한민국에서 가장 높은 산입니다. 정상에는 백록담이라는 화구호가 있고, 산의 높이에 따라 기후와 식물의 모습이 달라집니다. 산에는 오름과 계곡, 다양한 식생이 나타나 제주도의 자연환경을 이해하는 데 중요한 장소입니다. 한라산을 포함한 제주 화산섬과 용암 동굴은 유네스코 세계자연유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hallasan.jpg?width=700"],
-["성산일출봉","성산일출봉은 제주도 동쪽 바닷가에 있는 독특한 화산 지형으로, 바다에서 솟아오른 커다란 분화구의 모습을 볼 수 있습니다. 정상에 오르면 주변 바다와 제주도의 해안 풍경을 넓게 바라볼 수 있습니다. 특히 해가 떠오르는 모습을 보기 좋은 장소로 널리 알려져 있습니다. 성산일출봉은 제주 화산섬과 용암 동굴 세계자연유산의 일부입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seongsan_Ilchulbong.jpg?width=700"],
-["순천만","순천만은 전라남도 순천에 있는 넓은 연안 습지로 갯벌과 갈대밭이 함께 발달한 곳입니다. 물이 빠지는 시간에는 넓은 갯벌이 드러나고, 여러 생물이 살아가는 모습을 관찰할 수 있습니다. 철새가 찾아오는 곳으로도 알려져 있어 습지와 생태환경을 살펴보기에 좋은 장소입니다. 주변의 갈대밭과 해안 풍경은 우리나라 남해안의 자연환경을 보여주는 대표적인 모습입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Suncheon%20Bay.jpg?width=700"],
-["설악산","설악산은 강원특별자치도에 있는 산으로 높은 봉우리와 기암괴석, 숲과 계곡이 어우러진 자연경관으로 유명합니다. 계절에 따라 신록·단풍·눈 덮인 산의 모습을 볼 수 있어 사계절의 변화가 뚜렷하게 나타납니다. 산림과 계곡에는 다양한 동식물이 살아가며, 여러 탐방로를 통해 자연을 관찰할 수 있습니다. 우리나라의 대표적인 산악 자연환경을 살펴볼 수 있는 장소입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seoraksan.jpg?width=700"],
-["해운대","해운대는 부산광역시에 있는 대표적인 해안 관광지로 넓은 모래사장과 바다가 펼쳐져 있습니다. 여름철에는 많은 사람들이 바다와 해변을 찾으며, 주변에는 도시의 다양한 시설도 함께 발달해 있습니다. 해운대의 해안 풍경을 보면 부산이 바다와 가까운 도시라는 점을 알 수 있습니다. 주변의 동백섬과 마린시티 등과 함께 부산의 도시와 해안 환경을 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Haeundae%20Beach.jpg?width=700"],
-["고창·화순·강화 고인돌 유적","고창·화순·강화 고인돌 유적은 선사시대 사람들이 만든 거대한 돌무덤인 고인돌이 여러 지역에 모여 있는 유적입니다. 큰 돌을 세우거나 받치고 그 위에 덮개돌을 올린 형태가 많아 당시 사람들이 돌을 다루고 공동으로 일을 했던 모습을 짐작하게 합니다. 세 지역의 고인돌은 형태와 분포가 다양해 한반도 청동기시대 문화를 살펴보는 중요한 자료입니다. 이 유적은 유네스코 세계유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Dolmen%20in%20Korea.jpg?width=700"],
-["수원 화성","수원 화성은 조선 정조 때인 18세기 말에 축조된 성곽입니다. 성벽을 따라 성문·포루·망루 등 여러 방어 시설이 배치되어 있어 당시의 성곽 건축 기술을 살펴볼 수 있습니다. 정조가 수원에 새로운 도시를 발전시키는 과정에서 중요한 역할을 한 장소이기도 합니다. 오늘날에는 성곽을 따라 걸으며 건축물과 도시의 모습을 함께 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hwaseong%20Fortress.jpg?width=700"],
-["하회마을","하회마을은 경상북도 안동에 있는 전통 마을로 낙동강이 마을을 돌아 흐르는 지형이 특징입니다. 전통 한옥과 오래된 마을길이 남아 있어 조선 시대 양반 마을의 모습을 살펴볼 수 있습니다. 탈놀이와 같은 전통문화와도 관계가 깊으며 마을의 자연환경과 건축이 함께 어우러져 있습니다. 역사적 경관을 잘 간직한 곳으로 유네스코 세계유산에 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hahoe%20Folk%20Village.jpg?width=700"],
-["해인사 장경판전","해인사 장경판전은 경상남도 합천 해인사에 있는 전통 목조건축물로 팔만대장경 목판을 보관해 온 건물입니다. 건물의 창호와 통풍 구조는 목판을 오랫동안 보존할 수 있도록 만들어졌습니다. 장경판전과 팔만대장경은 우리나라의 인쇄문화와 전통 건축 기술을 함께 살펴볼 수 있는 중요한 문화유산입니다. 장경판전은 해인사 장경판전이라는 이름으로 유네스코 세계유산에 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Haeinsa%20Janggyeong%20Panjeon.jpg?width=700"]
-],
-culture:[
-["한복","한복은 한국의 전통 의복으로 저고리와 치마 또는 바지 등을 기본으로 구성합니다. 옷의 선이 부드럽고 움직이기 편하도록 만들어졌으며 색과 장식도 다양합니다. 예전에는 일상생활에서 널리 입었지만 오늘날에는 명절이나 결혼식, 전통 행사 등 특별한 날에 입는 경우가 많습니다. 시대에 맞게 디자인을 바꾼 생활한복도 있어 전통과 현대의 모습을 함께 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hanbok%20%ED%95%9C%EB%B3%B5%20%284261102177%29.jpg?width=700"],
-["설날","설날은 음력 1월 1일을 중심으로 새해를 맞는 우리나라의 대표적인 명절입니다. 가족이 모여 어른께 인사를 드리고 떡국을 먹으며 한 해의 건강과 좋은 일을 기원하는 풍습이 있습니다. 세배와 윷놀이처럼 설날에 함께하는 전통 활동도 있습니다. 오늘날에는 가족이 함께 시간을 보내며 새해를 맞는 날로 이어지고 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seollal.jpg?width=700"],
-["추석","추석은 음력 8월 15일에 맞는 우리나라의 대표적인 명절입니다. 가족과 친지가 모여 차례를 지내거나 성묘를 하며 조상과 가족의 의미를 생각하는 날로 전해져 왔습니다. 송편과 같은 명절 음식을 만들어 나누어 먹기도 합니다. 계절의 변화와 수확의 기쁨을 함께 나누는 명절이라는 점에서도 의미가 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Chuseok.jpg?width=700"],
-["윷놀이","윷놀이는 네 개의 윷가락을 던져 나온 결과에 따라 말을 움직이는 우리나라의 전통 놀이입니다. 여러 사람이 편을 나누어 즐길 수 있고, 윷의 결과에 따라 말의 이동 방법이 달라집니다. 가족이나 친구가 함께 규칙을 정하고 놀이를 하면서 자연스럽게 차례와 전략을 익힐 수 있습니다. 설날을 비롯한 명절이나 가족 모임에서 즐겨 온 놀이입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Yut.jpg?width=700"],
-["판소리","판소리는 한 명의 소리꾼이 고수의 장단에 맞추어 긴 이야기를 노래와 말, 몸짓으로 표현하는 전통 공연예술입니다. 소리꾼은 노래와 이야기를 오가며 등장인물과 사건을 표현하고, 고수는 북을 치며 장단을 맞춥니다. 오랜 시간 이어진 이야기와 음악을 함께 감상할 수 있어 한국 전통예술의 특징을 잘 보여줍니다. 판소리는 유네스코 인류무형문화유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Pansori.jpg?width=700"],
-["강강술래","강강술래는 여러 사람이 손을 잡고 원을 이루어 노래와 춤을 추는 전통 민속예술입니다. 참가자들이 함께 움직이며 노래를 이어 가기 때문에 여럿이 협력하는 모습이 잘 드러납니다. 주로 남해안 지역을 중심으로 전해져 왔으며 명절이나 전통 행사와도 관계가 깊습니다. 강강술래는 유네스코 인류무형문화유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Ganggangsullae%20jindo.jpg?width=700"],
-["한옥","한옥은 나무·흙·돌 등을 활용하여 지은 한국의 전통 주거 형태입니다. 방을 따뜻하게 하는 온돌과 집 안에서 다양한 활동을 할 수 있는 마당이 중요한 특징으로 꼽힙니다. 지역의 기후와 지형에 따라 집의 구조와 재료가 달라지기도 합니다. 오늘날에는 전통 한옥을 보존하면서 현대 생활에 맞게 고친 집도 볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bukchon%20Hanok%20Village.jpg?width=700"],
-["K-pop","K-pop은 한국에서 만들어진 대중음악을 가리키는 말로, 노래뿐 아니라 춤과 공연, 영상 등 여러 요소가 함께 발전해 왔습니다. 아이돌 그룹을 비롯한 다양한 가수와 음악가가 활동하며 여러 장르의 음악을 활용합니다. 음악 방송과 공연, 온라인 영상 등을 통해 많은 사람들이 K-pop을 접하고 있습니다. 한국의 현대 대중문화를 이해할 때 살펴볼 수 있는 중요한 문화 현상 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/K-pop%20concert.jpg?width=700"],
-["한국 영화와 드라마","한국의 영화와 드라마는 가족 이야기, 역사 이야기, 일상생활, 모험과 추리 등 다양한 주제를 다룹니다. 제작 기술과 배우들의 연기, 촬영과 음악 등 여러 요소가 함께 어우러져 하나의 이야기를 만듭니다. 국내에서 많은 시청자와 관객이 즐기는 문화 콘텐츠이며 해외에서도 한국의 현대 문화를 접하는 방법 가운데 하나가 되고 있습니다. 작품마다 이야기와 표현 방식이 다르므로 여러 작품을 비교해 보는 것도 흥미롭습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Korean%20film%20set.jpg?width=700"]
-]
-};
-
-function openDB(){
- return new Promise((resolve,reject)=>{
-  const req=indexedDB.open(DB_NAME,1);
-  req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(STORE))db.createObjectStore(STORE,{keyPath:"key"});};
-  req.onsuccess=()=>resolve(req.result);
-  req.onerror=()=>reject(req.error);
- });
-}
-async function getPhoto(section,id){
- const db=await openDB();
- return new Promise(resolve=>{
-  const q=db.transaction(STORE,"readonly").objectStore(STORE).get(`${COUNTRY}|${section}|${id}`);
-  q.onsuccess=()=>resolve(q.result?.photo||"");
-  q.onerror=()=>resolve("");
- });
-}
-async function savePhoto(section,id,photo){
- const db=await openDB();
- return new Promise((resolve,reject)=>{
-  const tx=db.transaction(STORE,"readwrite");
-  tx.objectStore(STORE).put({key:`${COUNTRY}|${section}|${id}`,country:COUNTRY,section,id,photo});
-  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
- });
-}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
-function customKey(section){return `custom_${COUNTRY}_${section}`}
-function editKey(section,id){return `edit_${COUNTRY}_${section}_${id}`}
-function getCustom(section){try{return JSON.parse(localStorage.getItem(customKey(section))||"[]")}catch{return[]}}
-function getEditedDesc(section,id,original){return localStorage.getItem(editKey(section,id)) ?? original}
-function setEditedDesc(section,id,desc){localStorage.setItem(editKey(section,id),desc)}
-function removeEditedDesc(section,id){localStorage.removeItem(editKey(section,id))}
-const relationWords=["대한민국","한국","korea","korean","서울","부산","제주","한반도","조선","고려","신라","백제","한국어","한글","김치","한복","태극기","k-pop","한국전쟁","dmz","독도","울릉도","경주","전주","안동","수원","인천","강원","전라","충청","경상","갈비탕","갈비","국","탕","찌개","전골","비빔밥","불고기","냉면","잡채","떡","김밥","삼계탕","떡볶이","김치찌개","된장찌개","순두부","설렁탕","곰탕","삼겹살","한식","한국 음식","korean food"];
-const foreignNoise=/(포르투갈어|포르투갈|영어로|영어권|스페인어|프랑스어|독일어|이탈리아어|러시아어|일본어|중국어|아랍어|라틴어|그리스어|터키어|힌디어|베트남어|태국어|폴란드어|체코어|헝가리어|루마니아어|우크라이나어|이 단어는 .*언어|다른 언어에서는|외국에서는)/i;
-const childUnsafe=/(성적|성행위|음란|포르노|욕설|심한 욕|비속어|외설|자살|살인|고문|잔인|폭력적인 묘사|마약|약물 남용)/i;
-function cleanAutoDescription(text,name,section){
- if(!text)return "";
- let t=text.replace(/\s+/g," ").trim();
- const sentences=t.split(/(?<=[.!?。！？])\s+/).map(x=>x.trim()).filter(Boolean);
- const kept=[];
- for(const sentence of sentences){
-   if(foreignNoise.test(sentence)||childUnsafe.test(sentence))continue;
-   if(/\b(?:Portuguese|English|Spanish|French|German|Italian|Japanese|Chinese|Russian)\b/i.test(sentence))continue;
-   kept.push(sentence);
-   if(kept.length>=4)break;
- }
- return kept.join(" ").trim();
-}
-async function lookupWikipedia(name){
- for(const base of ["https://ko.wikipedia.org/api/rest_v1/page/summary/","https://en.wikipedia.org/api/rest_v1/page/summary/"]){
-  try{const r=await fetch(base+encodeURIComponent(name),{headers:{Accept:"application/json"}});if(r.ok){const j=await r.json();if(j.extract){const cleaned=cleanAutoDescription(j.extract,name);if(cleaned)return cleaned;}}}catch(e){}
- }
- return "";
-}
-async function addItem(section){
- const name=prompt("추가할 항목의 이름을 입력하세요.");
- if(!name?.trim())return;
- const n=name.trim(), auto=await lookupWikipedia(n);
- const corpus=(n+" "+auto).toLowerCase();
- const directFood=/(갈비탕|갈비|김치|비빔밥|불고기|냉면|잡채|떡|김밥|삼계탕|떡볶이|김치찌개|된장찌개|순두부|설렁탕|곰탕|삼겹살|한식|만두|만두국|만둣국|국밥|육개장|감자탕|순대|파전|김치전)/i.test(n);
- const related=directFood || relationWords.some(w=>corpus.includes(w.toLowerCase()));
- if(!related && !confirm("이 항목은 대한민국과의 연관성을 확인하기 어렵습니다.\n그래도 추가하시겠습니까?"))return;
- const desc=auto||prompt("기본 설명을 검색하지 못했습니다. 설명을 직접 입력하시겠습니까?")||"기본 설명이 아직 입력되지 않았습니다.";
- const arr=getCustom(section);arr.push({id:"u"+Date.now(),name:n,desc:desc.trim(),unrelated:!related});
- localStorage.setItem(customKey(section),JSON.stringify(arr));await render(section);
-}
-function editDescription(section,x){
- const current=getEditedDesc(section,x.id,x.desc);
- const next=prompt("이 항목의 설명을 수정하세요.\n\n아이에게 보여줄 설명만 적어 주세요.",current);
- if(next===null)return;
- const v=next.trim();if(!v){alert("설명은 비워 둘 수 없습니다.");return;}
- setEditedDesc(section,x.id,v);render(section);
-}
-function resetDescription(section,x){
- if(!confirm("원래 설명으로 되돌릴까요?"))return;
- removeEditedDesc(section,x.id);render(section);
-}
-async function render(section){
- const map={food:"foodList",animals:"animalsList",places:"placesList",culture:"cultureList"};
- const el=document.getElementById(map[section]); el.innerHTML="";
- const built=data[section].map((x,i)=>({id:"b"+i,name:x[0],desc:x[1],src:x[2],mine:false}));
- const customs=getCustom(section).map(x=>({id:x.id,name:x.name,desc:x.desc,src:"",mine:true,unrelated:!!x.unrelated}));
- for(const x of [...built,...customs]){
-  const p=await getPhoto(section,x.id);
-  const shown=p||x.src;
-  const edited=localStorage.getItem(editKey(section,x.id));
-  const desc=getEditedDesc(section,x.id,x.desc);
-  const card=document.createElement("article");card.className="item";
-  card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="related-status">이 나라와 관련성 부족</span>':''}</h3>
-   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}</div>
-   <p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
-   <div class="actions">
-     <div class="action-left"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden></div>
-     <div class="action-right"><button type="button" class="edit-desc">설명 수정</button>${!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>
-   </div>`;
-  card.querySelector(".edit-desc").onclick=()=>editDescription(section,x);
-  if(!x.mine)card.querySelector(".reset-desc").onclick=()=>resetDescription(section,x);
-  const buttons=card.querySelectorAll(".actions button");
-  const photoButton=[...buttons].find(b=>b.textContent.includes("사진"));
-  const input=card.querySelector("input");
-  photoButton.onclick=()=>input.click();
-  input.onchange=async()=>{const f=input.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=async()=>{await savePhoto(section,x.id,reader.result);await render(section)};reader.readAsDataURL(f)};
-  if(x.mine){card.querySelector(".delete").onclick=async()=>{if(!confirm("이 항목을 삭제할까요?"))return;const arr=getCustom(section).filter(y=>y.id!==x.id);localStorage.setItem(customKey(section),JSON.stringify(arr));removeEditedDesc(section,x.id);await savePhoto(section,x.id,"");await render(section)}}
-  el.appendChild(card);
- }
-}
-
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
 function editTitle(){const current=localStorage.getItem("world_country_title")||"세계 나라 백과사전";const next=prompt("백과사전 이름을 입력하세요.",current);if(next===null)return;const v=next.trim();if(!v)return;localStorage.setItem("world_country_title",v);document.getElementById("appTitle").textContent=v;}
+function openCountryList(){document.getElementById("countryModal").classList.add("open");renderCountryList();}
+function closeCountryList(e){if(e.target.id==="countryModal"||e.target.classList.contains("close-list"))document.getElementById("countryModal").classList.remove("open");}
+function selectCountry(code){COUNTRY=code;localStorage.setItem("selected_country",code);document.getElementById("countryModal").classList.remove("open");renderApp();}
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(STORE))db.createObjectStore(STORE,{keyPath:"key"})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function getPhoto(section,id){const db=await openDB();return new Promise(resolve=>{const q=db.transaction(STORE,"readonly").objectStore(STORE).get(`${COUNTRY}|${section}|${id}`);q.onsuccess=()=>resolve(q.result?.photo||"");q.onerror=()=>resolve("")})}
+async function savePhoto(section,id,photo){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put({key:`${COUNTRY}|${section}|${id}`,country:COUNTRY,section,id,photo});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+function customKey(section){return `custom_${COUNTRY}_${section}`} function editKey(section,id){return `edit_${COUNTRY}_${section}_${id}`}
+function getCustom(section){try{return JSON.parse(localStorage.getItem(customKey(section))||"[]")}catch{return[]}}
+function getEditedDesc(section,id,original){return localStorage.getItem(editKey(section,id))??original}
+function setEditedDesc(section,id,desc){localStorage.setItem(editKey(section,id),desc)} function removeEditedDesc(section,id){localStorage.removeItem(editKey(section,id))}
+const foreignNoise=/(포르투갈어|포르투갈|영어로|영어권|스페인어|프랑스어|독일어|이탈리아어|러시아어|일본어|중국어|아랍어|라틴어|그리스어|터키어|힌디어|베트남어|태국어|폴란드어|체코어|헝가리어|루마니아어|우크라이나어|다른 언어에서는|외국에서는)/i;
+const childUnsafe=/(성적|성행위|음란|포르노|욕설|심한 욕|비속어|외설|자살|살인|고문|잔인|폭력적인 묘사|마약|약물 남용)/i;
+function cleanAutoDescription(text){if(!text)return "";let t=text.replace(/\s+/g," ").trim();let sentences=t.split(/(?<=[.!?。！？])\s+/).map(x=>x.trim()).filter(Boolean);let kept=[];for(const sentence of sentences){if(foreignNoise.test(sentence)||childUnsafe.test(sentence))continue;kept.push(sentence);if(kept.length>=4)break}return kept.join(" ").trim()}
+async function lookupWikipedia(name){for(const base of ["https://ko.wikipedia.org/api/rest_v1/page/summary/","https://en.wikipedia.org/api/rest_v1/page/summary/"]){try{const r=await fetch(base+encodeURIComponent(name),{headers:{Accept:"application/json"}});if(r.ok){const j=await r.json();if(j.extract){const cleaned=cleanAutoDescription(j.extract);if(cleaned)return cleaned}}}catch(e){}}return ""}
+function relationCheck(name,auto){const c=(name+" "+auto).toLowerCase();const d=COUNTRIES[COUNTRY].name.toLowerCase();return c.includes(d)||c.includes(COUNTRY==="JP"?"japan":COUNTRY==="CN"?"china":COUNTRY==="US"?"america":COUNTRY==="FR"?"france":COUNTRY==="EG"?"egypt":"korea")||COUNTRIES[COUNTRY].food.some(x=>c.includes(x[0].toLowerCase()))}
+async function addItem(section){const name=prompt("추가할 항목의 이름을 입력하세요.");if(!name?.trim())return;const n=name.trim(),auto=await lookupWikipedia(n);const related=relationCheck(n,auto);if(!related&&!confirm(`이 항목은 ${COUNTRIES[COUNTRY].name}과의 연관성을 확인하기 어렵습니다.\n그래도 추가하시겠습니까?`))return;const desc=auto||prompt("기본 설명을 검색하지 못했습니다. 설명을 직접 입력하시겠습니까?")||"기본 설명이 아직 입력되지 않았습니다.";const arr=getCustom(section);arr.push({id:"u"+Date.now(),name:n,desc:desc.trim(),unrelated:!related});localStorage.setItem(customKey(section),JSON.stringify(arr));renderItems(section)}
+function editDescription(section,x){const current=getEditedDesc(section,x.id,x.desc);const next=prompt("이 항목의 설명을 수정하세요.\n\n아이에게 보여줄 설명만 적어 주세요.",current);if(next===null)return;const v=next.trim();if(!v){alert("설명은 비워 둘 수 없습니다.");return}setEditedDesc(section,x.id,v);renderItems(section)}
+function resetDescription(section,x){if(!confirm("원래 설명으로 되돌릴까요?"))return;removeEditedDesc(section,x.id);renderItems(section)}
+async function renderItems(section){const el=document.getElementById(section+"List");if(!el)return;el.innerHTML="";const built=COUNTRIES[COUNTRY][section].map((x,i)=>({id:"b"+i,name:x[0],desc:x[1],src:x[2],mine:false}));const customs=getCustom(section).map(x=>({id:x.id,name:x.name,desc:x.desc,src:"",mine:true,unrelated:!!x.unrelated}));for(const x of [...built,...customs]){const p=await getPhoto(section,x.id);const shown=p||x.src;const desc=getEditedDesc(section,x.id,x.desc);const card=document.createElement("article");card.className="item";card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="related-status">이 나라와 관련성 부족</span>':''}</h3><div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}</div><p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}<div class="actions"><div class="action-left"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden></div><div class="action-right"><button type="button" class="edit-desc">설명 수정</button>${!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div></div>`;card.querySelector(".edit-desc").onclick=()=>editDescription(section,x);if(!x.mine)card.querySelector(".reset-desc").onclick=()=>resetDescription(section,x);const input=card.querySelector("input"),photoButton=card.querySelector(".action-left button");photoButton.onclick=()=>input.click();input.onchange=async()=>{const f=input.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=async()=>{await savePhoto(section,x.id,reader.result);await renderItems(section)};reader.readAsDataURL(f)};if(x.mine)card.querySelector(".delete").onclick=async()=>{if(!confirm("이 항목을 삭제할까요?"))return;const arr=getCustom(section).filter(y=>y.id!==x.id);localStorage.setItem(customKey(section),JSON.stringify(arr));removeEditedDesc(section,x.id);await savePhoto(section,x.id,"");await renderItems(section)};el.appendChild(card)}}
+function renderCountryList(){const g=document.getElementById("countryGrid");g.innerHTML="";ORDER.forEach(code=>{const b=document.createElement("button");b.className="country-choice"+(code===COUNTRY?" active":"");b.textContent=COUNTRIES[code].name;b.onclick=()=>selectCountry(code);g.appendChild(b)})}
+function renderApp(){const d=COUNTRIES[COUNTRY];document.getElementById("countryName").textContent=d.name;const nav=document.getElementById("nav");nav.innerHTML=Object.entries(sectionNames).map(([k,v])=>`<a href="#${k}">${v}</a>`).join("");document.getElementById("app").innerHTML=`
+<section id="basic"><h2>1. 기본정보</h2><div class="info-grid"><div class="info"><b>나라 이름</b>${d.name}</div><div class="info"><b>위치</b>${d.location}</div><div class="info"><b>수도</b>${d.capital}</div><div class="info"><b>면적</b>${d.area}</div><div class="info"><b>인구</b>${d.population}</div><div class="info"><b>언어</b>${d.language}</div><div class="info"><b>문자</b>${d.script}</div><div class="info"><b>화폐</b>${d.currency}</div></div><p class="note">인구·면적은 나라별 공식 통계 또는 국제기구의 최신 이용 가능 자료를 기준으로 정리했으며, 자료의 기준일이 서로 다를 수 있습니다.</p></section>
+<section id="map"><h2>2. 실제 지도</h2><div class="map-grid"><div class="map-card"><h3>${d.name} 위치 지도</h3><div class="map-image"><img src="${d.map}" alt="${d.name} 위치 지도"></div><p class="map-note">${d.mapNote}</p></div><div class="map-card"><h3>세계 지도에서 바라본 ${d.name}</h3><div class="map-image world-wrap"><img src="${d.worldmap}" alt="${d.name} 세계 위치 지도"><button class="zoom-map" onclick="openMapZoom()">확대해서 보기</button></div><p class="map-note">지구에서 이 나라가 어느 지역에 있는지 살펴볼 수 있습니다.</p></div></div></section>
+<section id="flag"><h2>3. 국기</h2><img class="flag" src="${d.flag}" alt="${d.name} 국기"><p>${flagText(d)}</p></section>
+<section id="capital"><h2>4. 수도 설명</h2><h3>${d.capital}</h3><p>${d.capitalText}</p></section>
+<section id="nature"><h2>5. 자연과 기후</h2><p>${d.natureText}</p><p>${d.climate}</p></section>
+<section id="language"><h2>6. 언어와 문자</h2><p>${d.languageText}</p></section>
+<section id="food"><h2>7. 음식</h2><p class="section-intro">${d.foodIntro}</p><div class="cards" id="foodList"></div><button class="add-btn" onclick="addItem('food')">항목 추가</button></section>
+<section id="animals"><h2>8. 동식물</h2><p class="section-intro">${d.animalsIntro}</p><div class="cards" id="animalsList"></div><button class="add-btn" onclick="addItem('animals')">항목 추가</button></section>
+<section id="places"><h2>9. 전국의 명소</h2><p class="section-intro">${d.placesIntro}</p><div class="cards" id="placesList"></div><button class="add-btn" onclick="addItem('places')">항목 추가</button></section>
+<section id="culture"><h2>10. 대표 문화</h2><p class="section-intro">${d.cultureIntro}</p><div class="cards" id="cultureList"></div><button class="add-btn" onclick="addItem('culture')">항목 추가</button></section>
+<section id="history"><h2>11. 한눈에 보는 ${d.name} 역사</h2><div class="event-grid">${d.history.map(x=>`<div class="event"><b>${x[0]}</b><br>${x[1]}</div>`).join("")}</div></section>
+<section id="sources"><h2>12. 자료를 확인한 곳</h2><div class="source-box"><ul class="source-list"><li>대한민국·일본 등 국가별 정부 공식 자료</li><li>국제연합(UN) 회원국 자료</li><li>세계은행(World Bank) 통계</li><li>Wikimedia Commons의 지도·사진 자료</li></ul><p class="note">실제 수치와 역사·문화 설명은 나라별 공식 자료와 국제기구 자료를 우선하고, 사진과 지도는 Wikimedia Commons 자료를 활용했습니다.</p></div></section>`;
+document.documentElement.style.scrollPaddingTop=((document.querySelector("header")?.offsetHeight||150)+8)+"px";["food","animals","places","culture"].forEach(renderItems);}
+function flagText(d){const t={KR:"태극기는 흰 바탕 가운데 태극 문양과 네 괘가 배치되어 있습니다.",JP:"일장기는 흰 바탕 가운데 붉은 원이 있어 태양을 상징합니다.",CN:"중국 국기는 붉은 바탕에 큰 노란 별 하나와 작은 별 네 개가 있습니다.",US:"미국 국기는 별과 줄무늬로 이루어져 있으며 주를 나타내는 별과 13개의 줄이 있습니다.",FR:"프랑스 국기는 파랑·흰색·빨강의 세 세로 띠로 이루어져 있습니다.",EG:"이집트 국기는 빨강·흰색·검정의 세 가로 띠와 가운데 국장을 담고 있습니다."};return t[COUNTRY]||"이 나라의 국기는 나라의 역사와 상징을 담고 있습니다.";}
+function openMapZoom(){const d=COUNTRIES[COUNTRY];const modal=document.createElement("div");modal.className="country-modal open";modal.id="mapZoomModal";modal.innerHTML=`<div class="country-panel" style="max-width:900px;text-align:center"><button class="close-list" onclick="document.getElementById('mapZoomModal')?.remove()">×</button><h2>${d.name} 실제 지도</h2><img src="${d.worldmap}" alt="${d.name} 확대 지도" style="max-width:100%;max-height:75vh;object-fit:contain"></div>`;document.body.appendChild(modal);}
 const savedTitle=localStorage.getItem("world_country_title");if(savedTitle)document.getElementById("appTitle").textContent=savedTitle;
-function openMapZoom(){document.getElementById("mapModal").classList.add("open")} function closeMapZoom(e){if(e.target.id==="mapModal"||e.target.classList.contains("map-close"))document.getElementById("mapModal").classList.remove("open")}
-document.getElementById("countryBack").onclick=()=>alert("현재는 대한민국 백과사전 화면입니다. 이후 국가 목록을 연결할 수 있도록 국가코드 KR 기준으로 저장 구조를 만들었습니다.");
-for(const s of ["food","animals","places","culture"])render(s);
-// Keep anchor jumps below the fixed header even when the header wraps.
-function updateHeaderOffset(){
-  const h=document.querySelector('header')?.offsetHeight||150;
-  document.documentElement.style.scrollPaddingTop=(h+8)+'px';
-}
-updateHeaderOffset();
-window.addEventListener('resize',updateHeaderOffset);
-</script>
-</body>
-</html>
+renderCountryList();renderApp();
+window.addEventListener("resize",()=>document.documentElement.style.scrollPaddingTop=((document.querySelector("header")?.offsetHeight||150)+8)+"px");
+</script></body></html>
