@@ -10,16 +10,16 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.75}
-header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #0000000b}
+header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #0000000b}
 .head{max-width:1180px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.title{font-size:1.55rem;font-weight:950;letter-spacing:-.02em}.title-edit{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:5px 9px;font-weight:800;font-size:.82rem;margin-left:7px}
+.title{font-size:1.85rem;font-weight:950;letter-spacing:-.02em}.title-edit{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:5px 9px;font-weight:800;font-size:.82rem;margin-left:7px}
 .country{font-size:1.65rem;font-weight:900}
 .back{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 12px;font-weight:800}
 main{max-width:1180px;margin:auto;padding:18px 16px 60px}
 nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;max-width:1180px;margin:0 auto;padding:8px 16px 11px;border-top:1px solid #eef2f7;scrollbar-width:thin;background:#fff}
 nav a{flex:0 0 auto;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:#27405f;text-decoration:none;font-size:.9rem;white-space:nowrap}
 nav a:active,nav a:hover{background:#eef5ff}
-section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}
+section{scroll-margin-top:125px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}
 h2{font-size:1.5rem;margin:0 0 14px}
 h3{font-size:1.1rem;margin:14px 0 7px}
 p{margin:8px 0}
@@ -45,7 +45,7 @@ p{margin:8px 0}
 .photo-area .empty{color:#7a8698;font-size:.9rem}.photo-status{position:absolute;right:8px;top:8px;background:#fff3f3;color:#b42318;border:1px solid #efb1aa;border-radius:8px;padding:3px 7px;font-size:.75rem;font-weight:900;box-shadow:0 1px 5px #0002}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
 button{cursor:pointer}
-.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700}
+.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700}.actions .edit-desc{background:#eef5ff;border-color:#c9daf7}.actions .reset-desc{background:#f8fafc;color:#667085}
 .mine{display:inline-block;margin-top:7px;background:#fff3cd;color:#765500;border-radius:999px;padding:2px 7px;font-size:.78rem;font-weight:800}
 .history{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .history .event{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
@@ -65,11 +65,10 @@ button{cursor:pointer}
   <div><div class="title"><span id="appTitle">세계 나라 백과사전</span><button class="title-edit" type="button" onclick="editTitle()">이름 수정</button></div><div class="country">대한민국</div></div>
   <button class="back" id="countryBack">나라 목록으로 돌아가기</button>
  </div>
-</header>
-
 <nav>
 <a href="#basic">기본정보</a><a href="#map">실제 지도</a><a href="#flag">국기</a><a href="#capital">수도 설명</a><a href="#nature">자연과 기후</a><a href="#language">언어와 문자</a><a href="#food">음식</a><a href="#animals">동식물</a><a href="#places">전국의 명소</a><a href="#culture">대표 문화</a><a href="#history">역사</a><a href="#sources">자료</a>
 </nav>
+</header>
 
 <main>
 
@@ -201,50 +200,50 @@ const STORE="photos";
 
 const data={
 food:[
-["김치","배추·무 등의 채소를 소금에 절인 뒤 고춧가루, 마늘, 생강 등의 양념을 넣어 발효시키는 음식입니다. 지역과 재료에 따라 여러 종류가 있으며 한국 식탁에서 반찬으로 널리 먹습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Kimchi.jpg?width=700"],
-["비빔밥","따뜻한 밥 위에 여러 나물과 고기, 달걀 등의 재료를 올리고 고추장이나 간장 등의 양념을 넣어 비벼 먹습니다. 재료를 한 그릇에 담아 색과 맛을 조화시키는 것이 특징입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bibimbap.jpg?width=700"],
-["불고기","소고기나 돼지고기 등을 얇게 썰어 간장, 설탕, 마늘 등의 양념에 재운 뒤 구워 먹는 음식입니다. 채소와 함께 조리하기도 하며 한국을 대표하는 고기 음식 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bulgogi.jpg?width=700"],
-["냉면","메밀이나 전분 등을 이용해 만든 면을 차가운 육수 또는 매콤한 양념과 함께 먹는 음식입니다. 대표적으로 평양냉면과 함흥냉면이 있으며 면의 재료와 조리법에 차이가 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Naengmyeon.jpg?width=700"],
-["떡","쌀이나 다른 곡식을 가루로 만들어 찌거나 삶고 빚어서 만드는 전통 음식입니다. 백설기, 송편, 인절미 등 종류가 많고 명절이나 잔치에서도 자주 먹습니다.",""],
-["잡채","고구마 전분으로 만든 당면에 여러 채소와 고기 등을 넣고 간장 양념으로 볶아 만드는 음식입니다. 색깔이 다양한 재료를 사용해 잔칫상이나 명절 음식으로도 많이 먹습니다.",""],
-["호떡","밀가루 반죽 안에 설탕, 계피, 견과류 등을 넣고 납작하게 눌러 구워 먹는 길거리 간식입니다. 따뜻할 때 속의 달콤한 시럽이 녹아 있는 것이 특징입니다.",""],
-["고추장","고춧가루와 찹쌀 등의 곡물, 메주가루와 소금 등을 이용해 발효시키는 한국의 전통 장류입니다. 비빔밥, 떡볶이, 양념장 등에 매운맛과 감칠맛을 더합니다.",""]
+["김치","배추·무 등의 채소를 소금에 절인 뒤 고춧가루, 마늘, 생강 등의 양념을 넣어 발효시키는 한국의 대표적인 음식입니다. 재료와 양념, 만드는 방법에 따라 배추김치·깍두기·동치미 등 여러 종류가 있습니다. 김치는 밥과 함께 반찬으로 먹기도 하고 김치찌개·김치볶음밥처럼 다른 음식의 재료로도 활용합니다. 김장을 통해 가족이나 이웃이 함께 김치를 준비하고 나누는 문화도 이어져 왔습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Kimchi.jpg?width=700"],
+["비빔밥","따뜻한 밥 위에 여러 나물과 채소, 고기, 달걀 등의 재료를 올리고 양념을 넣어 비벼 먹는 한국 음식입니다. 재료의 색과 맛을 한 그릇에 조화롭게 담는 것이 특징이며, 지역과 재료에 따라 여러 형태가 있습니다. 돌솥비빔밥처럼 뜨거운 그릇에 담아 밥의 일부를 눌어붙게 해서 먹기도 합니다. 여러 가지 재료를 한 번에 먹을 수 있어 한국 음식의 다양성을 보여주는 음식으로 알려져 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bibimbap.jpg?width=700"],
+["불고기","소고기나 돼지고기 등을 얇게 썰어 간장, 설탕, 마늘, 참기름 등의 양념에 재운 뒤 구워 먹거나 국물이 조금 있는 방식으로 익혀 먹는 음식입니다. 고기에 양념이 배도록 미리 재우는 것이 특징이며 양파·버섯·파 같은 채소를 함께 넣기도 합니다. 지역과 가정에 따라 양념의 단맛과 조리 방법이 조금씩 다릅니다. 밥과 함께 먹는 대표적인 한국 고기 음식 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bulgogi.jpg?width=700"],
+["냉면","메밀이나 전분 등을 이용해 만든 면을 차가운 육수 또는 매콤한 양념과 함께 먹는 한국의 면 요리입니다. 대표적으로 물냉면과 비빔냉면이 있으며, 지역에 따라 면의 재료와 육수, 양념이 다릅니다. 평양냉면은 담백한 육수를 사용하는 것으로 알려져 있고, 함흥냉면은 감자나 고구마 전분을 사용한 쫄깃한 면과 매콤한 양념이 특징입니다. 더운 계절에 많이 찾지만 계절과 관계없이 먹을 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Naengmyeon.jpg?width=700"],
+["떡","쌀이나 다른 곡식을 가루로 만들어 찌거나 삶고 빚어서 만드는 한국의 전통 음식입니다. 백설기·송편·인절미·가래떡 등 종류가 매우 많으며 재료와 만드는 방법에 따라 맛과 모양이 달라집니다. 명절이나 생일, 잔치 같은 특별한 날에 먹는 음식으로도 오랫동안 사랑받아 왔습니다. 떡볶이처럼 다른 음식의 재료로 사용되는 떡도 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Tteok.jpg?width=700"],
+["잡채","고구마 전분으로 만든 당면에 시금치·당근·양파·버섯 같은 채소와 고기 등을 넣고 간장 양념으로 볶아 만드는 음식입니다. 재료를 각각 알맞게 익힌 뒤 함께 섞어 만드는 경우가 많아 여러 색과 식감이 어우러집니다. 명절이나 잔치, 가족 모임에서 자주 차려지는 음식이며 따뜻하게 먹거나 식혀서 먹기도 합니다. 재료를 다양하게 넣을 수 있어 가정과 지역에 따라 모습이 조금씩 다릅니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Japchae.jpg?width=700"],
+["호떡","밀가루 등을 이용한 반죽 안에 설탕과 계피, 견과류 등을 넣고 납작하게 눌러 기름에 구워 먹는 한국의 간식입니다. 뜨거울 때 속의 설탕이 녹아 달콤한 시럽처럼 되는 것이 특징입니다. 겨울철 길거리 간식으로 특히 많이 알려져 있으며 씨앗이나 채소 등을 넣는 여러 종류의 호떡도 있습니다. 지역과 가게에 따라 반죽과 속재료의 맛이 달라질 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hotteok.jpg?width=700"],
+["고추장","고춧가루와 곡물, 메줏가루, 소금 등을 이용해 발효시키는 한국의 전통 장류입니다. 매운맛뿐 아니라 단맛과 감칠맛도 있어 비빔밥·떡볶이·찌개·양념장 등 여러 음식에 사용합니다. 재료의 비율과 숙성 기간에 따라 맛과 색이 달라질 수 있습니다. 한국 음식에서 양념과 맛을 더하는 중요한 재료 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Gochujang.jpg?width=700"]
 ],
 animals:[
-["호랑이","한반도에서 오랫동안 전해 내려온 대표적인 상징 동물입니다. 역사와 민속 이야기, 미술 작품에도 자주 등장하며 현재 남한의 야생에서는 사실상 볼 수 없습니다.",""],
-["반달가슴곰","가슴에 반달 모양의 흰 무늬가 있어 이름이 붙었습니다. 산림에서 생활하며 우리나라에서는 지리산을 중심으로 복원과 보호가 이루어지고 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Ursus_thibetanus_ussuricus.jpg?width=700"],
-["두루미","습지와 논, 강 주변을 찾아오는 대표적인 겨울 철새입니다. 우리나라의 여러 지역에서 관찰되며 보호 가치가 높은 새입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Red-crowned%20crane.jpg?width=700"],
-["수달","강과 하천 주변에서 살아가는 포유류로 물속에서 먹이를 찾는 데 잘 적응했습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Otter.jpg?width=700"],
-["무궁화","대한민국을 상징하는 꽃으로 널리 알려진 식물입니다.",""],
-["소나무","우리나라 산과 들에서 흔히 볼 수 있는 대표적인 상록수입니다.",""],
-["벼","논에서 재배하는 곡식으로 쌀을 얻습니다. 우리 식생활과 매우 밀접합니다.",""],
-["제주도의 식물","제주도에는 따뜻한 기후와 화산 지형의 영향을 받은 다양한 식물이 자랍니다.",""]
+["호랑이","호랑이는 한반도에서 오랫동안 살아온 대표적인 야생 동물이며 우리나라의 전통 그림과 이야기에도 자주 등장합니다. 몸에 검은 줄무늬가 있고 숲과 산악 지역에서 생활하는 대형 고양잇과 동물입니다. 과거 한반도 여러 지역에 분포했지만 현재 대한민국의 야생에서는 사실상 관찰하기 어렵습니다. 우리나라의 자연과 전통문화를 상징하는 동물로 자주 소개됩니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Siberian_Tiger.jpg?width=700"],
+["반달가슴곰","반달가슴곰은 가슴에 반달 모양의 흰 무늬가 있어 이런 이름이 붙은 곰입니다. 주로 산림에서 생활하며 나무를 잘 타고 식물의 열매와 여러 먹이를 먹습니다. 우리나라에서는 지리산을 중심으로 복원 사업이 이루어지고 있으며 야생에서 살아갈 수 있도록 보호하고 있습니다. 산림 생태계의 한 구성원으로서 자연환경을 이해하는 데 중요한 동물입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Ursus_thibetanus_ussuricus.jpg?width=700"],
+["두루미","두루미는 긴 다리와 긴 목을 가진 큰 새로 습지와 논, 강 주변에서 관찰되는 대표적인 겨울 철새입니다. 우리나라에서는 추운 계절에 여러 습지를 찾아오는 모습을 볼 수 있으며, 얕은 물과 논 주변에서 먹이를 찾습니다. 몸의 대부분이 흰색이고 머리 윗부분에 붉은색 피부가 보이는 것이 특징입니다. 서식지가 줄어들지 않도록 보호가 필요한 새로 알려져 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Red-crowned%20crane.jpg?width=700"],
+["수달","수달은 강과 하천, 호수 주변에서 생활하는 포유류로 물속에서 움직이기에 알맞은 몸을 가지고 있습니다. 물고기와 여러 수생 생물을 먹으며 물가에 굴이나 은신처를 마련해 생활합니다. 우리나라에서도 하천과 해안 주변에서 살아가지만 깨끗하고 먹이가 충분한 서식지가 필요합니다. 수달의 모습과 생활을 살펴보면 하천 생태계의 중요성도 함께 생각할 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Otter.jpg?width=700"],
+["무궁화","무궁화는 대한민국을 상징하는 꽃으로 널리 알려진 낙엽성 관목입니다. 여름철에 분홍색·흰색 등 여러 색의 꽃을 피우며 꽃이 짧은 시간 동안 피고 지는 특징이 있습니다. 우리나라 곳곳에서 관상용으로 심으며 나라꽃을 상징하는 식물로 오랫동안 알려져 왔습니다. 꽃과 잎의 모습을 살펴보면 우리나라의 식물 가운데 어떤 특징이 있는지 알아볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hibiscus_syriacus.jpg?width=700"],
+["소나무","소나무는 우리나라 산과 들에서 흔히 볼 수 있는 대표적인 상록수입니다. 바늘처럼 생긴 잎이 두 개씩 모여 달리고, 줄기가 붉은빛을 띠는 경우가 많습니다. 추운 겨울에도 잎을 유지하기 때문에 사계절의 자연을 살펴볼 때 눈에 잘 띄는 나무입니다. 예부터 생활 재료와 그림, 문학 등에 자주 등장해 우리 문화와도 친숙한 나무입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Pinus_densiflora.jpg?width=700"],
+["벼","벼는 논에서 재배하여 쌀을 얻는 곡식으로 우리나라 식생활과 매우 밀접한 식물입니다. 따뜻한 계절에 자라며 물을 댄 논에서 재배하는 모습이 우리 농촌의 대표적인 풍경 가운데 하나입니다. 벼가 익으면 이삭의 색이 초록색에서 누런색으로 변하고, 수확한 벼에서 왕겨를 벗기면 우리가 먹는 쌀을 얻을 수 있습니다. 밥과 여러 쌀 음식의 기본 재료가 되는 중요한 농작물입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Rice%20paddy%20in%20Korea.jpg?width=700"],
+["제주도의 식물","제주도에는 따뜻한 기후와 화산 지형의 영향을 받은 다양한 식물이 자랍니다. 해안 지역과 중산간 지역, 한라산의 높은 곳은 기온과 바람이 달라 서로 다른 식물들이 나타납니다. 돌담 주변이나 오름, 숲 등에서도 제주도 특유의 식물 모습을 관찰할 수 있습니다. 제주도의 식물을 살펴보면 섬의 기후와 지형이 생물의 생활에 어떤 영향을 주는지도 알 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Jeju%20Island%20forest.jpg?width=700"]
 ],
 places:[
-["경복궁","조선 왕조의 법궁으로 1395년에 처음 지어졌습니다. 임진왜란 때 크게 훼손되었고 이후 복원되었습니다. 근정전, 경회루, 향원정 등이 대표적인 건물입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung%20Palace.png?width=700"],
-["창덕궁","자연 지형을 살려 배치한 조선의 궁궐로, 유네스코 세계유산에 등재되어 있습니다.",""],
-["불국사","경주에 있는 신라 시대의 대표적인 불교 사찰입니다. 석가탑과 다보탑으로도 유명합니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bulguksa.jpg?width=700"],
-["석굴암","토함산에 있는 신라 시대의 석굴 사원으로, 석굴 안의 본존불이 유명합니다.",""],
-["한라산","제주도의 중심에 있는 화산으로 대한민국에서 가장 높은 산입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hallasan.jpg?width=700"],
-["성산일출봉","제주 동쪽 바다에 솟은 화산 지형으로 일출 명소로 잘 알려져 있습니다.",""],
-["순천만","넓은 갯벌과 갈대밭이 펼쳐진 해안 습지로 다양한 생물이 살아가는 곳입니다.",""],
-["설악산","강원도에 있는 산으로 기암괴석과 숲, 계곡 등 아름다운 자연경관을 볼 수 있습니다.",""],
-["해운대","부산의 대표적인 해변 관광지로 넓은 모래사장과 바다가 펼쳐집니다.",""],
-["고창·화순·강화 고인돌 유적","고창·화순·강화에 분포한 선사시대 고인돌 유적군으로 유네스코 세계유산입니다.",""],
-["수원 화성","조선 정조 때 축조된 성곽으로 성벽과 여러 방어 시설이 잘 남아 있습니다.",""],
-["하회마을","경상북도 안동에 있는 전통 마을로 조선 시대의 마을 모습과 전통문화를 살펴볼 수 있습니다.",""],
-["해인사 장경판전","해인사에 있는 건물로 팔만대장경 목판을 보관해 온 전통 건축물입니다.",""]
+["경복궁","경복궁은 조선 왕조의 법궁으로 1395년에 처음 지어졌습니다. 왕이 나라의 중요한 일을 처리하고 생활하던 중심 궁궐이며 근정전·경회루·향원정 등 여러 건물이 있습니다. 임진왜란 때 크게 훼손되었고 이후 여러 차례 복원되면서 현재의 모습을 갖추어 가고 있습니다. 궁궐의 건물과 연못, 정원을 함께 살펴보면 조선 시대 왕실의 공간 구성을 이해하는 데 도움이 됩니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Gyeongbokgung%20Palace.png?width=700"],
+["창덕궁","창덕궁은 조선 시대에 지어진 궁궐로 자연 지형을 크게 바꾸지 않고 건물을 배치한 것이 특징입니다. 궁궐의 전각뿐 아니라 뒤쪽의 넓은 정원인 후원도 잘 알려져 있습니다. 건물과 자연이 조화를 이루는 공간 구성 때문에 조선 궁궐의 모습을 이해하는 데 중요한 장소입니다. 유네스코 세계유산으로 등재되어 있어 세계적으로도 문화유산의 가치를 인정받고 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Changdeokgung.jpg?width=700"],
+["불국사","불국사는 경상북도 경주에 있는 신라 시대의 대표적인 불교 사찰입니다. 대웅전으로 이어지는 계단과 석가탑·다보탑 등 여러 문화유산이 함께 남아 있습니다. 신라의 건축과 불교문화를 이해할 수 있는 중요한 장소이며 석굴암과 함께 유네스코 세계유산으로 등재되어 있습니다. 건물과 석조물의 배치에서 신라인들이 만든 건축 기술과 아름다움을 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bulguksa.jpg?width=700"],
+["석굴암","석굴암은 경상북도 경주 토함산에 있는 신라 시대의 석굴 사원입니다. 인공적으로 만든 석굴 안에 본존불을 중심으로 여러 불상과 조각이 배치되어 있습니다. 석굴의 구조와 조각은 신라 시대 불교문화와 뛰어난 석조 기술을 보여주는 중요한 자료입니다. 불국사와 함께 유네스코 세계유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seokguram.jpg?width=700"],
+["한라산","한라산은 제주도 한가운데에 솟아 있는 화산으로 대한민국에서 가장 높은 산입니다. 정상에는 백록담이라는 화구호가 있고, 산의 높이에 따라 기후와 식물의 모습이 달라집니다. 산에는 오름과 계곡, 다양한 식생이 나타나 제주도의 자연환경을 이해하는 데 중요한 장소입니다. 한라산을 포함한 제주 화산섬과 용암 동굴은 유네스코 세계자연유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hallasan.jpg?width=700"],
+["성산일출봉","성산일출봉은 제주도 동쪽 바닷가에 있는 독특한 화산 지형으로, 바다에서 솟아오른 커다란 분화구의 모습을 볼 수 있습니다. 정상에 오르면 주변 바다와 제주도의 해안 풍경을 넓게 바라볼 수 있습니다. 특히 해가 떠오르는 모습을 보기 좋은 장소로 널리 알려져 있습니다. 성산일출봉은 제주 화산섬과 용암 동굴 세계자연유산의 일부입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seongsan_Ilchulbong.jpg?width=700"],
+["순천만","순천만은 전라남도 순천에 있는 넓은 연안 습지로 갯벌과 갈대밭이 함께 발달한 곳입니다. 물이 빠지는 시간에는 넓은 갯벌이 드러나고, 여러 생물이 살아가는 모습을 관찰할 수 있습니다. 철새가 찾아오는 곳으로도 알려져 있어 습지와 생태환경을 살펴보기에 좋은 장소입니다. 주변의 갈대밭과 해안 풍경은 우리나라 남해안의 자연환경을 보여주는 대표적인 모습입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Suncheon%20Bay.jpg?width=700"],
+["설악산","설악산은 강원특별자치도에 있는 산으로 높은 봉우리와 기암괴석, 숲과 계곡이 어우러진 자연경관으로 유명합니다. 계절에 따라 신록·단풍·눈 덮인 산의 모습을 볼 수 있어 사계절의 변화가 뚜렷하게 나타납니다. 산림과 계곡에는 다양한 동식물이 살아가며, 여러 탐방로를 통해 자연을 관찰할 수 있습니다. 우리나라의 대표적인 산악 자연환경을 살펴볼 수 있는 장소입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seoraksan.jpg?width=700"],
+["해운대","해운대는 부산광역시에 있는 대표적인 해안 관광지로 넓은 모래사장과 바다가 펼쳐져 있습니다. 여름철에는 많은 사람들이 바다와 해변을 찾으며, 주변에는 도시의 다양한 시설도 함께 발달해 있습니다. 해운대의 해안 풍경을 보면 부산이 바다와 가까운 도시라는 점을 알 수 있습니다. 주변의 동백섬과 마린시티 등과 함께 부산의 도시와 해안 환경을 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Haeundae%20Beach.jpg?width=700"],
+["고창·화순·강화 고인돌 유적","고창·화순·강화 고인돌 유적은 선사시대 사람들이 만든 거대한 돌무덤인 고인돌이 여러 지역에 모여 있는 유적입니다. 큰 돌을 세우거나 받치고 그 위에 덮개돌을 올린 형태가 많아 당시 사람들이 돌을 다루고 공동으로 일을 했던 모습을 짐작하게 합니다. 세 지역의 고인돌은 형태와 분포가 다양해 한반도 청동기시대 문화를 살펴보는 중요한 자료입니다. 이 유적은 유네스코 세계유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Dolmen%20in%20Korea.jpg?width=700"],
+["수원 화성","수원 화성은 조선 정조 때인 18세기 말에 축조된 성곽입니다. 성벽을 따라 성문·포루·망루 등 여러 방어 시설이 배치되어 있어 당시의 성곽 건축 기술을 살펴볼 수 있습니다. 정조가 수원에 새로운 도시를 발전시키는 과정에서 중요한 역할을 한 장소이기도 합니다. 오늘날에는 성곽을 따라 걸으며 건축물과 도시의 모습을 함께 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hwaseong%20Fortress.jpg?width=700"],
+["하회마을","하회마을은 경상북도 안동에 있는 전통 마을로 낙동강이 마을을 돌아 흐르는 지형이 특징입니다. 전통 한옥과 오래된 마을길이 남아 있어 조선 시대 양반 마을의 모습을 살펴볼 수 있습니다. 탈놀이와 같은 전통문화와도 관계가 깊으며 마을의 자연환경과 건축이 함께 어우러져 있습니다. 역사적 경관을 잘 간직한 곳으로 유네스코 세계유산에 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hahoe%20Folk%20Village.jpg?width=700"],
+["해인사 장경판전","해인사 장경판전은 경상남도 합천 해인사에 있는 전통 목조건축물로 팔만대장경 목판을 보관해 온 건물입니다. 건물의 창호와 통풍 구조는 목판을 오랫동안 보존할 수 있도록 만들어졌습니다. 장경판전과 팔만대장경은 우리나라의 인쇄문화와 전통 건축 기술을 함께 살펴볼 수 있는 중요한 문화유산입니다. 장경판전은 해인사 장경판전이라는 이름으로 유네스코 세계유산에 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Haeinsa%20Janggyeong%20Panjeon.jpg?width=700"]
 ],
 culture:[
-["한복","한국의 전통 의복으로 저고리와 치마 또는 바지 등을 기본으로 구성합니다.",""],
-["설날","음력 1월 1일을 중심으로 가족이 모여 새해를 맞는 대표 명절입니다.",""],
-["추석","음력 8월 15일에 가족과 친지가 모여 차례와 성묘 등을 하고 음식을 나누는 명절입니다.",""],
-["윷놀이","윷가락 네 개를 던져 나온 결과에 따라 말을 움직이는 전통 놀이입니다.",""],
-["판소리","한 명의 소리꾼이 고수의 장단에 맞추어 긴 이야기를 노래와 말, 몸짓으로 표현하는 전통 공연예술입니다. 판소리 다섯 마당이 널리 알려져 있으며 유네스코 인류무형문화유산으로 등재되었습니다.",""],
-["강강술래","여러 사람이 손을 잡고 원을 이루어 노래와 춤을 추는 전통 놀이이자 민속예술입니다.",""],
-["한옥","나무·흙·돌 등을 활용하고 마당과 온돌 등을 갖춘 한국의 전통 주거 형태입니다.",""],
-["K-pop","한국의 대중음악을 가리키는 말입니다. 다양한 음악 장르, 노래, 춤, 영상과 공연이 결합된 형태로 발전했으며 세계 여러 나라에 소개되고 있습니다.",""],
-["한국 영화와 드라마","한국의 영화와 드라마는 다양한 이야기와 제작 방식으로 국내외에서 널리 소개되고 있습니다.",""]
+["한복","한복은 한국의 전통 의복으로 저고리와 치마 또는 바지 등을 기본으로 구성합니다. 옷의 선이 부드럽고 움직이기 편하도록 만들어졌으며 색과 장식도 다양합니다. 예전에는 일상생활에서 널리 입었지만 오늘날에는 명절이나 결혼식, 전통 행사 등 특별한 날에 입는 경우가 많습니다. 시대에 맞게 디자인을 바꾼 생활한복도 있어 전통과 현대의 모습을 함께 살펴볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Hanbok%20%ED%95%9C%EB%B3%B5%20%284261102177%29.jpg?width=700"],
+["설날","설날은 음력 1월 1일을 중심으로 새해를 맞는 우리나라의 대표적인 명절입니다. 가족이 모여 어른께 인사를 드리고 떡국을 먹으며 한 해의 건강과 좋은 일을 기원하는 풍습이 있습니다. 세배와 윷놀이처럼 설날에 함께하는 전통 활동도 있습니다. 오늘날에는 가족이 함께 시간을 보내며 새해를 맞는 날로 이어지고 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Seollal.jpg?width=700"],
+["추석","추석은 음력 8월 15일에 맞는 우리나라의 대표적인 명절입니다. 가족과 친지가 모여 차례를 지내거나 성묘를 하며 조상과 가족의 의미를 생각하는 날로 전해져 왔습니다. 송편과 같은 명절 음식을 만들어 나누어 먹기도 합니다. 계절의 변화와 수확의 기쁨을 함께 나누는 명절이라는 점에서도 의미가 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Chuseok.jpg?width=700"],
+["윷놀이","윷놀이는 네 개의 윷가락을 던져 나온 결과에 따라 말을 움직이는 우리나라의 전통 놀이입니다. 여러 사람이 편을 나누어 즐길 수 있고, 윷의 결과에 따라 말의 이동 방법이 달라집니다. 가족이나 친구가 함께 규칙을 정하고 놀이를 하면서 자연스럽게 차례와 전략을 익힐 수 있습니다. 설날을 비롯한 명절이나 가족 모임에서 즐겨 온 놀이입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Yut.jpg?width=700"],
+["판소리","판소리는 한 명의 소리꾼이 고수의 장단에 맞추어 긴 이야기를 노래와 말, 몸짓으로 표현하는 전통 공연예술입니다. 소리꾼은 노래와 이야기를 오가며 등장인물과 사건을 표현하고, 고수는 북을 치며 장단을 맞춥니다. 오랜 시간 이어진 이야기와 음악을 함께 감상할 수 있어 한국 전통예술의 특징을 잘 보여줍니다. 판소리는 유네스코 인류무형문화유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Pansori.jpg?width=700"],
+["강강술래","강강술래는 여러 사람이 손을 잡고 원을 이루어 노래와 춤을 추는 전통 민속예술입니다. 참가자들이 함께 움직이며 노래를 이어 가기 때문에 여럿이 협력하는 모습이 잘 드러납니다. 주로 남해안 지역을 중심으로 전해져 왔으며 명절이나 전통 행사와도 관계가 깊습니다. 강강술래는 유네스코 인류무형문화유산으로 등재되어 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Ganggangsullae%20jindo.jpg?width=700"],
+["한옥","한옥은 나무·흙·돌 등을 활용하여 지은 한국의 전통 주거 형태입니다. 방을 따뜻하게 하는 온돌과 집 안에서 다양한 활동을 할 수 있는 마당이 중요한 특징으로 꼽힙니다. 지역의 기후와 지형에 따라 집의 구조와 재료가 달라지기도 합니다. 오늘날에는 전통 한옥을 보존하면서 현대 생활에 맞게 고친 집도 볼 수 있습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Bukchon%20Hanok%20Village.jpg?width=700"],
+["K-pop","K-pop은 한국에서 만들어진 대중음악을 가리키는 말로, 노래뿐 아니라 춤과 공연, 영상 등 여러 요소가 함께 발전해 왔습니다. 아이돌 그룹을 비롯한 다양한 가수와 음악가가 활동하며 여러 장르의 음악을 활용합니다. 음악 방송과 공연, 온라인 영상 등을 통해 많은 사람들이 K-pop을 접하고 있습니다. 한국의 현대 대중문화를 이해할 때 살펴볼 수 있는 중요한 문화 현상 가운데 하나입니다.","https://commons.wikimedia.org/wiki/Special:FilePath/K-pop%20concert.jpg?width=700"],
+["한국 영화와 드라마","한국의 영화와 드라마는 가족 이야기, 역사 이야기, 일상생활, 모험과 추리 등 다양한 주제를 다룹니다. 제작 기술과 배우들의 연기, 촬영과 음악 등 여러 요소가 함께 어우러져 하나의 이야기를 만듭니다. 국내에서 많은 시청자와 관객이 즐기는 문화 콘텐츠이며 해외에서도 한국의 현대 문화를 접하는 방법 가운데 하나가 되고 있습니다. 작품마다 이야기와 표현 방식이 다르므로 여러 작품을 비교해 보는 것도 흥미롭습니다.","https://commons.wikimedia.org/wiki/Special:FilePath/Korean%20film%20set.jpg?width=700"]
 ]
 };
 
@@ -272,13 +271,32 @@ async function savePhoto(section,id,photo){
   tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
  });
 }
-function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
-function customKey(section){return `custom_${COUNTRY}_${section}`;}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
+function customKey(section){return `custom_${COUNTRY}_${section}`}
+function editKey(section,id){return `edit_${COUNTRY}_${section}_${id}`}
 function getCustom(section){try{return JSON.parse(localStorage.getItem(customKey(section))||"[]")}catch{return[]}}
-const relationWords=["대한민국","한국","korea","korean","서울","부산","제주","한반도","조선","고려","신라","백제","한국어","한글","김치","한복","태극기","K-pop","한국전쟁","DMZ","독도","울릉도","경주","전주","안동","수원","인천","강원","전라","충청","경상","갈비탕","갈비","국","탕","찌개","전골","비빔밥","불고기","냉면","잡채","떡","김밥","삼계탕","떡볶이","김치찌개","된장찌개","순두부","설렁탕","곰탕","삼겹살","한식","한국 음식","Korean food"];
+function getEditedDesc(section,id,original){return localStorage.getItem(editKey(section,id)) ?? original}
+function setEditedDesc(section,id,desc){localStorage.setItem(editKey(section,id),desc)}
+function removeEditedDesc(section,id){localStorage.removeItem(editKey(section,id))}
+const relationWords=["대한민국","한국","korea","korean","서울","부산","제주","한반도","조선","고려","신라","백제","한국어","한글","김치","한복","태극기","k-pop","한국전쟁","dmz","독도","울릉도","경주","전주","안동","수원","인천","강원","전라","충청","경상","갈비탕","갈비","국","탕","찌개","전골","비빔밥","불고기","냉면","잡채","떡","김밥","삼계탕","떡볶이","김치찌개","된장찌개","순두부","설렁탕","곰탕","삼겹살","한식","한국 음식","korean food"];
+const foreignNoise=/(포르투갈어|포르투갈|영어로|영어권|스페인어|프랑스어|독일어|이탈리아어|러시아어|일본어|중국어|아랍어|라틴어|그리스어|터키어|힌디어|베트남어|태국어|폴란드어|체코어|헝가리어|루마니아어|우크라이나어|이 단어는 .*언어|다른 언어에서는|외국에서는)/i;
+const childUnsafe=/(성적|성행위|음란|포르노|욕설|심한 욕|비속어|외설|자살|살인|고문|잔인|폭력적인 묘사|마약|약물 남용)/i;
+function cleanAutoDescription(text,name,section){
+ if(!text)return "";
+ let t=text.replace(/\s+/g," ").trim();
+ const sentences=t.split(/(?<=[.!?。！？])\s+/).map(x=>x.trim()).filter(Boolean);
+ const kept=[];
+ for(const sentence of sentences){
+   if(foreignNoise.test(sentence)||childUnsafe.test(sentence))continue;
+   if(/\b(?:Portuguese|English|Spanish|French|German|Italian|Japanese|Chinese|Russian)\b/i.test(sentence))continue;
+   kept.push(sentence);
+   if(kept.length>=4)break;
+ }
+ return kept.join(" ").trim();
+}
 async function lookupWikipedia(name){
  for(const base of ["https://ko.wikipedia.org/api/rest_v1/page/summary/","https://en.wikipedia.org/api/rest_v1/page/summary/"]){
-  try{const r=await fetch(base+encodeURIComponent(name),{headers:{Accept:"application/json"}});if(r.ok){const j=await r.json();if(j.extract)return j.extract;}}catch(e){}
+  try{const r=await fetch(base+encodeURIComponent(name),{headers:{Accept:"application/json"}});if(r.ok){const j=await r.json();if(j.extract){const cleaned=cleanAutoDescription(j.extract,name);if(cleaned)return cleaned;}}}catch(e){}
  }
  return "";
 }
@@ -287,45 +305,51 @@ async function addItem(section){
  if(!name?.trim())return;
  const n=name.trim(), auto=await lookupWikipedia(n);
  const corpus=(n+" "+auto).toLowerCase();
- const directFood=/(갈비탕|갈비|김치|비빔밥|불고기|냉면|잡채|떡|김밥|삼계탕|떡볶이|김치찌개|된장찌개|순두부|설렁탕|곰탕|삼겹살|한식)/i.test(n);
+ const directFood=/(갈비탕|갈비|김치|비빔밥|불고기|냉면|잡채|떡|김밥|삼계탕|떡볶이|김치찌개|된장찌개|순두부|설렁탕|곰탕|삼겹살|한식|만두|만두국|만둣국|국밥|육개장|감자탕|순대|파전|김치전)/i.test(n);
  const related=directFood || relationWords.some(w=>corpus.includes(w.toLowerCase()));
  if(!related && !confirm("이 항목은 대한민국과의 연관성을 확인하기 어렵습니다.\n그래도 추가하시겠습니까?"))return;
  const desc=auto||prompt("기본 설명을 검색하지 못했습니다. 설명을 직접 입력하시겠습니까?")||"기본 설명이 아직 입력되지 않았습니다.";
  const arr=getCustom(section);arr.push({id:"u"+Date.now(),name:n,desc:desc.trim(),unrelated:!related});
  localStorage.setItem(customKey(section),JSON.stringify(arr));await render(section);
 }
+function editDescription(section,x){
+ const current=getEditedDesc(section,x.id,x.desc);
+ const next=prompt("이 항목의 설명을 수정하세요.\n\n아이에게 보여줄 설명만 적어 주세요.",current);
+ if(next===null)return;
+ const v=next.trim();if(!v){alert("설명은 비워 둘 수 없습니다.");return;}
+ setEditedDesc(section,x.id,v);render(section);
+}
+function resetDescription(section,x){
+ if(!confirm("원래 설명으로 되돌릴까요?"))return;
+ removeEditedDesc(section,x.id);render(section);
+}
 async function render(section){
  const map={food:"foodList",animals:"animalsList",places:"placesList",culture:"cultureList"};
  const el=document.getElementById(map[section]); el.innerHTML="";
  const built=data[section].map((x,i)=>({id:"b"+i,name:x[0],desc:x[1],src:x[2],mine:false}));
- const customs=getCustom(section).map(x=>({id:x.id,name:x.name,desc:x.desc,src:"",mine:true}));
+ const customs=getCustom(section).map(x=>({id:x.id,name:x.name,desc:x.desc,src:"",mine:true,unrelated:!!x.unrelated}));
  for(const x of [...built,...customs]){
   const p=await getPhoto(section,x.id);
-  const card=document.createElement("article");card.className="item";
   const shown=p||x.src;
+  const edited=localStorage.getItem(editKey(section,x.id));
+  const desc=getEditedDesc(section,x.id,x.desc);
+  const card=document.createElement("article");card.className="item";
   card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="unrelated">대한민국과 관계 없음</span>':''}</h3>
    <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}${x.unrelated?`<span class="photo-status">이나라와 관련성 부족</span>`:""}</div>
-   <p>${esc(x.desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
-   <div class="actions"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden>${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>`;
+   <p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
+   <div class="actions"><button type="button" class="edit-desc">설명 수정</button>${edited&&!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}<button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden>${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>`;
+  card.querySelector(".edit-desc").onclick=()=>editDescription(section,x);
+  if(edited&&!x.mine)card.querySelector(".reset-desc").onclick=()=>resetDescription(section,x);
+  const buttons=card.querySelectorAll(".actions button");
+  const photoButton=[...buttons].find(b=>b.textContent.includes("사진"));
   const input=card.querySelector("input");
-  card.querySelector(".actions button").onclick=()=>input.click();
-  input.onchange=async()=>{
-   const f=input.files?.[0]; if(!f)return;
-   const reader=new FileReader();
-   reader.onload=async()=>{await savePhoto(section,x.id,reader.result);await render(section);};
-   reader.readAsDataURL(f);
-  };
-  if(x.mine){
-   card.querySelector(".delete").onclick=async()=>{
-    if(!confirm("이 항목을 삭제할까요?"))return;
-    const arr=getCustom(section).filter(y=>y.id!==x.id);
-    localStorage.setItem(customKey(section),JSON.stringify(arr));
-    await savePhoto(section,x.id,""); await render(section);
-   };
-  }
+  photoButton.onclick=()=>input.click();
+  input.onchange=async()=>{const f=input.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=async()=>{await savePhoto(section,x.id,reader.result);await render(section)};reader.readAsDataURL(f)};
+  if(x.mine){card.querySelector(".delete").onclick=async()=>{if(!confirm("이 항목을 삭제할까요?"))return;const arr=getCustom(section).filter(y=>y.id!==x.id);localStorage.setItem(customKey(section),JSON.stringify(arr));removeEditedDesc(section,x.id);await savePhoto(section,x.id,"");await render(section)}}
   el.appendChild(card);
  }
 }
+
 function editTitle(){const current=localStorage.getItem("world_country_title")||"세계 나라 백과사전";const next=prompt("백과사전 이름을 입력하세요.",current);if(next===null)return;const v=next.trim();if(!v)return;localStorage.setItem("world_country_title",v);document.getElementById("appTitle").textContent=v;}
 const savedTitle=localStorage.getItem("world_country_title");if(savedTitle)document.getElementById("appTitle").textContent=savedTitle;
 function openMapZoom(){document.getElementById("mapModal").classList.add("open")} function closeMapZoom(e){if(e.target.id==="mapModal"||e.target.classList.contains("map-close"))document.getElementById("mapModal").classList.remove("open")}
