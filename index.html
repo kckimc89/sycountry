@@ -12,12 +12,13 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.75}
 header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #0000000b}
 .head{max-width:1180px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.title{font-size:1.15rem;font-weight:900}
+.title{font-size:1.55rem;font-weight:950;letter-spacing:-.02em}.title-edit{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:5px 9px;font-weight:800;font-size:.82rem;margin-left:7px}
 .country{font-size:1.65rem;font-weight:900}
 .back{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 12px;font-weight:800}
 main{max-width:1180px;margin:auto;padding:18px 16px 60px}
-nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
-nav a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:#27405f;text-decoration:none;font-size:.9rem}
+nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;max-width:1180px;margin:0 auto;padding:8px 16px 11px;border-top:1px solid #eef2f7;scrollbar-width:thin;background:#fff}
+nav a{flex:0 0 auto;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:#27405f;text-decoration:none;font-size:.9rem;white-space:nowrap}
+nav a:active,nav a:hover{background:#eef5ff}
 section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}
 h2{font-size:1.5rem;margin:0 0 14px}
 h3{font-size:1.1rem;margin:14px 0 7px}
@@ -31,7 +32,7 @@ p{margin:8px 0}
 .map-image{position:relative;background:#fff;border-radius:10px;overflow:hidden}
 .map-image img{display:block;width:100%;height:350px;object-fit:contain}
 .seoul-dot{position:absolute;left:33.2%;top:21.5%;width:15px;height:15px;border-radius:50%;background:#e11d48;border:3px solid #fff;box-shadow:0 1px 7px #0007}
-.seoul-label{position:absolute;left:35%;top:17%;background:#e11d48;color:#fff;font-weight:900;padding:2px 7px;border-radius:8px;font-size:.82rem}.globe-wrap{position:relative;cursor:zoom-in}.globe-label{position:absolute;font-size:.82rem;font-weight:800;color:#26364d;background:#ffffffdd;padding:1px 5px;border-radius:5px;box-shadow:0 1px 3px #0002;pointer-events:none}.globe-label.china{left:38%;top:47%}.globe-label.nk{left:54%;top:35%}.globe-label.japan{left:64%;top:54%}.globe-label.russia{left:55%;top:22%}.globe-label.korea{left:51%;top:43%;color:#b91c1c}.zoom-map{position:absolute;right:8px;bottom:8px;border:1px solid #b9c4d3;background:#ffffffee;border-radius:9px;padding:5px 8px;font-weight:800}.map-modal{display:none;position:fixed;inset:0;background:#000b;z-index:100;align-items:center;justify-content:center;padding:18px}.map-modal.open{display:flex}.map-modal-inner{position:relative;background:#fff;border-radius:16px;padding:12px}.map-modal img{display:block;max-width:90vw;max-height:88vh}.map-close{position:absolute;right:8px;top:8px;border:0;background:#fff;border-radius:50%;width:36px;height:36px;font-size:22px;font-weight:900}
+.seoul-label{position:absolute;left:35%;top:17%;background:#e11d48;color:#fff;font-weight:900;padding:2px 7px;border-radius:8px;font-size:.82rem}.globe-wrap{position:relative;cursor:zoom-in}.globe-label{position:absolute;font-size:.82rem;font-weight:800;color:#26364d;background:#ffffffdd;padding:1px 5px;border-radius:5px;box-shadow:0 1px 3px #0002;pointer-events:none}.globe-label.china{left:38%;top:47%}.globe-label.nk{left:54%;top:35%}.globe-label.japan{left:64%;top:54%}.globe-label.russia{left:55%;top:22%}.globe-label.korea{left:51%;top:43%;color:#b91c1c}.zoom-map{position:absolute;right:8px;bottom:8px;border:1px solid #b9c4d3;background:#ffffffee;border-radius:9px;padding:5px 8px;font-weight:800}.map-modal{display:none;position:fixed;inset:0;background:#000b;z-index:100;align-items:center;justify-content:center;padding:18px}.map-modal.open{display:flex}.map-modal-inner{position:relative;background:#fff;border-radius:16px;padding:12px;max-width:94vw;max-height:92vh}.map-modal img{display:block;width:min(90vw,820px);height:auto;max-height:88vh;object-fit:contain}.modal-globe-label{position:absolute;font-size:1rem;font-weight:900;color:#26364d;background:#ffffffed;padding:3px 7px;border-radius:7px;box-shadow:0 1px 5px #0003;pointer-events:none}.modal-globe-label.china{left:39%;top:48%}.modal-globe-label.nk{left:55%;top:36%}.modal-globe-label.japan{left:65%;top:55%}.modal-globe-label.russia{left:56%;top:23%}.modal-globe-label.korea{left:51.5%;top:44%;color:#b91c1c}.map-close{position:absolute;right:8px;top:8px;border:0;background:#fff;border-radius:50%;width:36px;height:36px;font-size:22px;font-weight:900}
 .flag{display:block;max-width:640px;width:100%;margin:8px auto;border-radius:8px;box-shadow:0 2px 10px #0002}
 .lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .lang{border:1px solid var(--line);border-radius:13px;padding:15px;background:#fbfdff}
@@ -41,7 +42,7 @@ p{margin:8px 0}
 .item h3{margin-top:0}.unrelated{display:inline-block;margin-left:7px;font-size:.72rem;color:#a33;background:#fff0f0;border:1px solid #f0b8b8;border-radius:999px;padding:2px 6px;vertical-align:middle}
 .photo-area{height:190px;border-radius:10px;background:#eef2f6;overflow:hidden;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center}
 .photo-area img{width:100%;height:100%;object-fit:cover}
-.photo-area .empty{color:#7a8698;font-size:.9rem}
+.photo-area .empty{color:#7a8698;font-size:.9rem}.photo-status{position:absolute;right:8px;top:8px;background:#fff3f3;color:#b42318;border:1px solid #efb1aa;border-radius:8px;padding:3px 7px;font-size:.75rem;font-weight:900;box-shadow:0 1px 5px #0002}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
 button{cursor:pointer}
 .actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700}
@@ -52,7 +53,7 @@ button{cursor:pointer}
 @media(max-width:720px){
  .info-grid,.map-grid,.lang-grid,.cards,.history{grid-template-columns:1fr}
  .map-image img{height:270px}
- .head{align-items:flex-start}
+ .head{align-items:flex-start}.title{font-size:1.3rem}
  .country{font-size:1.4rem}
  section{padding:18px}
 }
@@ -61,15 +62,16 @@ button{cursor:pointer}
 <body>
 <header>
  <div class="head">
-  <div><div class="title" id="appTitle">세계 나라 백과사전</div><div class="country">대한민국</div></div>
+  <div><div class="title"><span id="appTitle">세계 나라 백과사전</span><button class="title-edit" type="button" onclick="editTitle()">이름 수정</button></div><div class="country">대한민국</div></div>
   <button class="back" id="countryBack">나라 목록으로 돌아가기</button>
  </div>
 </header>
 
-<main>
 <nav>
 <a href="#basic">기본정보</a><a href="#map">실제 지도</a><a href="#flag">국기</a><a href="#capital">수도 설명</a><a href="#nature">자연과 기후</a><a href="#language">언어와 문자</a><a href="#food">음식</a><a href="#animals">동식물</a><a href="#places">전국의 명소</a><a href="#culture">대표 문화</a><a href="#history">역사</a><a href="#sources">자료</a>
 </nav>
+
+<main>
 
 <section id="basic">
 <h2>1. 기본정보</h2>
@@ -191,7 +193,7 @@ button{cursor:pointer}
 <p class="note">인구는 KOSIS 2025년 추계인구를 사용했습니다. 대한민국 면적은 Korea.net의 2025년 안내값을 사용했습니다.</p>
 </section>
 </main>
-<div class="map-modal" id="mapModal" onclick="closeMapZoom(event)"><div class="map-modal-inner"><button class="map-close" onclick="closeMapZoom(event)">×</button><img src="https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20on%20the%20globe%20%28Asia_centered%29.svg" alt="확대 지도"></div></div>
+<div class="map-modal" id="mapModal" onclick="closeMapZoom(event)"><div class="map-modal-inner"><button class="map-close" onclick="closeMapZoom(event)">×</button><img src="https://commons.wikimedia.org/wiki/Special:FilePath/South%20Korea%20on%20the%20globe%20%28Asia_centered%29.svg" alt="확대 지도"><span class="modal-globe-label china">중국</span><span class="modal-globe-label nk">북한</span><span class="modal-globe-label japan">일본</span><span class="modal-globe-label russia">러시아</span><span class="modal-globe-label korea">대한민국</span></div></div>
 <script>
 const COUNTRY="KR";
 const DB_NAME="world_country_encyclopedia_photos_v6";
@@ -273,7 +275,7 @@ async function savePhoto(section,id,photo){
 function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
 function customKey(section){return `custom_${COUNTRY}_${section}`;}
 function getCustom(section){try{return JSON.parse(localStorage.getItem(customKey(section))||"[]")}catch{return[]}}
-const relationWords=["대한민국","한국","서울","부산","제주","한반도","조선","고려","신라","백제","한국어","한글","김치","한복","태극기","K-pop","한국전쟁","DMZ","독도","울릉도","경주","전주","안동","수원","인천","강원","전라","충청","경상"];
+const relationWords=["대한민국","한국","korea","korean","서울","부산","제주","한반도","조선","고려","신라","백제","한국어","한글","김치","한복","태극기","K-pop","한국전쟁","DMZ","독도","울릉도","경주","전주","안동","수원","인천","강원","전라","충청","경상","갈비탕","갈비","국","탕","찌개","전골","비빔밥","불고기","냉면","잡채","떡","김밥","삼계탕","떡볶이","김치찌개","된장찌개","순두부","설렁탕","곰탕","삼겹살","한식","한국 음식","Korean food"];
 async function lookupWikipedia(name){
  for(const base of ["https://ko.wikipedia.org/api/rest_v1/page/summary/","https://en.wikipedia.org/api/rest_v1/page/summary/"]){
   try{const r=await fetch(base+encodeURIComponent(name),{headers:{Accept:"application/json"}});if(r.ok){const j=await r.json();if(j.extract)return j.extract;}}catch(e){}
@@ -284,7 +286,9 @@ async function addItem(section){
  const name=prompt("추가할 항목의 이름을 입력하세요.");
  if(!name?.trim())return;
  const n=name.trim(), auto=await lookupWikipedia(n);
- const related=relationWords.some(w=>(n+" "+auto).toLowerCase().includes(w.toLowerCase()));
+ const corpus=(n+" "+auto).toLowerCase();
+ const directFood=/(갈비탕|갈비|김치|비빔밥|불고기|냉면|잡채|떡|김밥|삼계탕|떡볶이|김치찌개|된장찌개|순두부|설렁탕|곰탕|삼겹살|한식)/i.test(n);
+ const related=directFood || relationWords.some(w=>corpus.includes(w.toLowerCase()));
  if(!related && !confirm("이 항목은 대한민국과의 연관성을 확인하기 어렵습니다.\n그래도 추가하시겠습니까?"))return;
  const desc=auto||prompt("기본 설명을 검색하지 못했습니다. 설명을 직접 입력하시겠습니까?")||"기본 설명이 아직 입력되지 않았습니다.";
  const arr=getCustom(section);arr.push({id:"u"+Date.now(),name:n,desc:desc.trim(),unrelated:!related});
@@ -300,7 +304,7 @@ async function render(section){
   const card=document.createElement("article");card.className="item";
   const shown=p||x.src;
   card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="unrelated">대한민국과 관계 없음</span>':''}</h3>
-   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}</div>
+   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}${x.unrelated?`<span class="photo-status">이나라와 관련성 부족</span>`:""}</div>
    <p>${esc(x.desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
    <div class="actions"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden>${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>`;
   const input=card.querySelector("input");
@@ -322,6 +326,8 @@ async function render(section){
   el.appendChild(card);
  }
 }
+function editTitle(){const current=localStorage.getItem("world_country_title")||"세계 나라 백과사전";const next=prompt("백과사전 이름을 입력하세요.",current);if(next===null)return;const v=next.trim();if(!v)return;localStorage.setItem("world_country_title",v);document.getElementById("appTitle").textContent=v;}
+const savedTitle=localStorage.getItem("world_country_title");if(savedTitle)document.getElementById("appTitle").textContent=savedTitle;
 function openMapZoom(){document.getElementById("mapModal").classList.add("open")} function closeMapZoom(e){if(e.target.id==="mapModal"||e.target.classList.contains("map-close"))document.getElementById("mapModal").classList.remove("open")}
 document.getElementById("countryBack").onclick=()=>alert("현재는 대한민국 백과사전 화면입니다. 이후 국가 목록을 연결할 수 있도록 국가코드 KR 기준으로 저장 구조를 만들었습니다.");
 for(const s of ["food","animals","places","culture"])render(s);
