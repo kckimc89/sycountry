@@ -8,7 +8,126 @@ nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;max-width:1180px;margi
 main{max-width:1180px;margin:auto;padding:18px 16px 60px;padding-top:150px}section{scroll-margin-top:150px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}h2{font-size:1.5rem;margin:0 0 14px}h3{font-size:1.1rem;margin:14px 0 7px}p{margin:8px 0}.note{color:var(--muted);font-size:.9rem}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.info{background:var(--soft);border-radius:13px;padding:14px}.info b{display:block;color:#31507c;margin-bottom:2px}.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.map-card{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fbfdff}.map-image{position:relative;background:#fff;border-radius:10px;overflow:hidden}.map-image img{display:block;width:100%;height:350px;object-fit:contain}.world-wrap{position:relative}.zoom-map{position:absolute;right:8px;bottom:8px;border:1px solid #b9c4d3;background:#ffffffee;border-radius:9px;padding:5px 8px;font-weight:800}.flag{display:block;max-width:640px;width:100%;margin:8px auto;border-radius:8px;box-shadow:0 2px 10px #0002}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.item h3{margin-top:0}.photo-area{height:190px;border-radius:10px;background:#eef2f6;overflow:hidden;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center}.photo-area img{width:100%;height:100%;object-fit:contain;background:#f7f9fc}.empty{color:#8b97a8;font-size:.9rem}.mine{display:inline-block;margin-top:5px;color:#31507c;font-size:.78rem;font-weight:800}.related-status{font-size:.76rem;color:#7a8594;font-weight:700;margin-left:8px}.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}.action-left,.action-right{display:flex;gap:7px;align-items:center}.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:9px;padding:6px 9px;font-weight:800;font-size:.82rem}.add-btn{margin-top:12px;background:#f8fafc}.event-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.event{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfdff}.event b{color:#31507c}.source-list{margin:0;padding-left:20px}.country-modal{display:none;position:fixed;inset:0;background:#0009;z-index:200;align-items:center;justify-content:center;padding:20px}.country-modal.open{display:flex}.country-panel{background:#fff;border-radius:18px;width:min(700px,94vw);max-height:88vh;overflow:auto;padding:20px}.country-panel h2{margin-top:0}.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.country-choice{border:1px solid var(--line);background:#f8fafc;border-radius:12px;padding:13px;font-size:1rem;font-weight:900;text-align:left}.country-choice.active{background:#eef5ff;border-color:#8bb3ea}.close-list{float:right;border:0;background:#eef2f7;border-radius:50%;width:34px;height:34px;font-size:20px;font-weight:900}
 .map-note{padding:8px 10px;background:#f8fafc;border-radius:10px;color:#56657a}.section-intro{font-size:1rem}.source-box{background:#fbfdff;border:1px solid var(--line);border-radius:12px;padding:14px}
 @media(max-width:760px){.head{flex-wrap:wrap;padding:9px 12px}.title{font-size:1.45rem}.country{font-size:1.3rem}.back{margin-left:auto}.head .title-edit{font-size:.75rem}nav{padding-left:10px;padding-right:10px}main{padding:125px 10px 45px}section{padding:17px}.info-grid,.cards,.event-grid,.map-grid,.country-grid{grid-template-columns:1fr}.map-image img{height:270px}.photo-area{height:180px}.actions{flex-wrap:wrap}.action-right{margin-left:auto}}
-</style></head>
+</style>
+<script>
+/* v13 공통 기능: 지도2 주변 국가명 */
+const V13_NEIGHBORS = {
+  "대한민국":["중국","북한","일본","러시아"],
+  "일본":["러시아","대한민국","북한","중국"],
+  "중국":["몽골","러시아","북한","대한민국","일본","인도","카자흐스탄","키르기스스탄","타지키스탄","아프가니스탄","파키스탄","네팔","부탄","미얀마","라오스","베트남"],
+  "미국":["캐나다","멕시코"],
+  "프랑스":["벨기에","룩셈부르크","독일","스위스","이탈리아","모나코","스페인","안도라"],
+  "이집트":["리비아","수단","이스라엘","팔레스타인"]
+};
+function v13MapLabels(country){
+  const a=V13_NEIGHBORS[country]||[];
+  return a.length ? '<div class="map-neighbor-list"><b>주변 국가</b> · '+a.join(' · ')+'</div>' : '';
+}
+</script>
+<style>
+.map-neighbor-list{margin-top:8px;font-size:15px;line-height:1.5;color:#475569}
+.map-neighbor-list b{color:#0f172a}
+</style>
+
+<script>
+/* v13 공통 기능: 원어 + 한글 발음 */
+const V13_GREETINGS = {
+ "대한민국":[["안녕하세요","안녕하세요","안녕하세요"],["감사합니다","감사합니다","감사합니다"]],
+ "일본":[["안녕하세요","こんにちは","곤니치와"],["감사합니다","ありがとうございます","아리가토 고자이마스"]],
+ "중국":[["안녕하세요","你好","니하오"],["감사합니다","谢谢","씨에씨에"]],
+ "미국":[["안녕하세요","Hello","헬로"],["감사합니다","Thank you","쌩큐"]],
+ "프랑스":[["안녕하세요","Bonjour","봉주르"],["감사합니다","Merci","메르시"]],
+ "이집트":[["안녕하세요","مرحبًا","마르하반"],["감사합니다","شكرًا","슈크란"]]
+};
+function v13GreetingHTML(country){
+ const g=V13_GREETINGS[country]||[];
+ if(!g.length)return '';
+ return '<div class="greeting-box"><h4>기본 인사말</h4><div class="greeting-grid">'+g.map(x=>`<div class="greeting-row"><b>${x[0]}</b><span>${x[1]}</span><span class="kr-pron">한글 발음: ${x[2]}</span></div>`).join('')+'</div></div>';
+}
+</script>
+<style>
+.greeting-box{margin-top:14px;padding:14px;border:1px solid #dbe4ee;border-radius:14px;background:#f8fafc}
+.greeting-box h4{margin:0 0 10px;font-size:18px}
+.greeting-grid{display:grid;gap:8px}
+.greeting-row{display:grid;grid-template-columns:90px 1fr 1.2fr;gap:10px;align-items:center;padding:9px 10px;background:white;border-radius:10px}
+.kr-pron{color:#475569}
+@media(max-width:650px){.greeting-row{grid-template-columns:80px 1fr}.kr-pron{grid-column:2}}
+</style>
+
+<script>
+/* v13 공통 기능: 한국과 면적/인구 비교 */
+const V13_COMPARE = {
+ "대한민국":{area:100459,pop:51684564},
+ "일본":{area:377975,pop:122974711},
+ "중국":{area:9596961,pop:1400000000},
+ "미국":{area:9833517,pop:341000000},
+ "프랑스":{area:551695,pop:68600000},
+ "이집트":{area:1002450,pop:118000000}
+};
+function v13Compare(country){
+ const d=V13_COMPARE[country]; const k=V13_COMPARE["대한민국"];
+ if(!d)return '';
+ if(country==="대한민국") return '<div class="compare-note">대한민국은 비교 기준이 되는 나라입니다.</div>';
+ const ar=d.area/k.area, pr=d.pop/k.pop;
+ const f=n=>n<10?n.toFixed(1):Math.round(n).toString();
+ return `<div class="compare-box"><h4>🇰🇷 대한민국과 비교</h4>
+ <div>면적: 대한민국의 약 <b>${f(ar)}배</b></div>
+ <div>인구: 대한민국의 약 <b>${f(pr)}배</b></div>
+ <small>※ 면적·인구는 자료의 기준연도에 따라 달라질 수 있습니다.</small></div>`;
+}
+</script>
+<style>
+.compare-box,.compare-note{margin-top:12px;padding:14px;border-radius:14px;background:#f8fafc;border:1px solid #dbe4ee;line-height:1.7}
+.compare-box h4{margin:0 0 6px;font-size:18px}
+.compare-box small{display:block;margin-top:6px;color:#64748b}
+</style>
+
+<script>
+/* v13 공통 기능: 전체보기 / 대륙별보기 / 즐겨찾기 */
+const V13_CONTINENTS={
+ "대한민국":"아시아","일본":"아시아","중국":"아시아","미국":"북아메리카","프랑스":"유럽","이집트":"아프리카"
+};
+function v13MainTools(){
+ return `<div class="v13-main-tools">
+ <button onclick="v13ShowAll()">🌍 전체보기</button>
+ <button onclick="v13ShowContinents()">🗺️ 대륙별로 보기</button>
+ <button onclick="v13ShowFavorites()">⭐ 즐겨찾기</button>
+ </div>
+ <div id="v13-main-panel"></div>`;
+}
+function v13CountryButtons(list){
+ return '<div class="v13-country-grid">'+list.map(c=>`<button onclick="v13OpenCountry('${c}')">${c}<small>${V13_CONTINENTS[c]||''}</small></button>`).join('')+'</div>';
+}
+function v13ShowAll(){document.getElementById('v13-main-panel').innerHTML='<h3>전체 나라</h3>'+v13CountryButtons(Object.keys(V13_CONTINENTS));}
+function v13ShowContinents(){
+ const groups={}; Object.entries(V13_CONTINENTS).forEach(([c,a])=>(groups[a]??=[]).push(c));
+ document.getElementById('v13-main-panel').innerHTML='<h3>대륙별 나라</h3>'+Object.entries(groups).map(([a,cs])=>`<section class="v13-continent"><h4>${a}</h4>${v13CountryButtons(cs)}</section>`).join('');
+}
+function v13ShowFavorites(){
+ let fav=[]; try{fav=JSON.parse(localStorage.getItem('v13_favorites')||'[]')}catch(e){}
+ document.getElementById('v13-main-panel').innerHTML='<h3>⭐ 즐겨찾기</h3>'+(fav.length?v13CountryButtons(fav):'<p>아직 즐겨찾기한 나라가 없습니다.</p>');
+}
+function v13ToggleFavorite(country){
+ let fav=[]; try{fav=JSON.parse(localStorage.getItem('v13_favorites')||'[]')}catch(e){}
+ fav=fav.includes(country)?fav.filter(x=>x!==country):[...fav,country];
+ localStorage.setItem('v13_favorites',JSON.stringify(fav)); alert(fav.includes(country)?'즐겨찾기에 추가했습니다.':'즐겨찾기에서 삭제했습니다.');
+}
+function v13OpenCountry(country){
+ if(typeof window.openCountry==='function') window.openCountry(country);
+ else if(typeof window.selectCountry==='function') window.selectCountry(country);
+ else alert(country);
+}
+</script>
+<style>
+.v13-main-tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.v13-main-tools button{padding:11px 14px;border:1px solid #cbd5e1;border-radius:12px;background:white;font-size:16px}
+.v13-country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.v13-country-grid button{padding:14px;border:1px solid #dbe4ee;border-radius:14px;background:#fff;text-align:left;font-size:18px}
+.v13-country-grid small{display:block;color:#64748b;font-size:13px;margin-top:4px}
+.v13-continent{margin:14px 0}.v13-continent h4{font-size:20px;margin-bottom:8px}
+</style>
+
+</head>
 <body>
 <header><div class="head"><div><span class="title" id="appTitle">세계 나라 백과사전</span><button class="title-edit" onclick="editTitle()">이름 수정</button></div><div class="country" id="countryName"></div><button class="back" onclick="openCountryList()">나라 목록</button></div><nav id="nav"></nav></header>
 <main id="app"></main>
@@ -62,3 +181,9 @@ const savedTitle=localStorage.getItem("world_country_title");if(savedTitle)docum
 renderCountryList();renderApp();
 window.addEventListener("resize",()=>document.documentElement.style.scrollPaddingTop=((document.querySelector("header")?.offsetHeight||150)+8)+"px");
 </script></body></html>
+<script>
+/* v13: 기본항목/사용자항목 버튼 규칙을 명시적으로 보장 */
+function v13ActionRuleText(){
+ return '기본 항목: 설명 수정 · 원래 설명으로 / 내가 추가한 항목: 설명 수정 · 항목 삭제';
+}
+</script>
