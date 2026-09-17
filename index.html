@@ -10,16 +10,16 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.75}
-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #0000000b}
+header{position:fixed;left:0;right:0;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #0000000b}
 .head{max-width:1180px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .title{font-size:1.85rem;font-weight:950;letter-spacing:-.02em}.title-edit{border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:5px 9px;font-weight:800;font-size:.82rem;margin-left:7px}
 .country{font-size:1.65rem;font-weight:900}
 .back{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 12px;font-weight:800}
-main{max-width:1180px;margin:auto;padding:18px 16px 60px}
+main{max-width:1180px;margin:auto;padding:18px 16px 60px;padding-top:150px}
 nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;max-width:1180px;margin:0 auto;padding:8px 16px 11px;border-top:1px solid #eef2f7;scrollbar-width:thin;background:#fff}
 nav a{flex:0 0 auto;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:#27405f;text-decoration:none;font-size:.9rem;white-space:nowrap}
 nav a:active,nav a:hover{background:#eef5ff}
-section{scroll-margin-top:125px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}
+section{scroll-margin-top:150px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:23px;margin-bottom:18px;box-shadow:0 2px 9px #00000006}
 h2{font-size:1.5rem;margin:0 0 14px}
 h3{font-size:1.1rem;margin:14px 0 7px}
 p{margin:8px 0}
@@ -39,18 +39,22 @@ p{margin:8px 0}
 .lang .kr{font-weight:800;color:#31507c}.lang .native{font-size:1.35rem;font-weight:900}.lang .sound{color:#5f6b7a}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
 .item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}
-.item h3{margin-top:0}.unrelated{display:inline-block;margin-left:7px;font-size:.72rem;color:#a33;background:#fff0f0;border:1px solid #f0b8b8;border-radius:999px;padding:2px 6px;vertical-align:middle}
-.photo-area{height:190px;border-radius:10px;background:#eef2f6;overflow:hidden;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center}
+.item h3{margin-top:0}.photo-area{height:190px;border-radius:10px;background:#eef2f6;overflow:hidden;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center}
 .photo-area img{width:100%;height:100%;object-fit:cover}
-.photo-area .empty{color:#7a8698;font-size:.9rem}.photo-status{position:absolute;right:8px;top:8px;background:#fff3f3;color:#b42318;border:1px solid #efb1aa;border-radius:8px;padding:3px 7px;font-size:.75rem;font-weight:900;box-shadow:0 1px 5px #0002}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.photo-area .empty{color:#7a8698;font-size:.9rem}.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.action-right{display:flex;align-items:center;gap:7px;margin-left:auto}
 button{cursor:pointer}
-.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700}.actions .edit-desc{background:#eef5ff;border-color:#c9daf7}.actions .reset-desc{background:#f8fafc;color:#667085}
+.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700}
+.actions .edit-desc{background:#eef5ff;border-color:#c9daf7}
+.actions .reset-desc{background:#f8fafc;color:#667085}
+.actions .delete{background:#fff;border-color:#d7dce3;color:#667085}
+.related-status{margin-left:10px;font-size:.72rem;font-weight:600;color:#7a8491;white-space:nowrap}
 .mine{display:inline-block;margin-top:7px;background:#fff3cd;color:#765500;border-radius:999px;padding:2px 7px;font-size:.78rem;font-weight:800}
 .history{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .history .event{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
 .sources li{margin:6px 0}
 @media(max-width:720px){
+ main{padding-top:125px}
  .info-grid,.map-grid,.lang-grid,.cards,.history{grid-template-columns:1fr}
  .map-image img{height:270px}
  .head{align-items:flex-start}.title{font-size:1.3rem}
@@ -334,10 +338,13 @@ async function render(section){
   const edited=localStorage.getItem(editKey(section,x.id));
   const desc=getEditedDesc(section,x.id,x.desc);
   const card=document.createElement("article");card.className="item";
-  card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="unrelated">대한민국과 관계 없음</span>':''}</h3>
-   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}${x.unrelated?`<span class="photo-status">이나라와 관련성 부족</span>`:""}</div>
+  card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="related-status">이 나라와 관련성 부족</span>':''}</h3>
+   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}</div>
    <p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
-   <div class="actions"><button type="button" class="edit-desc">설명 수정</button>${edited&&!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}<button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden>${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>`;
+   <div class="actions">
+     <div class="action-left"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden></div>
+     <div class="action-right"><button type="button" class="edit-desc">설명 수정</button>${edited&&!x.mine?'<button type="button" class="reset-desc">원래 설명으로</button>':''}${x.mine?'<button type="button" class="delete">항목 삭제</button>':''}</div>
+   </div>`;
   card.querySelector(".edit-desc").onclick=()=>editDescription(section,x);
   if(edited&&!x.mine)card.querySelector(".reset-desc").onclick=()=>resetDescription(section,x);
   const buttons=card.querySelectorAll(".actions button");
@@ -355,6 +362,13 @@ const savedTitle=localStorage.getItem("world_country_title");if(savedTitle)docum
 function openMapZoom(){document.getElementById("mapModal").classList.add("open")} function closeMapZoom(e){if(e.target.id==="mapModal"||e.target.classList.contains("map-close"))document.getElementById("mapModal").classList.remove("open")}
 document.getElementById("countryBack").onclick=()=>alert("현재는 대한민국 백과사전 화면입니다. 이후 국가 목록을 연결할 수 있도록 국가코드 KR 기준으로 저장 구조를 만들었습니다.");
 for(const s of ["food","animals","places","culture"])render(s);
+// Keep anchor jumps below the fixed header even when the header wraps.
+function updateHeaderOffset(){
+  const h=document.querySelector('header')?.offsetHeight||150;
+  document.documentElement.style.scrollPaddingTop=(h+8)+'px';
+}
+updateHeaderOffset();
+window.addEventListener('resize',updateHeaderOffset);
 </script>
 </body>
 </html>
