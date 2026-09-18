@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전 v34</title><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전 v35</title><style>
 :root{--bg:#f4f8ff;--card:#fff;--ink:#172033;--muted:#68758a;--line:#dbe4f0;--blue:#2457a6;--soft:#eef5ff;--yellow:#fff6cf}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.7}button,input{font:inherit}button{cursor:pointer}header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:11px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:1.45rem;font-weight:950}.country-title{font-size:1.3rem;font-weight:900}.back,.smallbtn{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 11px;font-weight:800}nav{display:flex;gap:7px;overflow-x:auto;padding:7px 16px 10px;max-width:1180px;margin:auto}nav a{white-space:nowrap;text-decoration:none;color:#294766;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:.86rem}main{max-width:1180px;margin:auto;padding:18px 16px 60px}.hero{background:linear-gradient(135deg,#eaf4ff,#fff7d8);border-radius:26px;padding:26px;margin:4px 0 18px;text-align:center;border:1px solid #dbe7f4}.hero .earth{font-size:4.2rem}.hero h1{margin:3px 0;font-size:2.1rem}.hero p{margin:4px;color:#50627a}.search{max-width:600px;margin:17px auto 0;display:flex;gap:8px}.search input{width:100%;padding:13px 16px;border:2px solid #cbd8e8;border-radius:15px;background:#fff;font-size:1rem}.continents{display:flex;gap:8px;overflow-x:auto;margin:14px 0 18px;padding-bottom:3px}.chip{border:1px solid #ccd8e7;background:#fff;border-radius:999px;padding:8px 13px;font-weight:800;white-space:nowrap}.chip.active{background:#2457a6;color:#fff}.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.country-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 3px 10px #00000008;cursor:pointer;min-height:155px}.country-card:hover{transform:translateY(-1px)}.flagemoji{font-size:3rem}.country-card h2{margin:3px 0 0}.country-card p{margin:2px 0;color:#5c6b7d}.tag{display:inline-block;margin-top:7px;background:#eef5ff;border-radius:999px;padding:2px 8px;font-size:.78rem;font-weight:800;color:#31507c}section{scroll-margin-top:115px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:17px;box-shadow:0 2px 9px #00000006}section h2{margin:0 0 13px;font-size:1.45rem}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info{background:var(--soft);border-radius:13px;padding:13px}.info b{display:block;color:#31507c}.compare{background:#fff7d8;border:1px solid #f1df94;border-radius:15px;padding:14px;margin-top:13px}.compare b{color:#7a5a00}.flagbox{background:#e5e7eb;border-radius:16px;padding:24px;margin:8px auto 14px;max-width:700px}.flagimg{display:block;width:min(640px,100%);max-height:360px;object-fit:contain;margin:0 auto;border:0;background:transparent;box-shadow:none}.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.lang{background:#fbfdff;border:1px solid var(--line);border-radius:13px;padding:14px}.native{font-size:1.25rem;font-weight:900}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.item.minecard{background:var(--yellow)}.photo-area{height:185px;border-radius:11px;background:#edf2f7;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:4rem}.photo-area img{width:100%;height:100%;object-fit:cover}.item h3{margin:9px 0 4px}.item p{margin:4px 0}.actions{display:flex;justify-content:space-between;gap:8px;margin-top:9px;flex-wrap:wrap}.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 9px;font-weight:700}.right{display:flex;gap:6px;flex-wrap:wrap}.edit-desc{background:#eef5ff!important}.reset-desc{color:#667085}.related-status{font-size:.76rem;color:#a16207;font-weight:800}.mine{display:inline-block;background:#ffe89b;color:#6f5400;border-radius:999px;padding:2px 7px;font-size:.78rem;font-weight:800}.history{display:grid;grid-template-columns:1fr 1fr;gap:10px}.event{border:1px solid var(--line);border-radius:12px;padding:12px}.note{font-size:.88rem;color:var(--muted)}.hidden{display:none!important}@media(max-width:760px){.country-grid{grid-template-columns:repeat(2,1fr)}.info-grid,.cards,.history,.lang-grid{grid-template-columns:1fr}.hero h1{font-size:1.65rem}.head{align-items:flex-start}}@media(max-width:430px){.country-grid{grid-template-columns:1fr 1fr}.country-card{padding:13px;min-height:145px}.flagemoji{font-size:2.4rem}}
 
 /* v20 usability */
@@ -554,61 +554,77 @@ NZ:{
 function curatedPlaceDescription(country,name){return CURATED_PLACE_DESC[country]?.[name]||''}
 
 function needsPlaceEnrichment(desc){return /대표적인 장소|지리·역사·문화를 실제 장소|자연·역사·도시 모습|이 장소가 자리한 지역|위치와 형성 배경|사진을|사진에서|살펴보세요/.test(desc||'')}
-const REBUILD_DESC_VERSION='v34';
+const REBUILD_DESC_VERSION='v35';
 function rebuiltDescKey(country,section,id,name){return `rebuilt_${REBUILD_DESC_VERSION}_${country}_${section}_${id}_${name}`}
 function genericDesc(text){
- const t=String(text||'').replace(/\s+/g,' ');
- return t.length<85 || /(함께 살펴|함께 알아|이해하는 데 도움이|이해하는데 도움이|알아보는 것이 좋|알아보는것이 좋|알아볼 때 중요한|알아볼때 중요한|중요한 항목입니다|대표적인 .*입니다|잘 알려진 .*입니다|생활과 문화를 이해|사진을 .*보|관찰해 보|특징을 찾아보|이름만 다시|확인하고 있습니다)/i.test(t);
+ const t=String(text||'').replace(/\s+/g,' ').trim();
+ if(t.length<75)return true;
+ const bad=/(함께 살펴|함께 알아|이해하는 데 도움이|이해하는데 도움이|알아보는 것이 좋|알아보는것이 좋|알아볼 때 중요한|알아볼때 중요한|중요한 항목입니다|사진을 .*보|관찰해 보|특징을 찾아보|다시 확인하는 중|확인하고 있습니다)/i;
+ // 충분히 긴 실제 설명 안에 '대표적인'이라는 단어가 한 번 들어가는 것은 탈락시키지 않는다.
+ return bad.test(t);
 }
 function usefulSummary(text,name){
  let t=String(text||'').replace(/\s+/g,' ').trim();
  if(!t || /동음이의|목록 문서|분류 문서/.test(t))return '';
- let ss=t.split(/(?<=[.!?。！？])\s+/).filter(Boolean);
- let out=[];
+ let ss=t.split(/(?<=[.!?。！？])\s+/).filter(Boolean), out=[];
  for(const x of ss){
    if(/이 문서는|다음과 같은 뜻|가리키는 말/.test(x))continue;
    out.push(x); if(out.length>=5)break;
  }
  t=out.join(' ').trim();
- if(t.length<70)return '';
- // 이름을 되풀이하는 한 문장짜리 수준은 좋은 설명으로 보지 않는다.
- if(out.length<2 && t.length<120)return '';
+ if(t.length<75)return '';
  return t;
 }
-async function wikiSearchSummary(query,countryName,section){
+async function summaryByTitle(title){
+ try{const r=await fetch('https://ko.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title));if(!r.ok)return '';const j=await r.json();if(j.type==='disambiguation')return '';return usefulSummary(j.extract||'',title)}catch(e){return ''}
+}
+async function wikiSearchSummary(query,name,countryName,section){
+ // 1) 최신 MediaWiki REST 검색. 검색 결과의 실제 제목으로 요약을 가져온다.
  try{
-  const url='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(query)+'&srlimit=6&format=json&origin=*';
-  const r=await fetch(url); if(!r.ok)return '';
-  const j=await r.json(); const hits=j.query?.search||[];
-  const bad=/(동음이의|목록|분류)/;
-  for(const h of hits){
-   if(bad.test(h.title||''))continue;
-   try{
-    const rr=await fetch('https://ko.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(h.title));
-    if(!rr.ok)continue; const jj=await rr.json();
-    const t=usefulSummary(jj.extract||'',h.title); if(!t)continue;
-    // 검색어의 대상 이름이 제목/설명에 어느 정도 연결되는 결과를 우선한다.
-    const corpus=((h.title||'')+' '+(jj.description||'')+' '+t).toLowerCase();
-    if(corpus.includes(String(countryName).toLowerCase()) || query.split(' ')[0].length<3 || corpus.includes(query.split(' ')[0].toLowerCase())) return t;
-   }catch(e){}
-  }
+  const r=await fetch('https://ko.wikipedia.org/w/rest.php/v1/search/page?q='+encodeURIComponent(query)+'&limit=10');
+  if(r.ok){const j=await r.json();for(const h of (j.pages||[])){
+    if(/동음이의|목록|분류/.test(h.title||''))continue;
+    const t=await summaryByTitle(h.title); if(!t)continue;
+    const corpus=((h.title||'')+' '+(h.description||'')+' '+t).toLowerCase();
+    const needle=String(name||'').replace(/\s+/g,'').toLowerCase();
+    if(!needle || corpus.replace(/\s+/g,'').includes(needle) || (h.title||'').includes(name)) return t;
+  }}
+ }catch(e){}
+ // 2) 기존 Action API 검색도 보조로 사용한다.
+ try{
+  const url='https://ko.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(query)+'&srlimit=10&format=json&origin=*';
+  const r=await fetch(url); if(r.ok){const j=await r.json();for(const h of (j.query?.search||[])){
+    if(/동음이의|목록|분류/.test(h.title||''))continue;
+    const t=await summaryByTitle(h.title);if(t)return t;
+  }}
  }catch(e){}
  return '';
+}
+function cleanedExistingDescription(oldDesc,name){
+ const bad=/(함께 살펴|함께 알아|이해하는 데 도움이|이해하는데 도움이|알아보는 것이 좋|알아보는것이 좋|알아볼 때 중요한|알아볼때 중요한|중요한 항목입니다|사진을 .*보|관찰해 보|특징을 찾아보)/i;
+ const ss=String(oldDesc||'').replace(/\s+/g,' ').split(/(?<=[.!?。！？])\s+/).filter(x=>x && !bad.test(x));
+ const t=ss.join(' ').trim();
+ return t.length>=90?t:'';
 }
 async function rebuiltBaseDescription(name,country,section,id,oldDesc){
  if(country==='KR') return oldDesc;
  const k=rebuiltDescKey(country,section,id,name), cached=localStorage.getItem(k); if(cached)return cached;
  const c=countries[country];
- const hints={food:'음식 요리',animals:'동물 식물 생물',places:'명소 유적 자연 관광',culture:'문화 전통 축제 예술'};
- // 기본 설명을 "삭제 후 항목 추가"한 것처럼 취급한다. 기존 문장은 검색 실패 때도 재사용하지 않는다.
- const queries=[`${name} ${c.name} ${hints[section]||''}`,`${name} ${c.name}`,name];
+ const hints={food:'음식 요리 재료',animals:'동물 식물 생물 서식지',places:'명소 유적 역사 관광',culture:'문화 전통 축제 예술 풍습'};
+ // 실제로 항목을 삭제했다가 새로 추가한 것처럼, v34 이전 재생성 캐시와 기본 문장을 우선 사용하지 않는다.
+ const queries=[`${name} ${c.name} ${hints[section]||''}`,`${name} ${c.name}`,`${name} ${hints[section]||''}`,name];
+ // 정확한 문서명이 있는 경우 직접 요약부터 확인한다.
+ let direct=await summaryByTitle(name);
+ if(direct && !genericDesc(direct)){localStorage.setItem(k,direct);return direct;}
  for(const q of queries){
-   const t=await wikiSearchSummary(q,c.name,section);
+   const t=await wikiSearchSummary(q,name,c.name,section);
    if(t && !genericDesc(t)){localStorage.setItem(k,t);return t;}
  }
- // 한국어 문서가 부족한 항목은 기존 상투문을 되살리지 않고, 명확히 재확인이 필요함을 표시한다.
- const fallback=`${name}의 설명을 정확하게 다시 확인하는 중입니다. 확인되지 않은 내용을 임의로 넣지 않기 위해 기존의 단순한 기본 설명은 사용하지 않습니다.`;
- localStorage.setItem(k,fallback); return fallback;
+ // 네트워크/문서 부족 때도 '다시 확인 중'이라는 대체문구를 저장하지 않는다.
+ // 기존 문장 중 실제 사실 문장만 충분히 남아 있을 때만 임시로 사용하고, 다음 접속 때 다시 검색한다.
+ const cleaned=cleanedExistingDescription(oldDesc,name);
+ if(cleaned)return cleaned;
+ return `${name}에 관한 자세한 설명을 아직 불러오지 못했습니다. 인터넷에 연결된 상태에서 이 항목을 다시 열면 설명을 다시 검색합니다.`;
 }
 async function renderSection(s){let el=document.getElementById(s+'List');let arr=[...baseItems(s),...getCustom(s).map(x=>({...x,mine:true}))];el.innerHTML='';arr.forEach(async x=>{let desc=localStorage.getItem(editKey(s,x.id))??x.desc;let card=document.createElement('article');card.className='item'+(x.mine?' minecard':'');let photo=await getUserPhoto(`photo_${COUNTRY}_${s}_${x.id}`);card.innerHTML=`<div class="photo-area">${photo?`<img src="${photo}" alt="${esc(x.name)}">`:`<span class="fallback-emoji">${x.emoji||'📷'}</span>`}</div><h3>${esc(x.name)}${x.unrelated?'<span class="related-status"> · 이 나라와 관련성 확인 필요</span>':''}</h3><p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 항목</span>':''}<div class="actions"><div><button type="button" class="photo">사진 등록 / 바꾸기</button><input class="photo-input" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*" hidden></div><div class="right"><button class="edit-desc">설명 수정</button>${!x.mine?'<button class="reset-desc">원래 설명으로</button>':'<button class="delete">항목 삭제</button>'}</div></div>`;if(!x.mine && COUNTRY!=='KR' && !localStorage.getItem(editKey(s,x.id))){rebuiltBaseDescription(x.name,COUNTRY,s,x.id,x.desc).then(t=>{if(card.isConnected){const pp=card.querySelector('p');if(pp)pp.textContent=t;}})}if(s==='places'&&!x.mine&&!localStorage.getItem(editKey(s,x.id))&&COUNTRY==='KR'){const curated=curatedPlaceDescription(COUNTRY,x.name);const p=card.querySelector('p');if(curated){if(p)p.textContent=curated}else if(needsPlaceEnrichment(x.desc)){if(p)p.textContent='명소의 위치·역사·특징을 확인하고 있어요…';verifiedPlaceDescription(x.name,COUNTRY).then(t=>{if(card.isConnected){const p2=card.querySelector('p');if(p2)p2.textContent=t||x.desc;}})}}if(!photo){autoPhoto(x.name,COUNTRY,s).then(u=>{if(u&&card.isConnected){card.querySelector('.photo-area').innerHTML=`<img src="${u}" alt="${esc(x.name)}">`;}})}let input=card.querySelector('input');card.querySelector('.photo').onclick=()=>input.click();input.onchange=async()=>{let f=input.files?.[0];if(!f)return;try{const data=await preparePhoto(f);await setUserPhoto(`photo_${COUNTRY}_${s}_${x.id}`,data);await renderSection(s)}catch(e){alert('사진을 저장하지 못했습니다. 다른 사진을 선택해 주세요.')}};card.querySelector('.edit-desc').onclick=()=>{let v=prompt('설명을 수정하세요.',desc);if(v!==null&&v.trim()){localStorage.setItem(editKey(s,x.id),v.trim());renderSection(s)}};if(x.mine)card.querySelector('.delete').onclick=()=>{if(!confirm('이 항목을 삭제할까요?'))return;let a=getCustom(s).filter(y=>y.id!==x.id);localStorage.setItem(key(s),JSON.stringify(a));renderSection(s)};else card.querySelector('.reset-desc').onclick=()=>{if(confirm('원래 설명으로 되돌릴까요?')){localStorage.removeItem(editKey(s,x.id));renderSection(s)}};el.appendChild(card)})}
 async function lookupDescription(name,country,section){
