@@ -1,6 +1,20 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>세계 나라 백과사전</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;background:#f7f8fa;color:#172033;line-height:1.75}button,input{font:inherit}header{position:fixed;top:0;left:0;right:0;background:#fff;z-index:20;border-bottom:1px solid #dfe4ea;box-shadow:0 2px 10px rgba(0,0,0,.05)}.head{max-width:1180px;margin:auto;padding:12px 16px 8px;display:flex;justify-content:space-between;gap:12px;align-items:center}.title{font-size:25px;font-weight:900;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.country{font-size:22px;font-weight:800;color:#335}.title-edit,.back,.home-btn,.country-btn,.action-btn{border:1px solid #ccd4de;background:#fff;border-radius:10px;padding:7px 10px;cursor:pointer}nav{max-width:1180px;margin:auto;padding:0 10px 9px;display:flex;gap:6px;overflow:auto;white-space:nowrap}nav a{text-decoration:none;color:#334155;background:#f0f3f7;border-radius:9px;padding:6px 9px;font-size:13px;font-weight:700}main{max-width:1180px;margin:auto;padding:170px 16px 40px}section{scroll-margin-top:170px;margin-bottom:28px}h2{font-size:24px;margin:0 0 12px}h3{font-size:19px;margin:16px 0 7px}.card,.info,.map-card,.home-panel{background:#fff;border:1px solid #e0e5eb;border-radius:16px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,.035)}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info b{display:block;color:#475569;font-size:13px}.compare{margin-top:12px;background:#eef6ff;border-radius:12px;padding:12px;font-weight:700}.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.map-image{position:relative;border-radius:12px;overflow:hidden;background:#eef2f6;min-height:260px;display:flex;align-items:center;justify-content:center}.map-image img{width:100%;height:330px;object-fit:contain;display:block}.map-label{position:absolute;background:rgba(255,255,255,.88);border:1px solid #b8c2cf;border-radius:7px;padding:2px 6px;font-size:12px;font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,.08)}.country-label{left:48%;top:48%}.neighbor{background:rgba(255,249,214,.92)}.sea{background:rgba(225,243,255,.9);color:#075985}.map-label.n1{left:10%;top:28%}.map-label.n2{right:8%;top:35%}.map-label.n3{left:42%;top:9%}.map-label.n4{right:20%;bottom:12%}.map-label.sea1{left:8%;bottom:18%}.map-label.sea2{right:7%;bottom:25%}.zoom{position:absolute;right:8px;bottom:8px}.flag{max-width:620px;width:100%;border:1px solid #ddd;border-radius:12px;display:block}.greet{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}.greet th,.greet td{border:1px solid #e2e8f0;padding:9px;text-align:left}.item-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.item-title{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.related{font-size:12px;color:#8a8f98;font-weight:500}.item-img{width:100%;height:190px;object-fit:contain;background:#f2f4f7;border-radius:12px;margin:8px 0}.actions{display:flex;justify-content:space-between;gap:8px;margin-top:10px}.action-right{display:flex;gap:6px;margin-left:auto}.photo-btn{border:1px solid #cbd5e1;background:#fff;border-radius:9px;padding:7px 9px}.history-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.history-item{background:#fff;border:1px solid #e0e5eb;border-radius:12px;padding:10px;display:grid;grid-template-columns:110px 1fr;gap:8px}.home{max-width:1180px;margin:auto;padding:28px 16px 60px}.home-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.home-btn{font-weight:800;padding:13px}.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.country-card{background:#fff;border:1px solid #e0e5eb;border-radius:15px;padding:14px;cursor:pointer}.country-card h3{margin:0 0 3px}.star{float:right;font-size:24px;border:0;background:none;cursor:pointer}.searchbox{width:100%;padding:12px;border:1px solid #ccd4de;border-radius:10px;margin:10px 0 14px}.hidden{display:none}.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modal-inner{background:#fff;border-radius:16px;max-width:1000px;width:100%;max-height:92vh;overflow:auto;padding:14px;position:relative}.modal-inner img{width:100%;height:auto;max-height:78vh;object-fit:contain}.close{position:absolute;right:12px;top:8px;border:0;background:#fff;border-radius:50%;font-size:24px;cursor:pointer}.source-note{font-size:12px;color:#64748b}@media(max-width:760px){.title{font-size:20px}.country{font-size:19px}main{padding-top:145px}section{scroll-margin-top:145px}.info-grid,.map-grid,.item-grid,.history-grid,.country-grid,.home-tools{grid-template-columns:1fr}.map-image img{height:250px}.history-item{grid-template-columns:90px 1fr}nav a{font-size:12px}}
-.map-label{position:absolute;transform:translate(-50%,-50%);padding:3px 6px;border-radius:8px;border:1px solid #d7dee7;background:#fff;font-size:12px;line-height:1.2;white-space:nowrap;box-shadow:0 1px 3px #0001;z-index:2}.map-label.neighbor{color:#384a5a}.map-label.country-label{font-weight:700}.map-label.capital-label{font-weight:700}.map-image{position:relative}.map-image>img{display:block;width:100%;height:auto}</style></head><body>
+.map-label{position:absolute;transform:translate(-50%,-50%);padding:3px 6px;border-radius:8px;border:1px solid #d7dee7;background:#fff;font-size:12px;line-height:1.2;white-space:nowrap;box-shadow:0 1px 3px #0001;z-index:2}.map-label.neighbor{color:#384a5a}.map-label.country-label{font-weight:700}.map-label.capital-label{font-weight:700}.map-image{position:relative}.map-image>img{display:block;width:100%;height:auto}</style>
+<style id="v17-background-restore">
+.section, .section-card, section.section, .country-section, .content-section {
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:22px;
+  margin:18px 0;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.history, .history-grid, .history-list {
+  background:#fff;
+}
+</style>
+</head><body>
 <div id="homeView" class="home"><div class="title">세계 나라 백과사전 <button class="title-edit" onclick="editAppTitle()">이름 수정</button></div><p>대한민국 자료는 V11 기준으로 고정하고, 같은 구성과 설명 수준으로 다른 나라를 하나씩 확장합니다.</p><div class="home-tools"><button class="home-btn" onclick="homeFilter('all')">전체보기</button><button class="home-btn" onclick="homeFilter('continent')">대륙별로 보기</button><button class="home-btn" onclick="homeFilter('search')">이름검색</button><button class="home-btn" onclick="homeFilter('fav')">⭐ 즐겨찾기</button></div><div id="homePanel" class="home-panel"></div></div>
 <div id="countryView" class="hidden"><header><div class="head"><div><div class="title"><span id="appTitle">세계 나라 백과사전</span><button class="title-edit" onclick="editAppTitle()">이름 수정</button></div><div id="countryName" class="country"></div></div><button class="back" onclick="goHome()">나라 목록으로 돌아가기</button></div><nav id="nav"></nav></header><main id="main"></main></div>
 <div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-inner"><button class="close" onclick="closeModal()">×</button><img id="modalImg"></div></div>
@@ -107,7 +121,13 @@ function renderCountry(){
  ${current==='KR'?'<p>대한민국의 면적은 약 100,459㎢이며, 인구는 국가통계의 기준에 따라 달라집니다. KOSIS는 2025년 추계인구를 51,684,564명으로 제시하고 있습니다.</p><p class="note">※ 인구는 2025년 추계인구를 사용했고, 면적은 대한민국 정부가 안내하는 2025년 기준 약 100,459㎢를 사용했습니다.</p>':''}
  </section>`;
 
- h+=`<section id="flag"><h2>2. 국기</h2><div class="flag-layout"><img class="flag flag-small" src="${c.flag}" alt="${esc(c.name)} 국기"><div class="flag-desc">${flagDesc(current)}</div></div></section>`;
+ h+=`<section id="flag">
+<h2>2. 국기</h2>
+<img class="flag" src="https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Korea.svg" alt="대한민국 국기 태극기">
+<p>대한민국의 국기는 <strong>태극기</strong>입니다. 흰 바탕 가운데에는 태극 문양이 있고 네 모서리에는 건·곤·감·리의 괘가 배치되어 있습니다.</p>
+<p>태극 문양은 서로 어울리는 음과 양의 모습을 나타내며, 네 괘는 하늘·땅·물·불과 관련된 의미를 담고 있습니다. 흰 바탕은 밝음과 순수함을 상징하는 것으로 설명됩니다.</p>
+<p class="note">국기 이미지는 Wikimedia Commons의 대한민국 국기 자료를 사용합니다.</p>
+</section>`;
 
  h+=`<section id="capital"><h2>3. 수도 설명</h2><div class="section-card">${sectionText(current,'capital')||'<p>수도에 대한 설명을 준비 중입니다.</p>'}</div></section>`;
  h+=`<section id="nature"><h2>4. 자연과 기후</h2><div class="section-card">${sectionText(current,'nature')}</div></section>`;
@@ -118,7 +138,27 @@ function renderCountry(){
 
  h+=itemSection(6,'food','음식',d.food);h+=itemSection(7,'animals','동식물',d.animals);h+=itemSection(8,'places','전국의 명소',d.places);h+=itemSection(9,'culture','대표 문화',d.culture);
 
- h+=`<section id="history"><h2>10. 한눈에 보는 대한민국 역사</h2><div class="section-card">${current==='KR'?sectionText(current,'history'):sectionText(current,'history')}</div></section>`;
+ h+=`<section id="history">
+<h2>10. 한눈에 보는 역사</h2>
+<div class="history">
+<div class="event"><b>기원전 2333년경</b><br>고조선이 세워졌다고 전해집니다.</div>
+<div class="event"><b>기원전 1세기 무렵</b><br>한반도와 주변 지역에서 여러 고대 국가가 발전했습니다.</div>
+<div class="event"><b>668년</b><br>신라가 한반도 중남부를 중심으로 통일 신라 시대를 열었습니다.</div>
+<div class="event"><b>918년</b><br>왕건이 고려를 세웠습니다.</div>
+<div class="event"><b>1392년</b><br>이성계가 조선을 세웠습니다.</div>
+<div class="event"><b>1395년</b><br>조선의 법궁인 경복궁이 처음 지어졌습니다.</div>
+<div class="event"><b>1446년</b><br>훈민정음이 반포되었습니다.</div>
+<div class="event"><b>1592년</b><br>임진왜란이 시작되었습니다.</div>
+<div class="event"><b>1910년</b><br>대한제국이 일본에 병합되었습니다.</div>
+<div class="event"><b>1919년</b><br>3·1운동이 일어났고 대한민국 임시정부가 수립되었습니다.</div>
+<div class="event"><b>1945년</b><br>광복을 맞았습니다.</div>
+<div class="event"><b>1948년</b><br>대한민국 정부가 수립되었습니다.</div>
+<div class="event"><b>1950년</b><br>한국전쟁이 시작되었습니다.</div>
+<div class="event"><b>1953년</b><br>한국전쟁의 정전협정이 체결되었습니다.</div>
+<div class="event"><b>1988년</b><br>서울에서 하계 올림픽이 열렸습니다.</div>
+<div class="event"><b>2002년</b><br>한일 월드컵이 대한민국과 일본에서 공동 개최되었습니다.</div>
+</div>
+</section>`;
  h+=`<section id="sources"><h2>11. 자료를 확인한 곳</h2><div class="section-card">${sectionText(current,'sources')}</div></section>`;
  document.getElementById('main').innerHTML=h;
 }
