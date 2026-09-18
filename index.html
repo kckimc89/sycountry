@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>세계 나라 백과사전</title>
+<!-- v13: 기본 항목 사진 자동 보완 + 나라별 역사 제목 구조 -->
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--ink:#182234;--muted:#667085;--line:#dce3ed;--blue:#2457a6;--soft:#eef5ff}
 *{box-sizing:border-box}
@@ -141,7 +142,7 @@ button{cursor:pointer}
 <section id="culture"><h2>9. 대표 문화</h2><p>한국 문화는 오랜 전통문화와 현대의 대중문화가 함께 발전하고 있습니다. 명절과 전통 놀이, 음식과 주거문화뿐 아니라 음악·영화·드라마 등 현대 문화도 중요한 요소입니다.</p><div class="cards" id="cultureList"></div><button class="add-btn" onclick="addItem('culture')">항목 추가</button></section>
 
 <section id="history">
-<h2>10. 한눈에 보는 대한민국 역사</h2>
+<h2 id="historyTitle">10. 한눈에 보는 대한민국 역사</h2>
 <div class="history">
 <div class="event"><b>기원전 2333년경</b><br>고조선이 세워졌다고 전해집니다.</div>
 <div class="event"><b>기원전 1세기 무렵</b><br>한반도와 주변 지역에서 여러 고대 국가가 발전했습니다.</div>
@@ -177,6 +178,7 @@ button{cursor:pointer}
 
 <script>
 const COUNTRY="KR";
+const COUNTRY_NAME="대한민국";
 const DB_NAME="world_country_encyclopedia_photos_v6";
 const STORE="photos";
 
@@ -305,6 +307,21 @@ function resetDescription(section,x){
  if(!confirm("원래 설명으로 되돌릴까요?"))return;
  removeEditedDesc(section,x.id);render(section);
 }
+async function loadFallbackImage(img,name){
+  if(img.dataset.fallbackTried)return;
+  img.dataset.fallbackTried="1";
+  try{
+    const api="https://ko.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(name)+"&gsrlimit=1&prop=pageimages&pithumbsize=700&format=json&origin=*";
+    const r=await fetch(api); const j=await r.json();
+    const page=j?.query?.pages?Object.values(j.query.pages)[0]:null;
+    const src=page?.thumbnail?.source;
+    if(src){img.src=src;return;}
+  }catch(e){}
+  img.style.display="none";
+  const area=img.parentElement;
+  if(area && !area.querySelector(".empty")){const span=document.createElement("span");span.className="empty";span.textContent="사진을 등록할 수 있습니다.";area.appendChild(span);}
+}
+
 async function render(section){
  const map={food:"foodList",animals:"animalsList",places:"placesList",culture:"cultureList"};
  const el=document.getElementById(map[section]); el.innerHTML="";
@@ -317,7 +334,7 @@ async function render(section){
   const desc=getEditedDesc(section,x.id,x.desc);
   const card=document.createElement("article");card.className="item";
   card.innerHTML=`<h3>${esc(x.name)}${x.unrelated?'<span class="related-status">이 나라와 관련성 부족</span>':''}</h3>
-   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}</div>
+   <div class="photo-area">${shown?`<img src="${shown}" alt="${esc(x.name)}" onerror="loadFallbackImage(this,\'${esc(x.name)}\')">`:`<span class="empty">사진을 추가할 수 있습니다.</span>`}</div>
    <p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 내용</span>':''}
    <div class="actions">
      <div class="action-left"><button type="button">사진 등록 / 바꾸기</button><input type="file" accept="image/*" hidden></div>
@@ -338,6 +355,7 @@ async function render(section){
 function editTitle(){const current=localStorage.getItem("world_country_title")||"세계 나라 백과사전";const next=prompt("백과사전 이름을 입력하세요.",current);if(next===null)return;const v=next.trim();if(!v)return;localStorage.setItem("world_country_title",v);document.getElementById("appTitle").textContent=v;}
 const savedTitle=localStorage.getItem("world_country_title");if(savedTitle)document.getElementById("appTitle").textContent=savedTitle;
 document.getElementById("countryBack").onclick=()=>alert("현재는 대한민국 백과사전 화면입니다. 이후 국가 목록을 연결할 수 있도록 국가코드 KR 기준으로 저장 구조를 만들었습니다.");
+document.getElementById("historyTitle").textContent=`10. 한눈에 보는 ${COUNTRY_NAME} 역사`;
 for(const s of ["food","animals","places","culture"])render(s);
 // Keep anchor jumps below the fixed header even when the header wraps.
 function updateHeaderOffset(){
