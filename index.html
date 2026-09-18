@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전 v37</title><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전 v38</title><style>
 :root{--bg:#f4f8ff;--card:#fff;--ink:#172033;--muted:#68758a;--line:#dbe4f0;--blue:#2457a6;--soft:#eef5ff;--yellow:#fff6cf}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.7}button,input{font:inherit}button{cursor:pointer}header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:11px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:1.45rem;font-weight:950}.country-title{font-size:1.3rem;font-weight:900}.back,.smallbtn{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 11px;font-weight:800}nav{display:flex;gap:7px;overflow-x:auto;padding:7px 16px 10px;max-width:1180px;margin:auto}nav a{white-space:nowrap;text-decoration:none;color:#294766;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:.86rem}main{max-width:1180px;margin:auto;padding:18px 16px 60px}.hero{background:linear-gradient(135deg,#eaf4ff,#fff7d8);border-radius:26px;padding:26px;margin:4px 0 18px;text-align:center;border:1px solid #dbe7f4}.hero .earth{font-size:4.2rem}.hero h1{margin:3px 0;font-size:2.1rem}.hero p{margin:4px;color:#50627a}.search{max-width:600px;margin:17px auto 0;display:flex;gap:8px}.search input{width:100%;padding:13px 16px;border:2px solid #cbd8e8;border-radius:15px;background:#fff;font-size:1rem}.continents{display:flex;gap:8px;overflow-x:auto;margin:14px 0 18px;padding-bottom:3px}.chip{border:1px solid #ccd8e7;background:#fff;border-radius:999px;padding:8px 13px;font-weight:800;white-space:nowrap}.chip.active{background:#2457a6;color:#fff}.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.country-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 3px 10px #00000008;cursor:pointer;min-height:155px}.country-card:hover{transform:translateY(-1px)}.flagemoji{font-size:3rem}.country-card h2{margin:3px 0 0}.country-card p{margin:2px 0;color:#5c6b7d}.tag{display:inline-block;margin-top:7px;background:#eef5ff;border-radius:999px;padding:2px 8px;font-size:.78rem;font-weight:800;color:#31507c}section{scroll-margin-top:115px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:17px;box-shadow:0 2px 9px #00000006}section h2{margin:0 0 13px;font-size:1.45rem}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info{background:var(--soft);border-radius:13px;padding:13px}.info b{display:block;color:#31507c}.compare{background:#fff7d8;border:1px solid #f1df94;border-radius:15px;padding:14px;margin-top:13px}.compare b{color:#7a5a00}.flagbox{background:#e5e7eb;border-radius:16px;padding:24px;margin:8px auto 14px;max-width:700px}.flagimg{display:block;width:min(640px,100%);max-height:360px;object-fit:contain;margin:0 auto;border:0;background:transparent;box-shadow:none}.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.lang{background:#fbfdff;border:1px solid var(--line);border-radius:13px;padding:14px}.native{font-size:1.25rem;font-weight:900}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.item.minecard{background:var(--yellow)}.photo-area{height:185px;border-radius:11px;background:#edf2f7;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:4rem}.photo-area img{width:100%;height:100%;object-fit:cover}.item h3{margin:9px 0 4px}.item p{margin:4px 0}.actions{display:flex;justify-content:space-between;gap:8px;margin-top:9px;flex-wrap:wrap}.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 9px;font-weight:700}.right{display:flex;gap:6px;flex-wrap:wrap}.edit-desc{background:#eef5ff!important}.reset-desc{color:#667085}.related-status{font-size:.76rem;color:#a16207;font-weight:800}.mine{display:inline-block;background:#ffe89b;color:#6f5400;border-radius:999px;padding:2px 7px;font-size:.78rem;font-weight:800}.history{display:grid;grid-template-columns:1fr 1fr;gap:10px}.event{border:1px solid var(--line);border-radius:12px;padding:12px}.note{font-size:.88rem;color:var(--muted)}.hidden{display:none!important}@media(max-width:760px){.country-grid{grid-template-columns:repeat(2,1fr)}.info-grid,.cards,.history,.lang-grid{grid-template-columns:1fr}.hero h1{font-size:1.65rem}.head{align-items:flex-start}}@media(max-width:430px){.country-grid{grid-template-columns:1fr 1fr}.country-card{padding:13px;min-height:145px}.flagemoji{font-size:2.4rem}}
 
 /* v20 usability */
@@ -646,28 +646,48 @@ async function rebuiltBaseDescription(name,country,section,id,oldDesc){
  if(cleaned)return cleaned;
  return `${name}에 관한 자세한 설명을 아직 불러오지 못했습니다. 인터넷에 연결된 상태에서 이 항목을 다시 열면 설명을 다시 검색합니다.`;
 }
-async function refreshDescriptionCandidate(name,country,section,attempt,current){
+const refreshAliases={'플라밍고':['홍학','큰홍학','Greater flamingo'],'플라멩코':['Flamenco'],'플라멩코 기타':['Flamenco guitar']};
+const refreshBusy=new Set();
+function refreshSearchNames(name){return [name,...(refreshAliases[name]||[])];}
+async function freshLikeNewItemDescription(name,country,section,current){
  const c=countries[country];
- const focus={food:['재료 조리법 지역 음식','유래 먹는 방법 전통 요리','특징 만드는 법 지역'],animals:['생김새 서식지 생태 특징','분포 먹이 보호 생물','서식 환경 특징'],places:['위치 역사 건축 특징','형성과정 볼거리 의미','역사 문화유산 특징'],culture:['유래 방식 의미 지역 문화','언제 어떻게 전통 특징','역사 지역적 특징 문화']}[section]||['특징 역사 의미'];
- const suffix=focus[attempt%focus.length];
- const qs=[`${name} ${c.name} ${suffix}`,`${c.name} ${name} ${suffix}`,`${name} ${c.name}`];
- for(const q of qs){const t=await wikiSearchSummary(q,name,c.name,section);if(t&&!genericDesc(t)&&t!==current)return t;}
+ const hints={food:'음식 요리 재료 조리법',animals:'동물 식물 생물 서식지 분포',places:'명소 유적 역사 위치',culture:'문화 전통 축제 예술 풍습'};
+ const names=refreshSearchNames(name);
+ // 1) 실제로 새 항목을 추가하듯 이름 자체의 정확한 문서를 먼저 찾는다.
+ for(const n of names){
+  const direct=await wikiSearchSummary(n,n,c.name,section);
+  if(direct&&!genericDesc(direct)&&direct!==current){
+   // 2) 나라와의 관계를 설명하는 검색도 별도로 시도한다.
+   let relation='';
+   for(const q of [`${c.name} ${n} ${hints[section]||''}`,`${n} ${c.name} ${hints[section]||''}`,`${c.en} ${n}`]){
+    const t=await wikiSearchSummary(q,n,c.name,section);
+    if(t&&!genericDesc(t)&&t!==direct){relation=t;break;}
+   }
+   if(relation && !direct.includes(relation)) return (direct+' '+relation).replace(/\s+/g,' ').trim();
+   return direct;
+  }
+ }
+ // 이름 문서가 어려운 경우 나라+항목으로 다시 신규검색한다.
+ for(const n of names){for(const q of [`${n} ${c.name} ${hints[section]||''}`,`${c.name} ${n}`,`${n} ${c.en}`]){
+   const t=await wikiSearchSummary(q,n,c.name,section);if(t&&!genericDesc(t)&&t!==current)return t;
+ }}
  return '';
 }
 async function improveDescription(name,country,section,id,current){
- let attempt=0;
- while(attempt<6){
-  const candidate=await refreshDescriptionCandidate(name,country,section,attempt,current);attempt++;
+ const lock=`${country}_${section}_${id}`;
+ if(refreshBusy.has(lock))return null;
+ refreshBusy.add(lock);
+ try{
+  const candidate=await freshLikeNewItemDescription(name,country,section,current);
   if(!candidate){
-   const again=confirm('이번 검색에서는 현재 설명보다 충분한 새 설명을 찾지 못했습니다.\n\n다른 관점으로 한 번 더 찾아볼까요?');
-   if(again)continue; return null;
+   alert('이번에는 충분한 새 설명을 찾지 못했습니다.\n\n현재 설명은 그대로 유지합니다. 같은 질문을 반복하지 않습니다. 필요하면 나중에 다시 「설명 보완」을 누르거나 「설명 수정」으로 직접 고칠 수 있습니다.');
+   return null;
   }
-  const choice=prompt('새로 찾은 보완 설명입니다.\n\n'+candidate+'\n\n1 = 이 설명으로 바꾸기\n2 = 한 번 더 보완하기\n3 = 기존 설명 유지','1');
-  if(choice===null||choice.trim()==='3')return null;
-  if(choice.trim()==='2')continue;
+  const choice=prompt('항목을 새로 추가한 것처럼 다시 찾아 만든 설명입니다.\n\n'+candidate+'\n\n1 = 이 설명으로 바꾸기\n2 = 기존 설명 유지','1');
+  if(choice===null||choice.trim()==='2')return null;
   if(choice.trim()==='1')return candidate;
- }
- alert('여러 방법으로 찾아보았지만 더 나은 설명을 확정하지 않았습니다. 기존 설명을 유지합니다.');return null;
+  return null;
+ }finally{refreshBusy.delete(lock)}
 }
 async function renderSection(s){let el=document.getElementById(s+'List');let arr=[...baseItems(s),...getCustom(s).map(x=>({...x,mine:true}))];el.innerHTML='';arr.forEach(async x=>{let desc=localStorage.getItem(editKey(s,x.id))??x.desc;let card=document.createElement('article');card.className='item'+(x.mine?' minecard':'');let photo=await getUserPhoto(`photo_${COUNTRY}_${s}_${x.id}`);card.innerHTML=`<div class="photo-area">${photo?`<img src="${photo}" alt="${esc(x.name)}">`:`<span class="fallback-emoji">${x.emoji||'📷'}</span>`}</div><h3>${esc(x.name)}${x.unrelated?'<span class="related-status"> · 이 나라와 관련성 확인 필요</span>':''}</h3><p>${esc(desc)}</p>${x.mine?'<span class="mine">내가 추가한 항목</span>':''}<div class="actions"><div><button type="button" class="photo">사진 등록 / 바꾸기</button><input class="photo-input" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*" hidden></div><div class="right"><button class="edit-desc">설명 수정</button>${!x.mine?(COUNTRY==='KR'?'<button class="reset-desc">원래 설명으로</button>':'<button class="improve-desc">🔄 설명 보완</button><button class="last-confirmed">↩️ 마지막 확정 설명</button>'):'<button class="delete">항목 삭제</button>'}</div></div>`;if(!x.mine && COUNTRY!=='KR' && !localStorage.getItem(editKey(s,x.id))){rebuiltBaseDescription(x.name,COUNTRY,s,x.id,x.desc).then(t=>{if(card.isConnected){const pp=card.querySelector('p');if(pp)pp.textContent=t;}})}if(s==='places'&&!x.mine&&!localStorage.getItem(editKey(s,x.id))&&COUNTRY==='KR'){const curated=curatedPlaceDescription(COUNTRY,x.name);const p=card.querySelector('p');if(curated){if(p)p.textContent=curated}else if(needsPlaceEnrichment(x.desc)){if(p)p.textContent='명소의 위치·역사·특징을 확인하고 있어요…';verifiedPlaceDescription(x.name,COUNTRY).then(t=>{if(card.isConnected){const p2=card.querySelector('p');if(p2)p2.textContent=t||x.desc;}})}}if(!photo){autoPhoto(x.name,COUNTRY,s).then(u=>{if(u&&card.isConnected){card.querySelector('.photo-area').innerHTML=`<img src="${u}" alt="${esc(x.name)}">`;}})}let input=card.querySelector('input');card.querySelector('.photo').onclick=()=>input.click();input.onchange=async()=>{let f=input.files?.[0];if(!f)return;try{const data=await preparePhoto(f);await setUserPhoto(`photo_${COUNTRY}_${s}_${x.id}`,data);await renderSection(s)}catch(e){alert('사진을 저장하지 못했습니다. 다른 사진을 선택해 주세요.')}};card.querySelector('.edit-desc').onclick=()=>{let shown=card.querySelector('p')?.textContent||desc;let v=prompt('설명을 수정하세요.',shown);if(v!==null&&v.trim()){localStorage.setItem(editKey(s,x.id),v.trim());if(!x.mine&&COUNTRY!=='KR')localStorage.setItem(confirmedDescKey(COUNTRY,s,x.id),v.trim());renderSection(s)}};if(x.mine)card.querySelector('.delete').onclick=()=>{if(!confirm('이 항목을 삭제할까요?'))return;let a=getCustom(s).filter(y=>y.id!==x.id);localStorage.setItem(key(s),JSON.stringify(a));renderSection(s)};else if(COUNTRY==='KR'){card.querySelector('.reset-desc').onclick=()=>{if(confirm('원래 설명으로 되돌릴까요?')){localStorage.removeItem(editKey(s,x.id));renderSection(s)}}}else{card.querySelector('.improve-desc').onclick=async()=>{let current=card.querySelector('p')?.textContent||desc;let candidate=await improveDescription(x.name,COUNTRY,s,x.id,current);if(candidate){localStorage.setItem(confirmedDescKey(COUNTRY,s,x.id),candidate);localStorage.setItem(editKey(s,x.id),candidate);alert('새 설명을 마지막 확정 설명으로 저장했습니다.');renderSection(s)}};card.querySelector('.last-confirmed').onclick=()=>{let last=localStorage.getItem(confirmedDescKey(COUNTRY,s,x.id));if(!last){alert('아직 마지막 확정 설명이 없습니다. 먼저 「설명 보완」에서 좋은 설명을 확정하거나 「설명 수정」으로 내용을 확정해 주세요.');return}if(confirm('마지막으로 확정한 설명으로 되돌릴까요?')){localStorage.setItem(editKey(s,x.id),last);renderSection(s)}}}el.appendChild(card)})}
 async function lookupDescription(name,country,section){
