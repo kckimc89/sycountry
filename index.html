@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전 v41</title><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>세계 나라 백과사전 v42</title><style>
 :root{--bg:#f4f8ff;--card:#fff;--ink:#172033;--muted:#68758a;--line:#dbe4f0;--blue:#2457a6;--soft:#eef5ff;--yellow:#fff6cf}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.7}button,input{font:inherit}button{cursor:pointer}header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:11px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:1.45rem;font-weight:950}.country-title{font-size:1.3rem;font-weight:900}.back,.smallbtn{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:8px 11px;font-weight:800}nav{display:flex;gap:7px;overflow-x:auto;padding:7px 16px 10px;max-width:1180px;margin:auto}nav a{white-space:nowrap;text-decoration:none;color:#294766;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:.86rem}main{max-width:1180px;margin:auto;padding:18px 16px 60px}.hero{background:linear-gradient(135deg,#eaf4ff,#fff7d8);border-radius:26px;padding:26px;margin:4px 0 18px;text-align:center;border:1px solid #dbe7f4}.hero .earth{font-size:4.2rem}.hero h1{margin:3px 0;font-size:2.1rem}.hero p{margin:4px;color:#50627a}.search{max-width:600px;margin:17px auto 0;display:flex;gap:8px}.search input{width:100%;padding:13px 16px;border:2px solid #cbd8e8;border-radius:15px;background:#fff;font-size:1rem}.continents{display:flex;gap:8px;overflow-x:auto;margin:14px 0 18px;padding-bottom:3px}.chip{border:1px solid #ccd8e7;background:#fff;border-radius:999px;padding:8px 13px;font-weight:800;white-space:nowrap}.chip.active{background:#2457a6;color:#fff}.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.country-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 3px 10px #00000008;cursor:pointer;min-height:155px}.country-card:hover{transform:translateY(-1px)}.flagemoji{font-size:3rem}.country-card h2{margin:3px 0 0}.country-card p{margin:2px 0;color:#5c6b7d}.tag{display:inline-block;margin-top:7px;background:#eef5ff;border-radius:999px;padding:2px 8px;font-size:.78rem;font-weight:800;color:#31507c}section{scroll-margin-top:115px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:17px;box-shadow:0 2px 9px #00000006}section h2{margin:0 0 13px;font-size:1.45rem}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info{background:var(--soft);border-radius:13px;padding:13px}.info b{display:block;color:#31507c}.compare{background:#fff7d8;border:1px solid #f1df94;border-radius:15px;padding:14px;margin-top:13px}.compare b{color:#7a5a00}.flagbox{background:#e5e7eb;border-radius:16px;padding:24px;margin:8px auto 14px;max-width:700px}.flagimg{display:block;width:min(640px,100%);max-height:360px;object-fit:contain;margin:0 auto;border:0;background:transparent;box-shadow:none}.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.lang{background:#fbfdff;border:1px solid var(--line);border-radius:13px;padding:14px}.native{font-size:1.25rem;font-weight:900}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.item.minecard{background:var(--yellow)}.photo-area{height:185px;border-radius:11px;background:#edf2f7;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:4rem}.photo-area img{width:100%;height:100%;object-fit:cover}.item h3{margin:9px 0 4px}.item p{margin:4px 0}.actions{display:flex;justify-content:space-between;gap:8px;margin-top:9px;flex-wrap:wrap}.actions button,.add-btn{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 9px;font-weight:700}.right{display:flex;gap:6px;flex-wrap:wrap}.edit-desc{background:#eef5ff!important}.reset-desc{color:#667085}.related-status{font-size:.76rem;color:#a16207;font-weight:800}.mine{display:inline-block;background:#ffe89b;color:#6f5400;border-radius:999px;padding:2px 7px;font-size:.78rem;font-weight:800}.history{display:grid;grid-template-columns:1fr 1fr;gap:10px}.event{border:1px solid var(--line);border-radius:12px;padding:12px}.note{font-size:.88rem;color:var(--muted)}.hidden{display:none!important}@media(max-width:760px){.country-grid{grid-template-columns:repeat(2,1fr)}.info-grid,.cards,.history,.lang-grid{grid-template-columns:1fr}.hero h1{font-size:1.65rem}.head{align-items:flex-start}}@media(max-width:430px){.country-grid{grid-template-columns:1fr 1fr}.country-card{padding:13px;min-height:145px}.flagemoji{font-size:2.4rem}}
 
 /* v20 usability */
@@ -723,11 +723,32 @@ async function improveDescription(name,country,section,id,current){
   return null;
  }finally{refreshBusy.delete(lock)}
 }
+function normalizedItemName(v){return String(v||'').normalize('NFKC').toLowerCase().replace(/[\s·ㆍ・,，.。\-–—_()（）\[\]{}'"“”‘’]/g,'');}
+function dedupeCustomItems(s){
+ const a=getCustom(s), seen=new Set(), out=[];
+ // 이미 생긴 사용자 중복은 가장 최근에 추가된 항목을 남깁니다.
+ for(let i=a.length-1;i>=0;i--){const k=normalizedItemName(a[i].name);if(!k||seen.has(k))continue;seen.add(k);out.unshift(a[i]);}
+ if(out.length!==a.length)localStorage.setItem(key(s),JSON.stringify(out));
+ return out;
+}
+function syncBaseDeletionForCustomNames(s,customs){
+ const customNames=new Set(customs.map(x=>normalizedItemName(x.name)));
+ const deleted=new Set(getDeletedBase(s));
+ let changed=false;
+ for(const b of baseItems(s)){if(customNames.has(normalizedItemName(b.name))&&!deleted.has(b.id)){deleted.add(b.id);changed=true;}}
+ if(changed)setDeletedBase(s,[...deleted]);
+ return [...deleted];
+}
 async function renderSection(s){
  let el=document.getElementById(s+'List');
- let deleted=getDeletedBase(s);
+ const customs=dedupeCustomItems(s);
+ // 같은 이름의 사용자 항목이 있으면 기본항목은 항상 숨김 상태로 고정합니다.
+ let deleted=syncBaseDeletionForCustomNames(s,customs);
  let bases=baseItems(s).filter(x=>!deleted.includes(x.id));
- let arr=[...bases,...getCustom(s).map(x=>({...x,mine:true}))];
+ let arr=[...bases,...customs.map(x=>({...x,mine:true}))];
+ // 저장 데이터가 어떤 경로로 섞여도 화면에는 같은 이름을 한 장만 표시합니다. 사용자 추가항목을 우선합니다.
+ const seenNames=new Set();
+ arr=[...arr].reverse().filter(x=>{const k=normalizedItemName(x.name);if(seenNames.has(k))return false;seenNames.add(k);return true;}).reverse();
  el.innerHTML='';
  const deletedNamesEl=document.getElementById(s+'DeletedNames');
  const deletedNames=getDeletedNames(s);
@@ -765,15 +786,21 @@ function relationTerms(country){const c=countries[country];return [c.name,c.en,c
 async function addItem(s,prefill=''){
  let n=prefill||prompt('추가할 항목의 이름을 입력하세요.'); if(!n?.trim())return; n=n.trim();
  if(prefill&&!confirm(`전에 삭제한 「${n}」을 새 항목으로 다시 추가할까요?\n\n예전 설명을 복구하는 것이 아니라 처음부터 새로 등록합니다.`))return;
- const deletedIds=getDeletedBase(s); const existing=[...baseItems(s).filter(x=>!deletedIds.includes(x.id)),...getCustom(s)].map(x=>String(x.name).replace(/\s+/g,'').toLowerCase());
- if(existing.includes(n.replace(/\s+/g,'').toLowerCase())){alert('이미 같은 이름의 항목이 있습니다. 중복되지 않는 항목을 입력해 주세요.');return;}
+ const normalized=normalizedItemName(n);
+ const customs=dedupeCustomItems(s);
+ const liveBase=baseItems(s).filter(x=>!getDeletedBase(s).includes(x.id));
+ const existing=[...liveBase,...customs].map(x=>normalizedItemName(x.name));
+ if(existing.includes(normalized)){alert('이미 같은 이름의 항목이 있습니다. 같은 항목은 한 번만 등록할 수 있습니다.');return;}
+ // 삭제했던 기본항목과 같은 이름을 새로 등록하는 경우, 그 기본항목은 삭제 상태를 확실히 유지합니다.
+ const sameDeletedBase=baseItems(s).filter(x=>normalizedItemName(x.name)===normalized);
+ if(sameDeletedBase.length){const d=new Set(getDeletedBase(s));sameDeletedBase.forEach(x=>d.add(x.id));setDeletedBase(s,[...d]);}
  const c=countries[COUNTRY]; let desc=await lookupDescription(n,COUNTRY,s); let corpus=(n+' '+desc).toLowerCase();
  let related=relationTerms(COUNTRY).filter(Boolean).some(w=>corpus.includes(String(w).toLowerCase()));
  // 기존 기본항목과 이름이 같으면 관련 항목으로 봅니다.
  if(baseItems(s).some(x=>x.name===n)) related=true;
  if(!related){if(!confirm('「'+n+'」은(는) 현재 확인한 설명만으로 '+c.name+'과의 관련성을 충분히 확인하기 어렵습니다.\n그래도 추가하시겠습니까?'))return;}
  if(!desc){desc=prompt('기본 설명을 자동으로 찾지 못했습니다. 아이에게 보여줄 설명을 입력하세요.')||''; if(!desc.trim())return;}
- let a=getCustom(s); a.push({id:'u'+Date.now(),name:n,desc:desc.trim(),emoji:'⭐',unrelated:!related}); localStorage.setItem(key(s),JSON.stringify(a)); forgetDeletedName(s,n); renderSection(s);
+ let a=dedupeCustomItems(s).filter(x=>normalizedItemName(x.name)!==normalized); a.push({id:'u'+Date.now(),name:n,desc:desc.trim(),emoji:'⭐',unrelated:!related}); localStorage.setItem(key(s),JSON.stringify(a)); forgetDeletedName(s,n); renderSection(s);
 }
 renderHome();
 
